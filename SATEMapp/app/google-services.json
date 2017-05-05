@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "673931608444",
+    "firebase_url": "https://satem-b5729.firebaseio.com",
+    "project_id": "satem-b5729",
+    "storage_bucket": "satem-b5729.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673931608444:android:a44c4297eb1e1a48",
+        "android_client_info": {
+          "package_name": "com.example.r_2g_.satemapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673931608444-p79fbru6ovok30vv48qnklrkablka0i7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.r_2g_.satemapp",
+            "certificate_hash": "fea86d7ef2f0e56f55377ee2ce3a43fef131027c"
+          }
+        },
+        {
+          "client_id": "673931608444-gqdi29dqa7r0jqhhh9v0djavc8kr7fgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNIQUn2GUiL18rkWYhjupzd0GBmFr0_Cw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673931608444-gqdi29dqa7r0jqhhh9v0djavc8kr7fgt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

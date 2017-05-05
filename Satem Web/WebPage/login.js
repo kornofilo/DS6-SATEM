@@ -1,4 +1,4 @@
-<!-- Script de autenticación de firebase.	 -->
+    //Script de autenticación de firebase.	
 		(function() {
   			// Initialize Firebase
 
@@ -6,6 +6,7 @@
       const txtEmail = document.getElementById('email');
       const txtPassword = document.getElementById('password');
       const btnLogin = document.getElementById('btnLogin');
+      var message;
 
       //Agregar evento de login
       btnLogin.addEventListener('click',e => {
@@ -16,21 +17,19 @@
         
         //Loguearse
         auth.signInWithEmailAndPassword(email,password).catch(function(error) {
-        //var errorCode = error.code;
-        //console.log(error.errorCode);
-
+         message = error.message;
+       
         });
 
         auth.onAuthStateChanged(user => {
           if (user) {
             window.location = "index.html";
-
           }
           else {
-             window.location = "login.html";
+             window.alert("Contraseña o password inválido");
           }
         });
         
 
-      })
+      }) 
 	}());

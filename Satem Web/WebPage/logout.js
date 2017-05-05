@@ -1,15 +1,17 @@
-    //Script de autenticación de firebase.	
-		(function() {
-  	
-    const logoutTab = document.getElementById('#logoutTab');
+/*  
+    Desarrollo De Software Vi
+    Proyecto Final - SATEM
+    Elaborado por: Aldair de Gracia, Ricardo Rubio, Víctor Pineda 
+    Archivo:  (logout.jsp)
+*/
 
-    logoutTab.addEventListener('click',e => {
-        //Obtener valores del Login  	
+		document.getElementById("logoutbtn").addEventListener("click", logOut);
 
-      firebase.auth().signOut().then(function() {
-      window.location = "login.html"
-      }).catch(function(error) {
-      // An error happened.
-      });
-    });
-	}());
+    function logOut() {
+       //Cerramos la sesión.
+         firebase.auth().signOut().then(function() {
+          window.location = "login.html"
+          }).catch(function(error) {
+      
+        });
+    }

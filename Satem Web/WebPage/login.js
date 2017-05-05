@@ -1,4 +1,9 @@
-    //Script de autenticación de firebase.	
+/*  
+    Desarrollo De Software Vi
+    Proyecto Final - SATEM
+    Elaborado por: Aldair de Gracia, Ricardo Rubio, Víctor Pineda 
+    Archivo:  (index.jsp)
+*/
 		(function() {
   			// Initialize Firebase
 

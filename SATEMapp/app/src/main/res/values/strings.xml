@@ -1,6 +1,27 @@
 <resources>
-    <string name="app_name">SATEM app</string>
-    <string name="title_activity_main">SATEM app</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">SATEM</string>
+    <string name="title_activity_main">SATEM</string>
+    <string name="action_settings">Opciones</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Menú de Opciones</string>
+
+    <!-- Modo Noche -->
+    <string name="pref_title_night_mode">Modo Noche</string>
+    <string name="pref_description_Night_mode">Activar o Desactivar el Modo Noche.</string>
+
+    <!-- Activar Notificaciones -->
+    <string name="pref_title_enable_notifications">Activar Notificaciones</string>
+
+    <!-- Regresar a Nuevo Paciente -->
+    <string name="pref_title_backTo_newPatient">Regresar a Nuevo Cliente</string>
+    <string name="pref_description_backTo_newPatient">Al enviar una emergencia, se le redireccionará al formulario de Nuevo Paciente.</string>
+
+
+
+
 </resources>

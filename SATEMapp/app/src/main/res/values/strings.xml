@@ -5,9 +5,8 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings related to Settings -->
+   <string name="General">General</string>
 
-    <!-- Example General settings -->
     <string name="pref_header_general">Menú de Opciones</string>
 
     <!-- Modo Noche -->

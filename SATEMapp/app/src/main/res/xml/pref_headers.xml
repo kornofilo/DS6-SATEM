@@ -1,21 +1,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+ <PreferenceCategory android:title="@string/General">
 
-    <SwitchPreference
+     <!-- Opción de Modo Noche. -->
+     <SwitchPreference
         android:defaultValue="false"
         android:key="nightMode_switch"
         android:summary="@string/pref_description_Night_mode"
         android:title="@string/pref_title_night_mode" />
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="enableNotifications_switch"
-        android:title="@string/pref_title_enable_notifications" />
+     <!-- Opción de Regresar a Nuevo Paciente. -->
 
     <SwitchPreference
         android:defaultValue="true"
         android:key="enableNotifications_switch"
         android:summary="@string/pref_description_backTo_newPatient"
         android:title="@string/pref_title_backTo_newPatient" />
-
+ </PreferenceCategory>
 </PreferenceScreen>

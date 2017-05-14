@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-   
+
 
 
 		<title>SATEM - Página Principal</title>
@@ -22,6 +22,7 @@
   <body>
 		<!-- Script de autenticación de firebase.	 -->
 		<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+
 		<script>
   			// Initialize Firebase
   			var config = {
@@ -36,7 +37,7 @@
 		</script>
 	
 	
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs" >
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Titulo -->
@@ -45,21 +46,39 @@
         
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-          <a href="#fixed-tab-1" class="mdl-layout__tab is-active">En Camino</a>
-          <a href="#fixed-tab-2" class="mdl-layout__tab">Finalizada</a>
+          <a href="#fixed-tab-EnCamino" class="mdl-layout__tab is-active">En Camino</a>
+          <a href="#fixed-tab-Finalizadas" class="mdl-layout__tab">Finalizada</a>
           <a href="#fixed-tab-3" class="mdl-layout__tab">Estadísticas</a>
           <a href="#logoutTab" class="mdl-layout__tab" id="logoutbtn">Cerrar Sesión</a>
            <script src="logout.js"></script>
         </div>
       </header>
       
-
       <main class="mdl-layout__content">
-        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-          <div class="page-content"><!-- Your content goes here -->1 </div>
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-EnCamino">
+          <br><br><br>
+          <div class="page-content"> 
+            <table class="mdl-data-table mdl-js-data-table">
+              <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric"># de Urgencia</th>
+                  <th>Nombre</th>
+                  <th>Cédula</th>
+                  <th># de Ambulancia</th>
+                  <th>Lugar del Accidente</th>
+                  <th>Paramédico</th>
+                  <th>Fecha</th>
+                  <th>Emergencia</th>
+                  <th>¿Finalizar?</th>
+                </tr>
+            </thead>
+        </table>
+
+
+          </div>
         </section>
         
-        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+        <section class="mdl-layout__tab-panel" id="fixed-tab-Finalizadas">
           <div class="page-content"><!-- Your content goes here --> 2</div>
         </section>
         

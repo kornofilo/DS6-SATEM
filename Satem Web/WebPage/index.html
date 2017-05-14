@@ -42,7 +42,20 @@
         <div class="mdl-layout__header-row">
           <!-- Titulo -->
           <span class="mdl-layout-title">Sistema de Alerta Temprana (SATEM)</span>
+          
+          <!-- Búsqueda-->
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+              <i class="material-icons">search</i>
+            </label>
+          <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
+          </div>
         </div>
+       </div>
+
+        
         
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
@@ -58,6 +71,7 @@
         <section class="mdl-layout__tab-panel is-active" id="fixed-tab-EnCamino">
           <br><br><br>
           <div class="page-content"> 
+            <!-- Mostramos una tabla con las emergencias en camino. -->
             <table class="mdl-data-table mdl-js-data-table">
               <thead>
                 <tr>
@@ -69,6 +83,7 @@
                   <th>Paramédico</th>
                   <th>Fecha</th>
                   <th>Emergencia</th>
+                  <th>Condición Vital</th>
                   <th>¿Finalizar?</th>
                 </tr>
             </thead>
@@ -79,7 +94,23 @@
         </section>
         
         <section class="mdl-layout__tab-panel" id="fixed-tab-Finalizadas">
-          <div class="page-content"><!-- Your content goes here --> 2</div>
+          <br><br><br>
+          <div class="page-content">
+             <table class="mdl-data-table mdl-js-data-table">
+              <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric"># de Urgencia</th>
+                  <th>Nombre</th>
+                  <th>Cédula</th>
+                  <th># de Ambulancia</th>
+                  <th>Lugar del Accidente</th>
+                  <th>Paramédico</th>
+                  <th>Fecha</th>
+                  <th>Emergencia</th>
+                  <th>Condición Vital</th>
+                </tr>
+            </thead>
+          </div>
         </section>
         
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">

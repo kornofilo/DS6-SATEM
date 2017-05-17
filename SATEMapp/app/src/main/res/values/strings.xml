@@ -19,8 +19,16 @@
     <!-- Regresar a Nuevo Paciente -->
     <string name="pref_title_backTo_newPatient">Regresar a Nuevo Cliente</string>
     <string name="pref_description_backTo_newPatient">Al enviar una emergencia, se le redireccionará al formulario de Nuevo Paciente.</string>
+    <string name="NombrePaciente">Nombre</string>
+    <string name="cedula">Cédula</string>
+    <string name="sexo">Sexo:</string>
+    <string name="sintomas">Síntomas</string>
 
-
+    <string-array name="sexoOpts">
+        <item>Femenino</item>
+        <item>Masculino</item>
+        <item>No definido</item>
+    </string-array>
 
 
 </resources>

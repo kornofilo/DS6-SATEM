@@ -13,46 +13,46 @@
         android:id="@+id/editTextUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="62dp"
         android:ems="10"
         android:hint="@string/usuario"
         android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_above="@+id/editTextPassword"
+        android:layout_marginBottom="21dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="67dp"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_below="@+id/editTextUsuario"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignBottom="@+id/editTextNAmbulancia"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="73dp"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:id="@+id/editTextNAmbulancia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editTextPassword"
-        android:layout_marginTop="56dp"
         android:ems="10"
         android:hint="@string/numAmb"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_above="@+id/buttonForget"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="55dp"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/buttonLogin"
@@ -63,4 +63,28 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:text="@string/login" />
+
+    <Button
+        android:id="@+id/buttonForget"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/olvidosucontrasenha"
+        android:textColor="@color/colorForget"
+        android:layout_above="@+id/buttonLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="39dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editTextUsuario"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="41dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/loginTitle"
+        android:textColor="@color/colorTitle"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 </RelativeLayout>

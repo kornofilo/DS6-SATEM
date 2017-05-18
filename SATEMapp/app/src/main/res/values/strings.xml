@@ -33,6 +33,8 @@
     <string name="password">Contraseña</string>
     <string name="numAmb">Número de Ambulancia</string>
     <string name="login">Iniciar Sesión</string>
+    <string name="olvidosucontrasenha">¿Olvidó su Contraseña?</string>
+    <string name="loginTitle">Inicio de Sesión</string>
 
     <string-array name="sexoOpts">
         <item>Femenino</item>

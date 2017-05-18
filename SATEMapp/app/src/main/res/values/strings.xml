@@ -23,12 +23,35 @@
     <string name="cedula">Cédula</string>
     <string name="sexo">Sexo:</string>
     <string name="sintomas">Síntomas</string>
+    <string name="diagnostico">Diagnóstico</string>
+    <string name="hospital">Hospital:</string>
+    <string name="condVital">Condición Vital:</string>
+    <string name="riesgo">Riesgo:</string>
+    <string name="enviar">Enviar</string>
+    <string name="NTU">No tiene urgencias Registradas en el Sistema.</string>
+    <string name="usuario">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="numAmb">Número de Ambulancia</string>
+    <string name="login">Iniciar Sesión</string>
 
     <string-array name="sexoOpts">
         <item>Femenino</item>
         <item>Masculino</item>
         <item>No definido</item>
     </string-array>
+
+    <string-array name="condVitalOpts">
+        <item>Estable</item>
+        <item>Crítico</item>
+        <item>Fallecido</item>
+    </string-array>
+
+    <string-array name="riesgoOpts">
+        <item>Bajo</item>
+        <item>Medio</item>
+        <item>Alto</item>
+    </string-array>
+
 
 
 </resources>

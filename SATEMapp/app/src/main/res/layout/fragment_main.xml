@@ -6,6 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical" >
 
 
@@ -15,29 +16,31 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/NombrePaciente"
+            android:layout_marginBottom="8dp"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextCedula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:ems="10"
             android:hint="@string/cedula"
+            android:layout_marginBottom="8dp"
             android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/textViewSexo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sexo" />
+            android:text="@string/sexo"
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/spinnerSexo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/sexoOpts"
+            android:layout_marginBottom="8dp"
             android:spinnerMode="dialog" />
 
         <EditText
@@ -46,7 +49,70 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/sintomas"
+            android:layout_marginBottom="8dp"
             android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/editTextDiagnostico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/diagnostico"
+            android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/textViewHospital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hospital"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinnerHospital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:spinnerMode="dialog" />
+
+        <TextView
+            android:id="@+id/textViewCondVital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/condVital"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinnerCondVital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/condVitalOpts"
+            android:layout_marginBottom="8dp"
+            android:spinnerMode="dialog"/>
+
+        <TextView
+            android:id="@+id/textViewRiesgo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/riesgo"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinnerRiesgo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:entries="@array/riesgoOpts"
+            android:spinnerMode="dialog"
+            android:theme="@style/AppTheme" />
+
+        <Button
+            android:id="@+id/buttonEnviar"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/enviar" />
 
     </LinearLayout>
 </ScrollView>

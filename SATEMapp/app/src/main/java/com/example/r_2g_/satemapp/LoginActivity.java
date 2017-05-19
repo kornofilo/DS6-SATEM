@@ -90,8 +90,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     // signed in user can be handled in the listener.
                                     if (!task.isSuccessful()) {
                                         System.out.print("signInWithEmail:failed");
-                                        Toast.makeText(LoginActivity.this, "fallo",
+                                        Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
                                                 Toast.LENGTH_SHORT).show();
+                                    }else if (task.isSuccessful()){
+                                        startActivity(intent);
+                                        finish();
                                     }
 
                                     // ...

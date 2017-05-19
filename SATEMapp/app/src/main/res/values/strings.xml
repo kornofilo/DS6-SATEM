@@ -42,6 +42,14 @@
         <item>No definido</item>
     </string-array>
 
+    <string-array name="hospitalOpts">
+        <item>Hospital Chiriqui</item>
+        <item>Hospital Mae Lewis</item>
+        <item>Hospital Materno Infantil José Domingo de Obaldia</item>
+        <item>Hospital Regional Dr. Rafael Hernandez</item>
+        <item>Policlínica Gustavo A. Ross</item>
+    </string-array>
+
     <string-array name="condVitalOpts">
         <item>Estable</item>
         <item>Crítico</item>

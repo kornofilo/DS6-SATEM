@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "673931608444-16kr6co82v3nrk4hsd1cko81keeu7j3o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.r_2g_.satemapp",
+            "certificate_hash": "77204e76b620693074f406ffa365c365cb543272"
+          }
+        },
+        {
           "client_id": "673931608444-p79fbru6ovok30vv48qnklrkablka0i7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

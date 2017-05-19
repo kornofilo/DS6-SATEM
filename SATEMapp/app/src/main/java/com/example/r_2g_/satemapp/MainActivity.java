@@ -8,6 +8,7 @@
 package com.example.r_2g_.satemapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
+
     }
 
 
@@ -78,14 +87,17 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Intent intentMenu;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-
+             intentMenu = new Intent(this, SettingsActivity.class);
+            startActivity(intentMenu);
+        } else if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            intentMenu = new Intent(this, LoginActivity.class);
+            startActivity(intentMenu);
+            finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -114,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             return fragment;
         }
 
+        //Seteamos los fragments con su respectiva pestaña.
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -129,6 +142,26 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case 3: {
                     rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+                    //Recuperamos los datos del usuario logueado.
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        for (UserInfo profile : user.getProviderData()) {
+                            // Id of the provider (ex: google.com)
+                            // String providerId = profile.getProviderId();
+
+                            // UID specific to the provider
+                            //String uid = profile.getUid();
+
+                            // Name, email address, and profile photo Url
+                            //String name = profile.getDisplayName();
+                            TextView emailTV;
+                            emailTV = (TextView) rootView.findViewById(R.id.textViewEmailLog);
+                            System.out.println(profile.getDisplayName());
+                            emailTV.setText(profile.getDisplayName());
+                            //Uri photoUrl = profile.getPhotoUrl();
+                        }
+                    }
+
                     break;
                 }
 
@@ -156,12 +189,14 @@ public class MainActivity extends AppCompatActivity {
             return PlaceholderFragment.newInstance(position + 1);
         }
 
+        //Setemos la cantidad de pestañas que tendrá la app.
         @Override
         public int getCount() {
             // Show 3 total pages.
             return 3;
         }
 
+        //Setemos los nombres de las pestañas.
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {

@@ -12,6 +12,22 @@
 		<link rel="stylesheet" href="CSS/SATEM.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+      <!-- Script de autenticación de firebase.  -->
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+        apiKey: "AIzaSyAsd8xhLCobjaqcYXC5nuUYXdJ-PNBxGAo",
+        authDomain: "satem-b5729.firebaseapp.com",
+        databaseURL: "https://satem-b5729.firebaseio.com",
+        projectId: "satem-b5729",
+        storageBucket: "satem-b5729.appspot.com",
+        messagingSenderId: "673931608444"
+       };
+        firebase.initializeApp(config);
+    </script>
+
 		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
 
@@ -20,21 +36,8 @@
 	</head>
 	
   <body>
-		<!-- Script de autenticación de firebase.	 -->
-		<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
-
-		<script>
-  			// Initialize Firebase
-  			var config = {
-    		apiKey: "AIzaSyAsd8xhLCobjaqcYXC5nuUYXdJ-PNBxGAo",
-		    authDomain: "satem-b5729.firebaseapp.com",
-		    databaseURL: "https://satem-b5729.firebaseio.com",
-		    projectId: "satem-b5729",
-		    storageBucket: "satem-b5729.appspot.com",
-		    messagingSenderId: "673931608444"
- 			 };
-  			firebase.initializeApp(config);
-		</script>
+	
+  
 	
 	
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs" >
@@ -54,9 +57,7 @@
           </div>
         </div>
        </div>
-
-        
-        
+          
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
           <a href="#fixed-tab-EnCamino" class="mdl-layout__tab is-active">En Camino</a>
@@ -72,7 +73,7 @@
           <br><br><br>
           <div class="page-content"> 
             <!-- Mostramos una tabla con las emergencias en camino. -->
-            <table class="mdl-data-table mdl-js-data-table">
+            <table class="mdl-data-table mdl-js-data-table" id="enCaminoTable">
               <thead>
                 <tr>
                   <th class="mdl-data-table__cell--non-numeric"># de Urgencia</th>
@@ -112,7 +113,8 @@
             </thead>
           </div>
         </section>
-        
+
+
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
           <div class="page-content"><!-- Your content goes here -->3</div>
         </section>
@@ -133,4 +135,6 @@
 	
 	
 	</body>
+              <script src="getData.js"></script>
+
 	</html>	

@@ -29,7 +29,9 @@ dbRefObject.orderByChild("estado").equalTo("En Camino").on("child_added", functi
     var cell9 = row.insertCell(9);
     cell9.innerHTML = data.val().riesgo;
 });
-    $(table).stacktable({myClass:'stacktable small-only'});
+   
+
+// $(table).stacktable({myClass:'stacktable small-only'});
 
 /*
 dbRefObject.on("child_added", function(child) {

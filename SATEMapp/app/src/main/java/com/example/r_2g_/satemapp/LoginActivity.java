@@ -1,6 +1,8 @@
 package com.example.r_2g_.satemapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,7 +25,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+        //Verificamos el tema seleccionado por el usuario
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean tema = pref.getBoolean("nightMode_switch", true);
+        System.out.println(tema);
+
+        //Dependiendo del valor recuperado, se establece el tema para la activity.
+        if(tema) {
+            setTheme(R.style.AppTheme_Dark);
+        }
+        else {
+            setTheme(R.style.AppTheme);
+        }
+
         setContentView(R.layout.activity_login);
         //Inicializamos los Editext
         emailET = (EditText) findViewById(R.id.editTextUsuario);

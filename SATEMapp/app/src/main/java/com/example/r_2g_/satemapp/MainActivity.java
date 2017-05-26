@@ -8,7 +8,9 @@
 package com.example.r_2g_.satemapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -55,7 +57,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        //Verificamos el tema seleccionado por el usuario
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean tema = pref.getBoolean("nightMode_switch", false);
+        System.out.println("tema es  " + tema);
+
+        //Dependiendo del valor recuperado, se establece el tema para la activity.
+        if(tema) {
+            setTheme(R.style.AppTheme_NoActionBarDark);
+        }
+        else {
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
+
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -98,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
              intentMenu = new Intent(this, SettingsActivity.class);
             startActivity(intentMenu);
+            finish();
         } else if (id == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
             intentMenu = new Intent(this, LoginActivity.class);

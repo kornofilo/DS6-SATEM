@@ -5,4 +5,7 @@
     <color name="colorAccent">#ff9800</color>
     <color name="colorForget">#00bcd4</color>
     <color name="colorTitle">#00bcd4</color>
+    <color name="colorPrimaryNABDark">#00bcd4</color>
+    <color name="colorPrimaryDarkNABDark">#0097a7</color>
+    <color name="colorAccentNABDark">#ff9800</color>
 </resources>

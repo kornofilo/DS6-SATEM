@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                             // This method is called once with the initial value and again
                             // whenever data at this location is updated.
                             String value = dataSnapshot.getValue(String.class);
-                            System.out.print("Value is: " + value);
+                            System.out.println("Value is: " + value);
                         }
 
                         @Override

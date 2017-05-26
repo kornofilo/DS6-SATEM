@@ -1,3 +1,11 @@
+/*
+        Desarrollo De Software VI
+        Proyecto Final - SATEM
+        Elaborado por: Aldair de Gracia, Ricardo Rubio, Víctor Pineda
+        Archivo:  (LoginActivity.java)
+*/
+
+
 package com.example.r_2g_.satemapp;
 
 import android.content.Intent;
@@ -31,7 +39,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //Verificamos el tema seleccionado por el usuario
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         boolean tema = pref.getBoolean("nightMode_switch", true);
-        System.out.println(tema);
 
         //Dependiendo del valor recuperado, se establece el tema para la activity.
         if(tema) {
@@ -48,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         ambulanceET = (EditText) findViewById(R.id.editTextNAmbulancia);
         mAuth = FirebaseAuth.getInstance();
 
-
+        //Si el usuario ya está logueado, lo redirigimos al la activity principal.
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

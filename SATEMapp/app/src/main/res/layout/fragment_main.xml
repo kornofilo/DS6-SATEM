@@ -103,8 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:entries="@array/riesgoOpts"
-            android:spinnerMode="dialog"
-            android:theme="@style/AppTheme" />
+            android:spinnerMode="dialog" />
 
         <Button
             android:id="@+id/buttonEnviar"

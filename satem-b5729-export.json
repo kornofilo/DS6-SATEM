@@ -1,0 +1,32 @@
+{
+  "emergencias" : [ null, {
+    "ambulancia" : 5,
+    "ced" : 43,
+    "condVital" : "Estable",
+    "diagnostico" : "Comió algo vencido desde hace un mes.",
+    "estado" : "En Camino",
+    "fecha" : "26/05/2017",
+    "lugar" : "UTP - En los pasillos porque no tiene salón",
+    "nombre" : "Logan",
+    "paramedico" : "zlatan@rialvic.com",
+    "riesgo" : "Bajo",
+    "sintomas" : "Dolor de Estómago."
+  } ],
+  "interacciones" : {
+    "ambulancia" : 1,
+    "cedula" : "4-123-1234",
+    "condicion" : "valor",
+    "diagnostico" : "ninguno",
+    "edad" : 21,
+    "emergencia" : "0001",
+    "estado" : "bool",
+    "fecha" : "2017-05-23",
+    "hospital" : "valor",
+    "nombre" : "juan",
+    "paramedico" : "primero",
+    "riesgo" : "valor",
+    "sexo" : "M",
+    "sintomas" : "heridas en el brazo"
+  },
+  "message" : "Hello, World!"
+}

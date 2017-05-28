@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
                             // This method is called once with the initial value and again
                             // whenever data at this location is updated.
                             String value = dataSnapshot.getValue(String.class);
-                            System.out.println("Value is: " + value);
                         }
 
                         @Override
@@ -177,39 +176,28 @@ public class MainActivity extends AppCompatActivity {
                             System.out.print("Failed to read value.");
                         }
                     });
-                    break;
-                }
-                case 2: {
-                    rootView = inflater.inflate(R.layout.fragment_historial, container, false);
 
-                    break;
                 }
+                break;
+                case 2:
+                    rootView = inflater.inflate(R.layout.fragment_historial, container, false);
+                break;
+                //En el case #3, cargamos el fragment que contendrá el perfil del usuario logueado.
                 case 3: {
                     rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-                    //Recuperamos los datos del usuario logueado.
+                    //Recuperamos los datos del usuario logueado y lo seteamos a su determinado Textview.
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null) {
-                        for (UserInfo profile : user.getProviderData()) {
-                            // Id of the provider (ex: google.com)
-                            // String providerId = profile.getProviderId();
-
-                            // UID specific to the provider
-                            //String uid = profile.getUid();
-
-                            // Name, email address, and profile photo Url
-                            //String name = profile.getDisplayName();
-                            TextView emailTV;
-                            emailTV = (TextView) rootView.findViewById(R.id.textViewEmailLog);
-                            System.out.println(profile.getDisplayName());
-                            emailTV.setText(profile.getDisplayName());
-                            //Uri photoUrl = profile.getPhotoUrl();
-                        }
+                        System.out.println("Email " + user.getEmail() );
+                        String email = user.getEmail();
+                        TextView emailTV;
+                        emailTV = (TextView) rootView.findViewById(R.id.textViewEmailLog);
+                        emailTV.setText(email);
                     }
 
-                    break;
-                }
-
             }
+                break;
+            }//Fin Switch-Case.
 
             return rootView;
 

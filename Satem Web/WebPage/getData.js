@@ -8,6 +8,8 @@
 //Obtenemos los elementos.
 var table = document.getElementById('enCaminoTable');
 
+          
+
 //Cargamos los datos de la DB de Firebase.
 var dbRefObject = firebase.database().ref('emergencias/');
 dbRefObject.orderByChild("estado").equalTo("En Camino").on("child_added", function(data) {

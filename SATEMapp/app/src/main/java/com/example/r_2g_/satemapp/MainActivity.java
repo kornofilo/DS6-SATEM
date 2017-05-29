@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("emergencias/");
             Query emergenciasQuery = myRef.orderByChild("paramedico").equalTo(user.getEmail());
-
+            Emergencias emergencia;
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1: {
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -185,13 +185,21 @@ public class MainActivity extends AppCompatActivity {
                 case 2: {
                     rootView = inflater.inflate(R.layout.fragment_historial, container, false);
                     // Leemos desde la base de datos.
+                    final View finalRootView = rootView;
+                    final View finalRootView1 = rootView;
                     emergenciasQuery.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // This method is called once with the initial value and again
                             // whenever data at this location is updated.
                             //Emergencias value = dataSnapshot.getValue(Emergencias.class);
-                            System.out.println("Value is in read: " + dataSnapshot.getValue());
+                            if(dataSnapshot.getValue() == null) {
+                                TextView noHistTV;
+                                noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
+                                System.out.println("Read " + dataSnapshot.getValue());
+                                noHistTV.setVisibility(View.VISIBLE);
+                            }
+
                         }
 
                         @Override

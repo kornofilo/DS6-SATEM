@@ -5,12 +5,23 @@
     "condVital" : "Estable",
     "diagnostico" : "Comió algo vencido desde hace un mes.",
     "estado" : "En Camino",
-    "fecha" : "26/05/2017",
+    "fecha" : "2016-11-16 06:43:19.77",
     "lugar" : "UTP - En los pasillos porque no tiene salón",
     "nombre" : "Logan",
     "paramedico" : "zlatan@rialvic.com",
     "riesgo" : "Bajo",
     "sintomas" : "Dolor de Estómago."
+  }, {
+    "ambulancia" : 0,
+    "ced" : 45,
+    "condVital" : "Estable",
+    "diagnostico" : "Bebió 5 tazas de café.",
+    "fecha" : "2017-29-05",
+    "lugar" : "Biblioteca",
+    "nombre" : "Aldair",
+    "paramedico" : "zlatan@rialvic.com",
+    "riesgo" : "bajo",
+    "sintomas" : "Mareo, Vómito y Pérdida de la Visión."
   } ],
   "interacciones" : {
     "ambulancia" : 1,

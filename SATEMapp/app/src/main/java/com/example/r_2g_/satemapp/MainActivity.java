@@ -36,7 +36,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -154,15 +157,15 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = null;
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("message");
-
-            myRef.setValue("Hello, World!");
+            DatabaseReference myRef = database.getReference("emergencias/");
+            Query emergenciasQuery = myRef.orderByChild("paramedico").equalTo(user.getEmail());
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1: {
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
-                    myRef.addValueEventListener(new ValueEventListener() {
+                    /*myRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // This method is called once with the initial value and again
@@ -175,20 +178,35 @@ public class MainActivity extends AppCompatActivity {
                             // Failed to read value
                             System.out.print("Failed to read value.");
                         }
-                    });
+                    });*/
 
                 }
                 break;
-                case 2:
+                case 2: {
                     rootView = inflater.inflate(R.layout.fragment_historial, container, false);
+                    // Leemos desde la base de datos.
+                    emergenciasQuery.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // This method is called once with the initial value and again
+                            // whenever data at this location is updated.
+                            //Emergencias value = dataSnapshot.getValue(Emergencias.class);
+                            System.out.println("Value is in read: " + dataSnapshot.getValue());
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            // Failed to read value
+                            System.out.println("Failed to read value." + error.toException());
+                        }
+                    });
+                }
                 break;
                 //En el case #3, cargamos el fragment que contendrá el perfil del usuario logueado.
                 case 3: {
                     rootView = inflater.inflate(R.layout.fragment_profile, container, false);
                     //Recuperamos los datos del usuario logueado y lo seteamos a su determinado Textview.
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null) {
-                        System.out.println("Email " + user.getEmail() );
                         String email = user.getEmail();
                         TextView emailTV;
                         emailTV = (TextView) rootView.findViewById(R.id.textViewEmailLog);

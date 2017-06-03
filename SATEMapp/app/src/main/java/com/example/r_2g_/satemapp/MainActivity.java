@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,7 +28,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,16 +45,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+    FirebaseDatabase database;
+    static DatabaseReference myRef;
+
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -90,12 +90,8 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
-
-
-
-
-
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("emergencias");
     }
 
 
@@ -127,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -156,36 +153,54 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
+
+
+
+
             View rootView = null;
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("emergencias/");
             Query emergenciasQuery = myRef.orderByChild("paramedico").equalTo(user.getEmail());
-            Emergencias emergencia;
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1: {
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
-                    /*myRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            // This method is called once with the initial value and again
-                            // whenever data at this location is updated.
-                            String value = dataSnapshot.getValue(String.class);
-                        }
+                    //EditTexts
+                    final EditText nombre;
+                    nombre = (EditText) rootView.findViewById(R.id.editTextNombrePaciente);
 
+
+                    //Extraemos los valores en los Textviews y Spinners
+
+
+                    Button enviarEmergencia = (Button) rootView.findViewById(R.id.buttonEnviar);
+
+                    enviarEmergencia.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onCancelled(DatabaseError error) {
-                            // Failed to read value
-                            System.out.print("Failed to read value.");
+                        public void onClick(View v) {
+                            String id = myRef.push().getKey();
+                            String nombreV = nombre.getText().toString();
+                            final EmergenciasTest emergencia = new EmergenciasTest(nombreV);
+                            System.out.println(nombreV);
+                            if(!nombreV.equals(""))
+                               myRef.child(id).setValue(emergencia);
+                            else
+                                System.out.println("NOPE");
+
                         }
-                    });*/
+                    });
+
+
+                    //Inicializamos la Clase Emergencias.
+
+
+
+
 
                 }
                 break;
                 case 2: {
                     rootView = inflater.inflate(R.layout.fragment_historial, container, false);
                     // Leemos desde la base de datos.
-                    final View finalRootView = rootView;
                     final View finalRootView1 = rootView;
                     emergenciasQuery.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -266,6 +281,6 @@ public class MainActivity extends AppCompatActivity {
                     return "Perfil";
             }
             return null;
-        }
-    }
-}
+        }//Fin getPageTitle.
+    }//Fin SectionsPagerAdapter.
+}//Fin de clase.

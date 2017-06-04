@@ -9,7 +9,6 @@ package com.example.r_2g_.satemapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +19,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,11 +29,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,9 +39,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity{
@@ -174,15 +168,17 @@ public class MainActivity extends AppCompatActivity{
                 case 1: {
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
                     //EditTexts
-                    final EditText nombre, cedula,sintomas,lugar;
+                    final EditText nombre, cedula,sintomas,lugar,diagnostico;
                     nombre = (EditText) rootView.findViewById(R.id.editTextNombrePaciente);
                     cedula = (EditText) rootView.findViewById(R.id.editTextCedula);
                     lugar = (EditText) rootView.findViewById(R.id.editTextLugar);
                     sintomas = (EditText) rootView.findViewById(R.id.editTextSintomas);
+                    diagnostico = (EditText) rootView.findViewById(R.id.editTextDiagnostico);
 
                     //Spinners
-                    final Spinner genero;
+                    final Spinner genero, condicionVital;
                     genero = (Spinner) rootView.findViewById(R.id.spinnerSexo);
+                    condicionVital = (Spinner) rootView.findViewById(R.id.spinnerCondVital);
 
 
 
@@ -202,19 +198,20 @@ public class MainActivity extends AppCompatActivity{
                             String generoV = genero.getSelectedItem().toString();
                             String lugarV = lugar.getText().toString();
                             String sintomasV = sintomas.getText().toString();
+                            String diagnosticoV = diagnostico.getText().toString();
+                            String condicionVitalV = condicionVital.getSelectedItem().toString();
 
-                            Calendar c = Calendar.getInstance();
-                            System.out.println("Current time => " + c.getTime());
+                            Date date = new Date();
+                            DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                            System.out.println("Hora y fecha: "+hourdateFormat.format(date));
 
-                            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                            String formattedDate = df.format(c.getTime());
 
-                            /*final Emergencias emergencia = new Emergencias(nombreV,cedulaV,extras.getString("numAmbulance"),generoV,sintomasV,lugarV,user.getEmail());
+                            final Emergencias emergencia = new Emergencias(nombreV,cedulaV,extras.getString("numAmbulance"),generoV,sintomasV,lugarV,user.getEmail(),hourdateFormat.format(date),sintomasV,diagnosticoV,condicionVitalV);
                             System.out.println(nombreV);
                             if(!nombreV.equals(""))
                                myRef.child(id).setValue(emergencia);
                             else
-                                System.out.println("NOPE");*/
+                                System.out.println("NOPE");
 
                         }
                     });

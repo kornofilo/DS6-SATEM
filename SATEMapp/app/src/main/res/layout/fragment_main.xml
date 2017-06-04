@@ -69,21 +69,6 @@
             android:inputType="textMultiLine" />
 
         <TextView
-            android:id="@+id/textViewHospital"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hospital"
-            android:textSize="18sp" />
-
-        <Spinner
-            android:id="@+id/spinnerHospital"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:entries="@array/hospitalOpts"
-            android:spinnerMode="dialog" />
-
-        <TextView
             android:id="@+id/textViewCondVital"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

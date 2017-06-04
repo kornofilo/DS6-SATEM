@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +44,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity{
 
     FirebaseDatabase database;
     static DatabaseReference myRef;
+    static Bundle extras;
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -92,6 +97,10 @@ public class MainActivity extends AppCompatActivity{
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("emergencias");
+
+        //Obtenemos el #de ambulancia del paramedico
+        extras = getIntent().getExtras();
+
     }
 
 
@@ -159,14 +168,24 @@ public class MainActivity extends AppCompatActivity{
 
 
             View rootView = null;
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             Query emergenciasQuery = myRef.orderByChild("paramedico").equalTo(user.getEmail());
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1: {
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
                     //EditTexts
-                    final EditText nombre;
+                    final EditText nombre, cedula,sintomas,lugar;
                     nombre = (EditText) rootView.findViewById(R.id.editTextNombrePaciente);
+                    cedula = (EditText) rootView.findViewById(R.id.editTextCedula);
+                    lugar = (EditText) rootView.findViewById(R.id.editTextLugar);
+                    sintomas = (EditText) rootView.findViewById(R.id.editTextSintomas);
+
+                    //Spinners
+                    final Spinner genero;
+                    genero = (Spinner) rootView.findViewById(R.id.spinnerSexo);
+
+
+
 
 
                     //Extraemos los valores en los Textviews y Spinners
@@ -179,12 +198,23 @@ public class MainActivity extends AppCompatActivity{
                         public void onClick(View v) {
                             String id = myRef.push().getKey();
                             String nombreV = nombre.getText().toString();
-                            final EmergenciasTest emergencia = new EmergenciasTest(nombreV);
+                            String cedulaV = cedula.getText().toString();
+                            String generoV = genero.getSelectedItem().toString();
+                            String lugarV = lugar.getText().toString();
+                            String sintomasV = sintomas.getText().toString();
+
+                            Calendar c = Calendar.getInstance();
+                            System.out.println("Current time => " + c.getTime());
+
+                            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                            String formattedDate = df.format(c.getTime());
+
+                            /*final Emergencias emergencia = new Emergencias(nombreV,cedulaV,extras.getString("numAmbulance"),generoV,sintomasV,lugarV,user.getEmail());
                             System.out.println(nombreV);
                             if(!nombreV.equals(""))
                                myRef.child(id).setValue(emergencia);
                             else
-                                System.out.println("NOPE");
+                                System.out.println("NOPE");*/
 
                         }
                     });

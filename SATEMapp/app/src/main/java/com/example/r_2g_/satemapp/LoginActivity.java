@@ -97,12 +97,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final Intent intent;
         switch (v.getId()){
             case R.id.buttonLogin:{
-                System.out.println("case holi");
                 if(!emailET.getText().toString().equals("") && !passwordET.getText().toString().equals("")){
-                    System.out.println("if holi");
                     String emailV = emailET.getText().toString();
                     String passwordV = passwordET.getText().toString();
                     intent = new Intent(LoginActivity.this,MainActivity.class);
+                    intent.putExtra("numAmbulance",ambulanceET.getText().toString());
                     mAuth.signInWithEmailAndPassword(emailV, passwordV)
                             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -121,7 +120,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         finish();
                                     }
 
-                                    // ...
                                 }
                             });
                 }

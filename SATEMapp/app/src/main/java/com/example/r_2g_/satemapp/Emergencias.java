@@ -1,12 +1,10 @@
 package com.example.r_2g_.satemapp;
 
-import java.security.Timestamp;
 
 class Emergencias {
-    public int id;
     public String nombre;
     public String Cedula;
-    public int numAmbulancia;
+    public String numAmbulancia;
     public String lugarAccidente;
     public String paramedico;
     public String  fecha;
@@ -18,9 +16,6 @@ class Emergencias {
     public Emergencias() {
     }
 
-    public int getId() {
-        return id;
-    }
 
     public String getNombre() {
         return nombre;
@@ -30,7 +25,7 @@ class Emergencias {
         return Cedula;
     }
 
-    public int getNumAmbulancia() {
+    public String getNumAmbulancia() {
         return numAmbulancia;
     }
 
@@ -62,9 +57,6 @@ class Emergencias {
         return riesgo;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -74,7 +66,7 @@ class Emergencias {
         Cedula = cedula;
     }
 
-    public void setNumAmbulancia(int numAmbulancia) {
+    public void setNumAmbulancia(String numAmbulancia) {
         this.numAmbulancia = numAmbulancia;
     }
 
@@ -106,8 +98,7 @@ class Emergencias {
         this.riesgo = riesgo;
     }
 
-    public Emergencias(int id, String nombre, String cedula, int numAmbulancia, String lugarAccidente, String paramedico, String fecha, String sintomas, String diagnostico, String condicionVital, String riesgo) {
-        this.id = id;
+    public Emergencias(String nombre, String cedula, String numAmbulancia, String lugarAccidente, String paramedico, String fecha, String sintomas, String diagnostico, String condicionVital, String riesgo) {
         this.nombre = nombre;
         Cedula = cedula;
         this.numAmbulancia = numAmbulancia;

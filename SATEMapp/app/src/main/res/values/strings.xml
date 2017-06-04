@@ -63,7 +63,7 @@
     </string-array>
 
     <string name="logout">Cerrar Sesión</string>
-
+    <string name="lugar">Lugar del Accidente</string>
 
 
 </resources>

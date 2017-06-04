@@ -5,26 +5,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <EditText
             android:id="@+id/editTextNombrePaciente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:ems="10"
             android:hint="@string/NombrePaciente"
-            android:layout_marginBottom="8dp"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextCedula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:ems="10"
             android:hint="@string/cedula"
-            android:layout_marginBottom="5dp"
             android:inputType="textPersonName" />
 
         <TextView
@@ -38,25 +38,33 @@
             android:id="@+id/spinnerSexo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/sexoOpts"
             android:layout_marginBottom="8dp"
+            android:entries="@array/sexoOpts"
             android:spinnerMode="dialog" />
+
+        <EditText
+            android:id="@+id/editTextLugar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/lugar"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextSintomas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:ems="10"
             android:hint="@string/sintomas"
-            android:layout_marginBottom="8dp"
             android:inputType="textMultiLine" />
 
         <EditText
             android:id="@+id/editTextDiagnostico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:layout_marginBottom="8dp"
+            android:ems="10"
             android:hint="@string/diagnostico"
             android:inputType="textMultiLine" />
 
@@ -86,9 +94,9 @@
             android:id="@+id/spinnerCondVital"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/condVitalOpts"
             android:layout_marginBottom="8dp"
-            android:spinnerMode="dialog"/>
+            android:entries="@array/condVitalOpts"
+            android:spinnerMode="dialog" />
 
         <TextView
             android:id="@+id/textViewRiesgo"
@@ -111,6 +119,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/enviar" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
     </LinearLayout>
 </ScrollView>

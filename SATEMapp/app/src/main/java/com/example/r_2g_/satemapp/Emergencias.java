@@ -13,6 +13,8 @@ class Emergencias {
     public String diagnostico;
     public String condicionVital;
     public String riesgo;
+    public String estado;
+
 
 
     public String getNombre() {
@@ -59,6 +61,10 @@ class Emergencias {
         return riesgo;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -103,7 +109,11 @@ class Emergencias {
         this.riesgo = riesgo;
     }
 
-    public Emergencias(String nombre, String cedula, String numAmbulancia, String lugarAccidente, String genero, String paramedico, String fecha, String sintomas, String diagnostico, String condicionVital, String riesgo) {
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Emergencias(String nombre, String cedula, String numAmbulancia, String lugarAccidente, String genero, String paramedico, String fecha, String sintomas, String diagnostico, String condicionVital, String riesgo, String estado) {
         this.nombre = nombre;
         this.cedula = cedula;
         this.numAmbulancia = numAmbulancia;
@@ -115,5 +125,6 @@ class Emergencias {
         this.diagnostico = diagnostico;
         this.condicionVital = condicionVital;
         this.riesgo = riesgo;
+        this.estado = estado;
     }
 }

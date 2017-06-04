@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -206,9 +207,8 @@ public class MainActivity extends AppCompatActivity{
 
                             Date date = new Date();
                             DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                            System.out.println("Hora y fecha: "+hourdateFormat.format(date));
 
-
+                            //Llenamos el objeto Emergencias con los datos obtenidos por el usuario.
                             final Emergencias emergencia = new Emergencias(nombreV,
                                     cedulaV,
                                     extras.getString("numAmbulance"),
@@ -219,10 +219,14 @@ public class MainActivity extends AppCompatActivity{
                                     sintomasV,
                                     diagnosticoV,
                                     condicionVitalV,
-                                    riesgoV);
+                                    riesgoV,
+                                    "En Camino");
 
-                            if(!nombreV.equals(""))
-                               myRef.child(id).setValue(emergencia);
+                            if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
+                                myRef.child(id).setValue(emergencia);
+                                Toast.makeText(getActivity(),"Emergencia Enviada Correctamente.",Toast.LENGTH_SHORT).show();
+
+                            }
                             else
                                 System.out.println("NOPE");
 

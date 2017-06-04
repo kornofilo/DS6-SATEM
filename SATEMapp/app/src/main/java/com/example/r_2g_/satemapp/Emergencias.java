@@ -3,9 +3,10 @@ package com.example.r_2g_.satemapp;
 
 class Emergencias {
     public String nombre;
-    public String Cedula;
+    public String cedula;
     public String numAmbulancia;
     public String lugarAccidente;
+    public String genero;
     public String paramedico;
     public String  fecha;
     public String sintomas;
@@ -13,16 +14,13 @@ class Emergencias {
     public String condicionVital;
     public String riesgo;
 
-    public Emergencias() {
-    }
-
 
     public String getNombre() {
         return nombre;
     }
 
     public String getCedula() {
-        return Cedula;
+        return cedula;
     }
 
     public String getNumAmbulancia() {
@@ -31,6 +29,10 @@ class Emergencias {
 
     public String getLugarAccidente() {
         return lugarAccidente;
+    }
+
+    public String getGenero() {
+        return genero;
     }
 
     public String getParamedico() {
@@ -57,13 +59,12 @@ class Emergencias {
         return riesgo;
     }
 
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     public void setCedula(String cedula) {
-        Cedula = cedula;
+        this.cedula = cedula;
     }
 
     public void setNumAmbulancia(String numAmbulancia) {
@@ -72,6 +73,10 @@ class Emergencias {
 
     public void setLugarAccidente(String lugarAccidente) {
         this.lugarAccidente = lugarAccidente;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
     public void setParamedico(String paramedico) {
@@ -98,11 +103,12 @@ class Emergencias {
         this.riesgo = riesgo;
     }
 
-    public Emergencias(String nombre, String cedula, String numAmbulancia, String lugarAccidente, String paramedico, String fecha, String sintomas, String diagnostico, String condicionVital, String riesgo) {
+    public Emergencias(String nombre, String cedula, String numAmbulancia, String lugarAccidente, String genero, String paramedico, String fecha, String sintomas, String diagnostico, String condicionVital, String riesgo) {
         this.nombre = nombre;
-        Cedula = cedula;
+        this.cedula = cedula;
         this.numAmbulancia = numAmbulancia;
         this.lugarAccidente = lugarAccidente;
+        this.genero = genero;
         this.paramedico = paramedico;
         this.fecha = fecha;
         this.sintomas = sintomas;
@@ -110,7 +116,4 @@ class Emergencias {
         this.condicionVital = condicionVital;
         this.riesgo = riesgo;
     }
-
-
-
 }

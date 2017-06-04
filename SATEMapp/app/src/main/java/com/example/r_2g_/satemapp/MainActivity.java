@@ -176,9 +176,11 @@ public class MainActivity extends AppCompatActivity{
                     diagnostico = (EditText) rootView.findViewById(R.id.editTextDiagnostico);
 
                     //Spinners
-                    final Spinner genero, condicionVital;
+                    final Spinner genero, condicionVital,riesgo;
                     genero = (Spinner) rootView.findViewById(R.id.spinnerSexo);
                     condicionVital = (Spinner) rootView.findViewById(R.id.spinnerCondVital);
+                    riesgo = (Spinner) rootView.findViewById(R.id.spinnerRiesgo);
+
 
 
 
@@ -200,14 +202,25 @@ public class MainActivity extends AppCompatActivity{
                             String sintomasV = sintomas.getText().toString();
                             String diagnosticoV = diagnostico.getText().toString();
                             String condicionVitalV = condicionVital.getSelectedItem().toString();
+                            String riesgoV = riesgo.getSelectedItem().toString();
 
                             Date date = new Date();
                             DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                             System.out.println("Hora y fecha: "+hourdateFormat.format(date));
 
 
-                            final Emergencias emergencia = new Emergencias(nombreV,cedulaV,extras.getString("numAmbulance"),generoV,sintomasV,lugarV,user.getEmail(),hourdateFormat.format(date),sintomasV,diagnosticoV,condicionVitalV);
-                            System.out.println(nombreV);
+                            final Emergencias emergencia = new Emergencias(nombreV,
+                                    cedulaV,
+                                    extras.getString("numAmbulance"),
+                                    lugarV,
+                                    generoV,
+                                    user.getEmail(),
+                                    hourdateFormat.format(date),
+                                    sintomasV,
+                                    diagnosticoV,
+                                    condicionVitalV,
+                                    riesgoV);
+
                             if(!nombreV.equals(""))
                                myRef.child(id).setValue(emergencia);
                             else

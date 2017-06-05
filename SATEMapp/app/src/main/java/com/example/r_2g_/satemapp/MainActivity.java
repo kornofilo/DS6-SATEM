@@ -9,7 +9,9 @@ package com.example.r_2g_.satemapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,14 +21,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +49,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -216,7 +226,16 @@ public class MainActivity extends AppCompatActivity{
                             if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
                                 myRef.child(id).setValue(emergencia);
                                 Toast.makeText(getActivity(),"Emergencia Enviada Correctamente.",Toast.LENGTH_SHORT).show();
+
+                                //Limpiamos los datos
+                                nombre.setText("");
+                                cedula.setText("");
+                                lugar.setText("");
+                                sintomas.setText("");
+                                diagnostico.setText("");
+
                                 mViewPager.setCurrentItem(1, true);
+
 
                             }
                             else
@@ -238,17 +257,45 @@ public class MainActivity extends AppCompatActivity{
                     rootView = inflater.inflate(R.layout.fragment_historial, container, false);
                     // Leemos desde la base de datos.
                     final View finalRootView1 = rootView;
+
                     emergenciasQuery.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // This method is called once with the initial value and again
                             // whenever data at this location is updated.
                             //Emergencias value = dataSnapshot.getValue(Emergencias.class);
+                            TextView noHistTV;
+                            noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
                             if(dataSnapshot.getValue() == null) {
-                                TextView noHistTV;
-                                noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
-                                System.out.println("Read " + dataSnapshot.getValue());
                                 noHistTV.setVisibility(View.VISIBLE);
+                            }else{
+                                noHistTV.setVisibility(View.INVISIBLE);
+                                ListView historialLV;
+                                historialLV = (ListView) finalRootView1.findViewById(R.id.listViewHistorial);
+                                Map<String, String> historialMap = new HashMap<>();
+                                ArrayList<String> mylist = new ArrayList<>();
+                                ArrayAdapter<String> adapter;
+
+                                for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                                     String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
+                                             + "\n\n -Fecha: " +  ds.child("fecha").getValue().toString()
+                                             + "\n\n -Lugar: " +  ds.child("lugarAccidente").getValue().toString()
+                                             + "\n\n -Síntomas: " + ds.child("sintomas").getValue().toString()
+                                             + "\n\n -Diagnóstico: " + ds.child("diagnostico").getValue().toString();
+
+                                    mylist.add(resumen);
+                                }
+                                adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,mylist);
+                                historialLV.setAdapter(adapter);
+
+
+
+
+
+
+
+
+
                             }
 
                         }

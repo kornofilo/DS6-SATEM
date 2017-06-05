@@ -22,4 +22,15 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="invisible" />
+
+    <ListView
+        android:id="@+id/listViewHistorial"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:divider="@color/common_google_signin_btn_text_dark_focused"
+        android:dividerHeight="3dp"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" />
 </RelativeLayout>

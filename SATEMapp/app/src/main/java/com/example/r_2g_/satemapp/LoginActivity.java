@@ -106,13 +106,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    System.out.print("signInWithEmail:onComplete:");
 
                                     // If sign in fails, display a message to the user. If sign in succeeds
                                     // the auth state listener will be notified and logic to handle the
                                     // signed in user can be handled in the listener.
                                     if (!task.isSuccessful()) {
-                                        System.out.print("signInWithEmail:failed");
                                         Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
                                                 Toast.LENGTH_SHORT).show();
                                     }else if (task.isSuccessful()){

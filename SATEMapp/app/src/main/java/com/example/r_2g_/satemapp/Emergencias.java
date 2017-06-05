@@ -127,4 +127,5 @@ class Emergencias {
         this.riesgo = riesgo;
         this.estado = estado;
     }
+
 }

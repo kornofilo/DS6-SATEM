@@ -52,11 +52,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
+    private static ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +61,6 @@ public class MainActivity extends AppCompatActivity{
         //Verificamos el tema seleccionado por el usuario
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         boolean tema = pref.getBoolean("nightMode_switch", false);
-        System.out.println("tema es  " + tema);
 
         //Dependiendo del valor recuperado, se establece el tema para la activity.
         if(tema) {
@@ -158,10 +153,6 @@ public class MainActivity extends AppCompatActivity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-
-
-
-
             View rootView = null;
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             Query emergenciasQuery = myRef.orderByChild("paramedico").equalTo(user.getEmail());
@@ -225,10 +216,11 @@ public class MainActivity extends AppCompatActivity{
                             if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
                                 myRef.child(id).setValue(emergencia);
                                 Toast.makeText(getActivity(),"Emergencia Enviada Correctamente.",Toast.LENGTH_SHORT).show();
+                                mViewPager.setCurrentItem(1, true);
 
                             }
                             else
-                                System.out.println("NOPE");
+                                Toast.makeText(getActivity(),"Por favor, llene todos los campos.",Toast.LENGTH_SHORT).show();
 
                         }
                     });

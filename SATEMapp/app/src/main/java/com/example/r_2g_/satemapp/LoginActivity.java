@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,6 +95,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarLogin);
+        pb.setVisibility(View.VISIBLE);
         final Intent intent;
         switch (v.getId()){
             case R.id.buttonLogin:{

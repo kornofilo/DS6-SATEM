@@ -18,7 +18,7 @@ dbRefObject.orderByChild("estado").equalTo("En Camino").on("child_added", functi
 
     var row = table.insertRow(1);
     var cell1 = row.insertCell(0); 
-    cell1.innerHTML = cont
+    cell1.innerHTML = cont;
     var cell2 = row.insertCell(1);
     cell2.innerHTML = data.val().nombre;
     var cell2 = row.insertCell(2);

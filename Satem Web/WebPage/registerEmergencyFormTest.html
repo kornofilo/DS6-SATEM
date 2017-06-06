@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="CSS/materialize.min.css">
+
+	<title>Document</title>
+</head>
+<body>
+
+  <!-- Script de autenticación de firebase.  -->
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyAsd8xhLCobjaqcYXC5nuUYXdJ-PNBxGAo",
+    authDomain: "satem-b5729.firebaseapp.com",
+    databaseURL: "https://satem-b5729.firebaseio.com",
+    projectId: "satem-b5729",
+    storageBucket: "satem-b5729.appspot.com",
+    messagingSenderId: "673931608444"
+    };
+    firebase.initializeApp(config);
+</script>
+
+ <div class="row">
+    <form class="col s12" id="registrarForm">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Lugar" id="lugar_emergencia" type="text" class="validate">
+          <label for="first_name">Lugar de la Emergencia</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Descripción" id="descripcion_emergencia" type="text" class="validate">
+          <label for="first_name">Descripcion de la Emergencia</label>
+        </div>
+      </div>
+     <button class="waves-effect waves-light btn" >
+        Registrar   
+     </button> 
+  </form>
+  </div>
+    <script src="registrarEmergencia.js"></script>  
+  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script> 
+
+
+	
+</body>
+</html>

@@ -1,0 +1,130 @@
+{
+  "ambulancias" : {
+    "A1" : {
+      "estado" : "Disponible"
+    }
+  },
+  "emergencias" : {
+    "-KlpOJcvy0-dxIxSRZhj" : {
+      "cedula" : "12345",
+      "condicionVital" : "Estable",
+      "diagnostico" : "El paciente presenta signos de que experimentaban con él.",
+      "estado" : "En Camino",
+      "fecha" : "04/06/2017 23:16:34",
+      "genero" : "Masculino",
+      "lugarAccidente" : "Essex Corp",
+      "nombre" : "Wade Wilson",
+      "numAmbulancia" : "05",
+      "paramedico" : "aldair@rialvic.com",
+      "riesgo" : "Bajo",
+      "sintomas" : "Presenta múltiples quemaduras.",
+      "suceso" : "not null"
+    },
+    "-KlpXh08GeukNN-R5Tr2" : {
+      "cedula" : "456",
+      "condicionVital" : "Estable",
+      "diagnostico" : "El paciente parece presentar una fractura en el ligamento cruzado anterior. Se requiere un examen de Rayos X.",
+      "estado" : "En Camino",
+      "fecha" : "04/06/2017 23:57:33",
+      "genero" : "Masculino",
+      "lugarAccidente" : "Irlanda",
+      "nombre" : "Seth Rollins",
+      "numAmbulancia" : "00",
+      "paramedico" : "zlatan@rialvic.com",
+      "riesgo" : "Bajo",
+      "sintomas" : "Dolor fuerte en la rodilla."
+    },
+    "-Klpdh_YqawlpONYYDLr" : {
+      "cedula" : "678",
+      "condicionVital" : "Crítico",
+      "diagnostico" : "Al ser impactado por un rayo, los signos vitales del paciente son bajos.",
+      "estado" : "En Camino",
+      "fecha" : "05/06/2017 00:28:11",
+      "genero" : "Masculino",
+      "lugarAccidente" : "Central City Police Department.",
+      "nombre" : "Barry Allen",
+      "numAmbulancia" : "53",
+      "paramedico" : "aldair@rialvic.com",
+      "riesgo" : "Alto",
+      "sintomas" : "Estado en Coma."
+    },
+    "-KlqtkKqReW1nCngOBi_" : {
+      "cedula" : "Mark Callaway",
+      "condicionVital" : "Estable",
+      "diagnostico" : "El paciente sufrió una fractura en la cadera al recibir el tercer F5 por parte de Brock Lesnar.",
+      "estado" : "En Camino",
+      "fecha" : "05/06/2017 05:29:13",
+      "genero" : "Masculino",
+      "lugarAccidente" : "Wrestlemania XXX - New Orleans",
+      "nombre" : "The Undertaker",
+      "numAmbulancia" : "96",
+      "paramedico" : "logan@rialvic.com",
+      "riesgo" : "Bajo",
+      "sintomas" : "Dolor de cadera."
+    },
+    "-KluacQAEd1Do2_sy8F3" : {
+      "cedula" : "1-000-0000",
+      "condicionVital" : "Estable",
+      "diagnostico" : "parece que se comio una cangreburger hecha por plankton",
+      "estado" : "En Camino",
+      "fecha" : "05/06/2017 18:32:45",
+      "genero" : "No definido",
+      "lugarAccidente" : "fondo de bikini",
+      "nombre" : "bob esponja",
+      "numAmbulancia" : "1",
+      "paramedico" : "zlatan@rialvic.com",
+      "riesgo" : "Bajo",
+      "sintomas" : "dolor de estomago"
+    },
+    "-Kluku1bIZMLzggv4bJr" : {
+      "cedula" : "4-4444",
+      "condicionVital" : "Estable",
+      "diagnostico" : "picada de vivora",
+      "estado" : "En Camino",
+      "fecha" : "05/06/2017 19:14:05",
+      "genero" : "Femenino",
+      "lugarAccidente" : "san carlos",
+      "nombre" : "alguien",
+      "numAmbulancia" : "1",
+      "paramedico" : "zlatan@rialvic.com",
+      "riesgo" : "Bajo",
+      "sintomas" : "fiebre"
+    },
+    "-KluxawA24cyqfBTNlc7" : {
+      "cedula" : "B",
+      "condicionVital" : "Estable",
+      "diagnostico" : "A",
+      "estado" : "En Camino",
+      "fecha" : "05/06/2017 20:06:42",
+      "genero" : "No definido",
+      "lugarAccidente" : "X",
+      "nombre" : "A",
+      "numAmbulancia" : "1",
+      "paramedico" : "zlatan@rialvic.com",
+      "riesgo" : "Bajo",
+      "sintomas" : "AS"
+    }
+  },
+  "interacciones" : {
+    "ambulancia" : 1,
+    "cedula" : "4-123-1234",
+    "condicion" : "valor",
+    "diagnostico" : "ninguno",
+    "edad" : 21,
+    "emergencia" : "0001",
+    "estado" : "bool",
+    "fecha" : "2017-05-23",
+    "hospital" : "valor",
+    "nombre" : "juan",
+    "paramedico" : "primero",
+    "riesgo" : "valor",
+    "sexo" : "M",
+    "sintomas" : "heridas en el brazo"
+  },
+  "users" : {
+    "QK8JBFpURrd3VFbQPCdiL6M76tI2" : {
+      "nombre" : "Zlatan Ibrahimovic",
+      "rol" : "Emergency Manager"
+    }
+  }
+}

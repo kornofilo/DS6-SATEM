@@ -25,30 +25,35 @@
     firebase.initializeApp(config);
 </script>
 
+<main>
  <div class="row">
-    <form class="col s12" id="registrarForm">
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="Lugar" id="lugar_emergencia" type="text" class="validate">
-          <label for="first_name">Lugar de la Emergencia</label>
+    <form class="col s12" id="myForm" name="myForm" onsubmit="registrar(); return false;">
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Lugar" id="lugar_emergencia" type="text" class="validate">
+            <label for="first_name">Lugar de la Emergencia</label>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="Descripción" id="descripcion_emergencia" type="text" class="validate">
-          <label for="first_name">Descripcion de la Emergencia</label>
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Descripción" id="descripcion_emergencia" type="text" class="validate">
+            <label for="first_name">Descripcion de la Emergencia</label>
+          </div>
         </div>
-      </div>
-     <button class="waves-effect waves-light btn" >
-        Registrar   
-     </button> 
-  </form>
+        <button type="submit" id="btnRegistrar" class="waves-effect waves-light btn">  
+         Registrar
+        </button>
+           
+      </form>
   </div>
-    <script src="registrarEmergencia.js"></script>  
+
+    <script src="registrarEmergencia.js">
+      
+    </script>  
   <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script> 
 
-
+</main>
 	
 </body>
 </html>

@@ -4,8 +4,7 @@
     Elaborado por: Aldair de Gracia, Ricardo Rubio, Víctor Pineda 
     Archivo:  (registrarEmergencia.js)
 */
-    var form = document.getElementById("registrarForm");
-    form.addEventListener("submit", registrar);
+    //document.getElementById("registrarForm").addEventListener("submit", registrar);
 
     function registrar() {
       
@@ -24,7 +23,7 @@
         };
 
 
-        var newPostKey = firebase.database().ref().child('posts').push().key;
+        var newPostKey = firebase.database().ref().child('emergencias').push().key;
 
         // Write the new post's data simultaneously in the posts list and the user's post list.
         var updates = {};

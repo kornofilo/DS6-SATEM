@@ -36,6 +36,6 @@
          //Si los datos ingresados son correctos, se redigirá al usuario a la página principal.
          firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          window.location = "registerEmergencyFormTest.html";
+          window.location = "index.html";
         } 
 });

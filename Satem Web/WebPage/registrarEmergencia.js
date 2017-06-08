@@ -9,6 +9,13 @@
         //Recuperamos los valores del formulario.
         var txtLugar = document.getElementById('lugar_emergencia');
         var txtDescripcion = document.getElementById('descripcion_emergencia');
+        var currentdate = new Date(); 
+        var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " a las "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
 
         //Seteamos la referencia de la DB.
         var DBref = firebase.database().ref('emergencias');
@@ -17,7 +24,8 @@
         var postData = {
           lugarAccidente: txtLugar.value,
           suceso : txtDescripcion.value,
-          estado : "Registrada"
+          estado : "Registrada",
+          fechaRegistro: datetime
 
         };
 

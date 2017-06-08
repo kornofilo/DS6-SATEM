@@ -7,18 +7,19 @@
 
 //Obtenemos las emergencias Registradas.
 var tableAsignar = document.getElementById('asignarTable');
+        
 
           
 
     //Cargamos los datos de la DB de Firebase.
     var dbRefObject = firebase.database().ref('emergencias/');
-    var cont = 0;
+    var contAsignar = 0;
     dbRefObject.orderByChild("estado").equalTo("Registrada").on("child_added", function(data) {
-        cont += 1;
+        contAsignar += 1;
 
-        var row = tableAsignar.insertRow(1);
+        var row = tableAsignar.insertRow(-1);
         var cell1 = row.insertCell(0); 
-        cell1.innerHTML = cont;
+        cell1.innerHTML = contAsignar;
         var cell2 = row.insertCell(1);
         cell2.innerHTML = data.val().suceso;
         var cell2 = row.insertCell(2);
@@ -26,7 +27,23 @@ var tableAsignar = document.getElementById('asignarTable');
         var cell3 = row.insertCell(3);
         cell3.innerHTML = data.val().fechaRegistro;
         var cell4 = row.insertCell(4);
-        cell4.innerHTML = data.val().lugarAccidente;
+        cell4.innerHTML =   
+                            "<select class=\"browser-default\">" +
+                            "<option value=\"\" disabled selected>Ambulancias Disponibles</option>" +
+                                "<option value=\"1\">Option 1</option>" +
+                               "<option value=\"2\">Option 2</option>"+
+                                "<option value=\"3\">Option 3</option>" +
+                              "</select>";
+        var cell5 = row.insertCell(5);
+        cell5.innerHTML = 
+                            "<select class=\"browser-default\">" +
+                            "<option value=\"\" disabled selected>Paramédicos Disponibles</option>" +
+                                "<option value=\"1\">Option 1</option>" +
+                               "<option value=\"2\">Option 2</option>"+
+                                "<option value=\"3\">Option 3</option>" +
+                              "</select>";
+         var cell6 = row.insertCell(6);
+         cell6.innerHTML = '<a class="waves-effect waves-light btn">Asignar</a>';
 });
 
 
@@ -41,7 +58,7 @@ var table = document.getElementById('enCaminoTable');
     dbRefObject.orderByChild("estado").equalTo("En Camino").on("child_added", function(data) {
         cont += 1;
 
-        var row = table.insertRow(1);
+        var row = table.insertRow(-1);
         var cell1 = row.insertCell(0); 
         cell1.innerHTML = cont;
         var cell2 = row.insertCell(1);
@@ -64,6 +81,8 @@ var table = document.getElementById('enCaminoTable');
         cell9.innerHTML = data.val().condicionVital;
         var cell10 = row.insertCell(10);
         cell10.innerHTML = data.val().riesgo;
+        var cel11 = row.insertCell(11);
+        cel11.innerHTML = '<a class="waves-effect waves-light btn">Finalizar</a>';
 });
 
 

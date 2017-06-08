@@ -26,7 +26,19 @@
     
 <body>
 
-
+<!-- Script de autenticación de firebase.  -->
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyAsd8xhLCobjaqcYXC5nuUYXdJ-PNBxGAo",
+    authDomain: "satem-b5729.firebaseapp.com",
+    databaseURL: "https://satem-b5729.firebaseio.com",
+    projectId: "satem-b5729",
+    storageBucket: "satem-b5729.appspot.com",
+    messagingSenderId: "673931608444"
+    };
+        firebase.initializeApp(config);</script>
     
     <header>
       <!-- Tabs -->
@@ -48,9 +60,10 @@
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#test1">REGISTRAR</a></li>
-        <li class="tab"><a href="#test2">EN CAMINO</a></li>
-        <li class="tab"><a class="active" href="#test2">FINALIZADA</a></li>
-        <li class="tab"><a href="#test4">ESTADISTICAS</a></li>
+        <li class="tab"><a href="#test2">ASIGNAR</a></li>
+        <li class="tab"><a href="#test3">EN CAMINO</a></li>
+        <li class="tab"><a href="#test4">FINALIZADA</a></li>
+        <li class="tab"><a href="#test5">ESTADISTICAS</a></li>
       </ul>
     </div>
   </nav>
@@ -58,11 +71,34 @@
 </header> 
 <main> 
     
+    <!-- declarando los contenedores para los tabs-->
+    <div id="test1" class="col s12"> <!--primer div de los tabs, registrar--> 
+    <div class="row">
+    <form class="col s12" id="myForm" name="myForm" onsubmit="registrar(); return false;">
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Lugar" id="lugar_emergencia" type="text" class="validate">
+            <label for="first_name">Lugar de la Emergencia</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Descripción" id="descripcion_emergencia" type="text" class="validate">
+            <label for="first_name">Descripcion de la Emergencia</label>
+          </div>
+        </div>
+        <button type="submit" id="btnRegistrar" class="waves-effect waves-light btn">  
+         Registrar
+        </button>
+        <script src="registrarEmergencia.js"></script>
+      </form>
+    </div>
+    </div>
     
-    
-    
-    
-    
+    <div id="test2" class="col s12">test2</div> 
+    <div id="test3" class="col s12">test3</div>
+    <div id="test4" class="col s12">test4</div>
+    <div id="test5" class="col s12">test5</div>
     
     
     

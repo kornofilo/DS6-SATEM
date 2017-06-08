@@ -5,7 +5,6 @@
     Archivo:  (login.js)
 */
     
-    document.getElementById("btnLogin").addEventListener("click", login);
 
     function login() {
         //Obtener valores del Login

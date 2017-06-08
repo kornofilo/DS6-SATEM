@@ -4,17 +4,16 @@
     Elaborado por: Aldair de Gracia, Ricardo Rubio, Víctor Pineda 
     Archivo:  (registrarEmergencia.js)
 */
-    //document.getElementById("registrarForm").addEventListener("submit", registrar);
 
     function registrar() {
-      
+        //Recuperamos los valores del formulario.
         var txtLugar = document.getElementById('lugar_emergencia');
         var txtDescripcion = document.getElementById('descripcion_emergencia');
-        var btnRegistrar = document.getElementById('btnRegistrar');
 
-
+        //Seteamos la referencia de la DB.
         var DBref = firebase.database().ref('emergencias');
         
+        //Construimos el objeto que contendrá el nuevo registro en la DB.
         var postData = {
           lugarAccidente: txtLugar.value,
           suceso : txtDescripcion.value,

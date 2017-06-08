@@ -6,7 +6,7 @@
 */
 
 //Obtenemos las emergencias Registradas.
-var tableAsignar = document.getElementById('asignarTable');
+var tableAsignar = document.getElementById('asignarTableBody');
         
 
           
@@ -48,7 +48,7 @@ var tableAsignar = document.getElementById('asignarTable');
 
 
 //Obtenemos las emergencias en Camino.
-var table = document.getElementById('enCaminoTable');
+var table = document.getElementById('enCaminoTableBody');
 
           
 

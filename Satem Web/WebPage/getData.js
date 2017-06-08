@@ -5,7 +5,32 @@
     Archivo:  (getData.js)
 */
 
-//Obtenemos los elementos.
+//Obtenemos las emergencias Registradas.
+var tableAsignar = document.getElementById('asignarTable');
+
+          
+
+    //Cargamos los datos de la DB de Firebase.
+    var dbRefObject = firebase.database().ref('emergencias/');
+    var cont = 0;
+    dbRefObject.orderByChild("estado").equalTo("Registrada").on("child_added", function(data) {
+        cont += 1;
+
+        var row = tableAsignar.insertRow(1);
+        var cell1 = row.insertCell(0); 
+        cell1.innerHTML = cont;
+        var cell2 = row.insertCell(1);
+        cell2.innerHTML = data.val().suceso;
+        var cell2 = row.insertCell(2);
+        cell2.innerHTML = data.val().lugarAccidente;
+        var cell3 = row.insertCell(3);
+        cell3.innerHTML = data.val().fechaRegistro;
+        var cell4 = row.insertCell(4);
+        cell4.innerHTML = data.val().lugarAccidente;
+});
+
+
+//Obtenemos las emergencias en Camino.
 var table = document.getElementById('enCaminoTable');
 
           
@@ -15,7 +40,7 @@ var table = document.getElementById('enCaminoTable');
     var cont = 0;
     dbRefObject.orderByChild("estado").equalTo("En Camino").on("child_added", function(data) {
         cont += 1;
-        
+
         var row = table.insertRow(1);
         var cell1 = row.insertCell(0); 
         cell1.innerHTML = cont;

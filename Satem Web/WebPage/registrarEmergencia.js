@@ -6,6 +6,7 @@
 */
 
     function registrar() {
+
         //Recuperamos los valores del formulario.
         var txtLugar = document.getElementById('lugar_emergencia');
         var txtDescripcion = document.getElementById('descripcion_emergencia');
@@ -20,7 +21,7 @@
         //Seteamos la referencia de la DB.
         var DBref = firebase.database().ref('emergencias');
         
-        //Construimos el objeto que contendrá el nuevo registro en la DB.
+       //Construimos el objeto que contendrá el nuevo registro en la DB.
         var postData = {
           lugarAccidente: txtLugar.value,
           suceso : txtDescripcion.value,
@@ -32,12 +33,14 @@
 
         var newPostKey = firebase.database().ref().child('emergencias').push().key;
 
-        // Write the new post's data simultaneously in the posts list and the user's post list.
+        //Write the new post's data simultaneously in the posts list and the user's post list.
         var updates = {};
         updates['/emergencias/' + newPostKey] = postData;
 
         firebase.database().ref().update(updates);
-        window.location = "index.html";
+        
+        location.replace("index2.0.html#test2");
+        location.reload(); 
 
       }
 

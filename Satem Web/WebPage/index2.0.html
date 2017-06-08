@@ -95,10 +95,26 @@
     </div>
     </div>
     
-    <div id="test2" class="col s12">test2</div> 
-    <div id="test3" class="col s12">test3</div>
-    <div id="test4" class="col s12">test4</div>
-    <div id="test5" class="col s12">test5</div>
+    <div id="test2" class="col s12">test2</div> <!-- tab asignar-->
+    <div id="test3" class="col s12">
+    <table class="highlight">
+              <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric"># de Urgencia</th>
+                  <th>Nombre</th>
+                  <th>Cédula</th>
+                  <th># de Ambulancia</th>
+                  <th>Lugar del Accidente</th>
+                  <th>Paramédico</th>
+                  <th>Fecha</th>
+                  <th>Emergencia</th>
+                  <th>Condición Vital</th>
+                </tr>
+            </thead>
+        </table>
+        </div> <!-- tab en camino-->
+    <div id="test4" class="col s12">test4</div> <!-- tab finalizada-->
+    <div id="test5" class="col s12">test5</div> <!-- tab estadisticas-->
     
     
     
@@ -128,6 +144,14 @@
      </footer> 
       
 	 <!--Import jQuery before materialize.js-->
+    <script src="registrarEmergencia.js"></script>
+    <script>
+                $(document).ready(function() {
+                $('#encaminoTable').DataTable();
+                } );
+              </script>
+            <script src="getData.js"></script>
+
       <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
 	</body>

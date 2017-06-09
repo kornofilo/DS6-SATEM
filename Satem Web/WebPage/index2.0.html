@@ -28,6 +28,7 @@
 
 <!-- Script de autenticación de firebase.  -->
     <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script>
     // Initialize Firebase
     var config = {
@@ -83,7 +84,7 @@
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input placeholder="Descripción" id="descripcion_emergencia" type="text" class="validate">
+            <textarea id="descripcion_emergencia" class="materialize-textarea"></textarea>
             <label for="first_name">Descripcion de la Emergencia</label>
           </div>
         </div>
@@ -94,8 +95,40 @@
       </form>
     </div>
     </div>
+
+     
     
     <div id="test2" class="col s12">
+    
+     <script>
+         $(document).ready(function() {
+         $('select').material_select();
+      });
+      </script>
+    
+      <h5>Asignar Emergencia</h5>
+       <form action="">
+      <div class="input-field col s12 m6">
+       <p>Seleccione una Emergencia:</p>
+       <select>
+        <option value="" disabled selected>Seleccione una Emergencia</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+      </select>
+
+      <p>Seleccione las Ambulancias que atenderán la emergencia:</p>
+
+        <select multiple class="initialized">
+          <option value="" disabled selected></option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+      </form>
+      </div> <hr><br><br>
+
+      <h5>Lista de Emergencias Registradas</h5>
          <table class="highlight" id="asignarTable">
               <thead>
                 <tr>
@@ -103,13 +136,10 @@
                   <th>Descripción</th>
                   <th>Lugar</th>
                   <th>Fecha de Registro</th>
-                  <th># de Ambulancia</th>
-                  <th>Paramédico</th>
-                  <th>Asignar</th>
+                  <th>Seleccionar</th>
                 </tr>
             </thead>
             <tbody id="asignarTableBody">
-              
             </tbody>
         </table>
 
@@ -117,6 +147,7 @@
 
 
     <div id="test3" class="col s12">
+    
     <table class="highlight" id="enCaminoTable">
               <thead>
                 <tr>
@@ -135,7 +166,6 @@
                 </tr>
             </thead>
             <tbody id="enCaminoTableBody">
-              
             </tbody>
         </table>
         </div> <!-- tab en camino-->

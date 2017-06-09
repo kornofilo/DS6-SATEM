@@ -14,8 +14,11 @@ var tableAsignar = document.getElementById('asignarTableBody');
     //Cargamos los datos de la DB de Firebase.
     var dbRefObject = firebase.database().ref('emergencias/');
     var contAsignar = 0;
+    var options =  getOptions();
     dbRefObject.orderByChild("estado").equalTo("Registrada").on("child_added", function(data) {
+        ambulanciasid= "ambulancias" + contAsignar;
         contAsignar += 1;
+
 
         var row = tableAsignar.insertRow(-1);
         var cell1 = row.insertCell(0); 
@@ -27,24 +30,24 @@ var tableAsignar = document.getElementById('asignarTableBody');
         var cell3 = row.insertCell(3);
         cell3.innerHTML = data.val().fechaRegistro;
         var cell4 = row.insertCell(4);
-        cell4.innerHTML =   
-                            "<select class=\"browser-default\">" +
-                            "<option value=\"\" disabled selected>Ambulancias Disponibles</option>" +
-                                "<option value=\"1\">Option 1</option>" +
-                               "<option value=\"2\">Option 2</option>"+
-                                "<option value=\"3\">Option 3</option>" +
-                              "</select>";
-        var cell5 = row.insertCell(5);
-        cell5.innerHTML = 
-                            "<select class=\"browser-default\">" +
-                            "<option value=\"\" disabled selected>Paramédicos Disponibles</option>" +
-                                "<option value=\"1\">Option 1</option>" +
-                               "<option value=\"2\">Option 2</option>"+
-                                "<option value=\"3\">Option 3</option>" +
-                              "</select>";
-         var cell6 = row.insertCell(6);
-         cell6.innerHTML = '<a class="waves-effect waves-light btn">Asignar</a>';
+         cell4.innerHTML = '<a class="waves-effect waves-light btn">Seleccionar</a>';
+
 });
+        function getOptions(){
+         var ambulanciaRefObject = firebase.database().ref('ambulancias/');
+         var i = 0;
+         var options = new Array();
+        
+         ambulanciaRefObject.orderByChild("estado").equalTo("Disponible").on("child_added", function(dataAmbulance) {
+             
+            options[i] = dataAmbulance.key;
+            i+= 1;
+
+
+        });
+
+           return options; 
+        }
 
 
 //Obtenemos las emergencias en Camino.

@@ -30,7 +30,7 @@ var tableAsignar = document.getElementById('asignarTableBody');
         var cell3 = row.insertCell(3);
         cell3.innerHTML = data.val().fechaRegistro;
         var cell4 = row.insertCell(4);
-         cell4.innerHTML = '<a class="waves-effect waves-light btn">Seleccionar</a>';
+         cell4.innerHTML = '<a class="waves-effect waves-light btn" onclick="asignarEmergencia()">Seleccionar </a>';
 
 });
         function getOptions(){

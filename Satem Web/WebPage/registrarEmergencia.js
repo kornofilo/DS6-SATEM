@@ -30,8 +30,12 @@
 
         };
 
+          var dbRefObject = firebase.database().ref('emergencias/');
+          dbRefObject.orderByChild("estado").equalTo("En Camino").on("child_added", function(data) {
+            var newPostKey = firebase.database().ref().child('emergencias').push().key;
+        }
 
-        var newPostKey = firebase.database().ref().child('emergencias').push().key;
+
 
         //Write the new post's data simultaneously in the posts list and the user's post list.
         var updates = {};

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		
+
+	</title>
+</head>
+<body>
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyAsd8xhLCobjaqcYXC5nuUYXdJ-PNBxGAo",
+    authDomain: "satem-b5729.firebaseapp.com",
+    databaseURL: "https://satem-b5729.firebaseio.com",
+    projectId: "satem-b5729",
+    storageBucket: "satem-b5729.appspot.com",
+    messagingSenderId: "673931608444"
+    };
+    firebase.initializeApp(config);</script>
+
+        
+        <table class="responsive-table" id="tabla_paciente" >
+              <thead>
+                <tr> 
+                  <th>Cedula</th>
+                  <th>Nombre</th>
+                </tr>
+            </thead>
+        </table>
+        <script src="getpaciente.js"></script>
+
+</body>
+</html>

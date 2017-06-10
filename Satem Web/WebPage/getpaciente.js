@@ -6,16 +6,22 @@
 */
 
 //Obtenemos las emergencias Registradas.
-var tableAsignar = document.getElementById('tabla_paciente');
-        
 
-          
+document.getElementById("buscarPacienteForm")
+    .addEventListener("keypress", function(event) {
+    if (event.keyCode == 13) {
+    event.preventDefault();
+
+    var cedulatxt = document.getElementById('cedulaInput');
+
+    window.location = "cedula.html";
+    var tableAsignar = document.getElementById('asignarTableBody');
 
     //Cargamos los datos de la DB de Firebase.
     var dbRefObject = firebase.database().ref('pacientes/');
     var contAsignar = 0;
     
-    dbRefObject.orderByKey().equalTo("12346").on("child_added", function(data) {
+    dbRefObject.orderByKey().equalTo(cedulatxt.value).on("child_added", function(data) {
         contAsignar += 1;
         console.log(data);
 
@@ -31,5 +37,9 @@ var tableAsignar = document.getElementById('tabla_paciente');
 
         
        
+        }); 
+
+    }
+
 });
 

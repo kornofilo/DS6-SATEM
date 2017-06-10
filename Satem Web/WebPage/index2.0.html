@@ -52,9 +52,9 @@
     <div class="nav-wrapper">
       <ul>
        <li>
-        <form>
+        <form id="buscarPacienteForm" method="GET">
             <div class="input-field">
-            <input id="search" type="search" required placeholder="Buscar Paciente">
+            <input id="cedulaInput" type="search" placeholder="Buscar Paciente" required>
             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
             <i class="material-icons">close</i>
           </div>
@@ -82,7 +82,7 @@
     
 </header> 
 <main> 
-    
+
     <!-- declarando los contenedores para los tabs-->
     <div id="test1" class="col s12"> <!--primer div de los tabs, registrar--> 
     <div class="row">
@@ -181,6 +181,7 @@
       
 	 <!--Import jQuery before materialize.js-->
     <script src="asignarEmergencia.js"></script>
+    <script src="getPaciente.js"></script>
     <script src="registrarEmergencia.js"></script>
 
     <script src="getData.js"></script>

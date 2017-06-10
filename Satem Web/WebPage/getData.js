@@ -8,9 +8,6 @@
 //Obtenemos las emergencias Registradas.
 var tableAsignar = document.getElementById('asignarTableBody');
         
-
-          
-
     //Cargamos los datos de la DB de Firebase.
     var dbRefObject = firebase.database().ref('emergencias/');
     var contAsignar = 0;

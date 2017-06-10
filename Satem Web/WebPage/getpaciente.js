@@ -20,13 +20,16 @@ var tableAsignar = document.getElementById('tabla_paciente');
         console.log(data);
 
         var row = tableAsignar.insertRow(-1);
+
         var cell1 = row.insertCell(0); 
         cell1.innerHTML = data.key;
+
         var cell2 = row.insertCell(1);
         cell2.innerHTML = data.val().nombre;
-        var cell2 = row.insertCell(2);
-        cell3.innerHTML = data.key;
-        var cell3 = row.insertCell(3);
+
+        
+
+        
        
 });
 

@@ -1,13 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-	<title>
-		
+    
+    <style>  body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+            }
 
-	</title>
+        main {
+        flex: 1 0 auto;
+            }
+        </style>
+<!-- lista de librerias a usarse-->
+    <meta charset="utf-8">
+   
+    <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/materialize.min.css">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
+    
+    <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <title>Pasientes</title>
+    
+
 </head>
-<body>
-    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    
+<body> <!-- cuerpo del documento-->
+<!-- Script de autenticación de firebase.	 -->
+<header>
+        
+  <nav>
+    <div class="nav-wrapper teal">
+      <a href="#" class="brand-logo">SATEM</a>
+    </div>
+  </nav>
+        
+        
+</header>
+    
+<main>
+         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
     <script>
     // Initialize Firebase
     var config = {
@@ -20,16 +55,40 @@
     };
     firebase.initializeApp(config);</script>
 
-        
-        <table class="responsive-table" id="tabla_paciente" >
-              <thead>
+        <div>
+          <table class="highlight"  id="tabla_paciente" >
+              <thead >
                 <tr> 
-                  <th>Cedula</th>
-                  <th>Nombre</th>
+                  <td><h5>Cedula</h5></td>
+                  <td><h5>Nombre<h5/></td>
                 </tr>
             </thead>
         </table>
         <script src="getpaciente.js"></script>
-
+        </div>
+        
+        
+</main>
+    <!--Sistema De Alerta Temprana De Emergencias Medicas-->
+     <footer class="page-footer teal"> 
+        <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">SATEM</h5>
+                <p class="grey-text text-lighten-4">Sistema elaborado por el Equipo de RIALVIC.</p>
+              </div> 
+            </div>
+          </div>
+     </footer>
+    
+   
+      
+	 <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
 </body>
-</html>
+        <!-- Footer --> 
+    
+         
+
+</html>	

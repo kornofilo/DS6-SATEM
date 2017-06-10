@@ -47,16 +47,27 @@
             <a href="#" class="brand-logo">SATEM</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+    <!-- Searchbar + Logout button -->
+    <div class="nav-wrapper">
+      <ul>
+       <li>
+        <form>
+            <div class="input-field">
+            <input id="search" type="search" required placeholder="Buscar Paciente">
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+       </li>
+       <li><a href="collapsible.html">Cerrar Sesion</a></li>
+      </ul>
+    </div>
           
-            <li><a href="">Busqueda</a></li>
-     
-            <li><a href="login2.0.html" id="logoutbtn">Cerrar Session</a></li>
-        </ul>
         <ul class="side-nav" id="mobile-demo">
             <li><a href="collapsible.html">busqueda</a></li>
-            <li><a href="login2.0.html" id="logoutbtn">Cerrar Sesion</a></li>
+            <li><a href="collapsible.html">Cerrar Sesion</a></li>
         </ul>
-            <script src="logout.js"></script>
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
@@ -82,23 +93,19 @@
             <label for="first_name">Lugar de la Emergencia</label>
           </div>
         </div>
-
         <div class="row">
           <div class="input-field col s6">
             <input placeholder="Descripción" id="descripcion_emergencia" type="text" class="validate">
             <label for="first_name">Descripcion de la Emergencia</label>
           </div>
         </div>
-
         <button type="submit" id="btnRegistrar" class="waves-effect waves-light btn">  
-               Registrar
+         Registrar
         </button>
         <script src="registrarEmergencia.js"></script>
-        
-    </form>
+      </form>
     </div>
     </div>
-
     
     <div id="test2" class="col s12">
          <table class="highlight" id="asignarTable">
@@ -108,8 +115,6 @@
                   <th>Descripción</th>
                   <th>Lugar</th>
                   <th>Fecha de Registro</th>
-                  <th># de Ambulancia</th>
-                  <th>Paramédico</th>
                   <th>Asignar</th>
                 </tr>
             </thead>
@@ -175,7 +180,6 @@
      </footer> 
       
 	 <!--Import jQuery before materialize.js-->
-    <!-- importacion de los javascripts necesarios-->
     <script src="asignarEmergencia.js"></script>
     <script src="registrarEmergencia.js"></script>
 

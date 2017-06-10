@@ -22,7 +22,7 @@ var tableAsignar = document.getElementById('asignarTableBody');
 
         var row = tableAsignar.insertRow(-1);
         var cell1 = row.insertCell(0); 
-        cell1.innerHTML = contAsignar;
+        cell1.innerHTML = data.key;
         var cell2 = row.insertCell(1);
         cell2.innerHTML = data.val().suceso;
         var cell2 = row.insertCell(2);

@@ -5,7 +5,6 @@
     Archivo:  (logout.js)
 */
 
-		document.getElementById("logoutbtn").addEventListener("click", logOut);
 
     function asignarEmergencia() {
        window.location = "asignarForm.html";

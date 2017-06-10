@@ -6,6 +6,8 @@
 */
 
     function registrar() {
+        var newPostKey;
+        var updates = {};
 
         //Recuperamos los valores del formulario.
         var txtLugar = document.getElementById('lugar_emergencia');
@@ -30,22 +32,26 @@
 
         };
 
-          var dbRefObject = firebase.database().ref('emergencias/');
-          dbRefObject.orderByChild("estado").equalTo("En Camino").on("child_added", function(data) {
-            var newPostKey = firebase.database().ref().child('emergencias').push().key;
-        }
+          var dbRefObject = firebase.database().ref('emergencias').limitToLast(1);;
+          dbRefObject.orderByKey().on("child_added", function(data) {               
+               updates['/emergencias/' + (parseInt(data.key) + 1)] = postData;
+          });
+
+
+                firebase.database().ref().update(updates);
+               location.replace("index2.0.html#test2");
+                location.reload();
+
+          
+    }
+
+        
 
 
 
         //Write the new post's data simultaneously in the posts list and the user's post list.
-        var updates = {};
-        updates['/emergencias/' + newPostKey] = postData;
+       
 
-        firebase.database().ref().update(updates);
-        
-        location.replace("index2.0.html#test2");
-        location.reload(); 
-
-      }
+      
 
 

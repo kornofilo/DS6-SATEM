@@ -70,35 +70,21 @@ var table = document.getElementById('enCaminoTableBody');
 
     //Cargamos los datos de la DB de Firebase.
     var dbRefObject = firebase.database().ref('emergencias/');
-    var cont = 0;
     dbRefObject.orderByChild("estado").equalTo("En Camino").on("child_added", function(data) {
-        cont += 1;
 
         var row = table.insertRow(-1);
         var cell1 = row.insertCell(0); 
-        cell1.innerHTML = cont;
+        cell1.innerHTML = data.key;
         var cell2 = row.insertCell(1);
-        cell2.innerHTML = data.val().nombre;
+        cell2.innerHTML = data.val().numAmbulancia;
         var cell2 = row.insertCell(2);
-        cell2.innerHTML = data.val().cedula;
+        cell2.innerHTML = data.val().lugarAccidente;
         var cell3 = row.insertCell(3);
-        cell3.innerHTML = data.val().numAmbulancia;
+        cell3.innerHTML = data.val().fechaRegistro;
         var cell4 = row.insertCell(4);
-        cell4.innerHTML = data.val().lugarAccidente;
-        var cell5 = row.insertCell(5);
-        cell5.innerHTML = data.val().paramedico;
-        var cell6 = row.insertCell(6);
-        cell6.innerHTML = data.val().fecha;
-        var cell7 = row.insertCell(7);
-        cell7.innerHTML = data.val().sintomas;
-        var cell8 = row.insertCell(8);
-        cell8.innerHTML = data.val().diagnostico;
-        var cell9 = row.insertCell(9);
-        cell9.innerHTML = data.val().condicionVital;
-        var cell10 = row.insertCell(10);
-        cell10.innerHTML = data.val().riesgo;
-        var cel11 = row.insertCell(11);
-        cel11.innerHTML = '<a class="waves-effect waves-light btn">Finalizar</a>';
+        cell4.innerHTML = data.val().suceso;
+        var cel5 = row.insertCell(5);
+        cel5.innerHTML = '<a class="waves-effect waves-light btn">Finalizar</a>';
 });
 
 

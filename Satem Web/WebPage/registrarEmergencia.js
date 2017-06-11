@@ -28,7 +28,6 @@
           fechaRegistro: datetime
         };
 
-        var cont = 0;
 
           //Recuperamos el valor más alto de los padres de las emergencias y le asignamos su  valor + 1 para la nueva emergencia.
           var dbRefObject = firebase.database().ref('emergencias/').limitToLast(1);

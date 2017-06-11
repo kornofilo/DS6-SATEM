@@ -22,8 +22,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="CSS/materialize.min.css">
     <title>SATEM</title>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script defer src="js/materialize.min.js"></script>
-    
+
     
 </head>
 
@@ -115,21 +116,27 @@
     </div>
     </div>
     
-    <div id="test2" class="col s12">
-         <table class="highlight" id="asignarTable">
-              <thead>
-                <tr>
-                  <th># de Emergencia</th>
-                  <th>Descripción</th>
-                  <th>Lugar</th>
-                  <th>Fecha de Registro</th>
-                  <th>Asignar</th>
-                </tr>
-            </thead>
-            <tbody id="asignarTableBody">
-              
-            </tbody>
-        </table>
+    <div id="test2" class="col s12"> <br>
+    
+    
+
+      <form onsubmit="asignarEmergencia(); return false;">
+      <h5>Seleccione una Emergencia</h5>
+         <select id="selectEmergencia" class="browser-default" style="border: 1px solid;">
+           <option value="" disabled selected>Emergencias</option>
+        </select>
+
+
+        <h5>Seleccione las emergencias que atenderán la ambulancia</h5>
+
+        <select multiple id="selectAmbulancias" class="browser-default" style="border: 1px solid;">
+        </select> <br>
+
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">Asignar Emergencia
+          <i class="material-icons right">send</i>
+         </button>
+      </form>
 
     </div> <!-- tab asignar-->
 
@@ -175,14 +182,12 @@
      </footer> 
       
 	 <!--Import jQuery before materialize.js-->
+    <script src="getData.js"></script>
     <script src="registrarEmergencia.js"></script>
     <script src="asignarEmergencia.js"></script>
     <script src="getPaciente.js"></script>
-    <script src="getData.js"></script>
     <script src="logout.js"></script>
 
-      <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
 	</body>
         <!-- Footer --> 
          

@@ -6,28 +6,62 @@
 */
 
 //Obtenemos las emergencias Registradas.
-var tableAsignar = document.getElementById('asignarTableBody');
-        
+$(document).ready(function() {
+
+  var $selectDropdown = 
+      $("#selectEmergencia");
+
+
     //Cargamos los datos de la DB de Firebase.
     var dbRefObjectERegistradas = firebase.database().ref('emergencias/');
-    var contAsignar = 0;
     dbRefObjectERegistradas.orderByChild("estado").equalTo("Registrada").on("child_added", function(data) {
-        ambulanciasid= "ambulancias" + contAsignar;
-        contAsignar += 1;
-        var row = tableAsignar.insertRow(-1);
-        var cell1 = row.insertCell(0); 
-        cell1.innerHTML = data.key;
-        var cell2 = row.insertCell(1);
-        cell2.innerHTML = data.val().suceso;
-        var cell2 = row.insertCell(2);
-        cell2.innerHTML = data.val().lugarAccidente;
-        var cell3 = row.insertCell(3);
-        cell3.innerHTML = data.val().fechaRegistro;
-        var cell4 = row.insertCell(4);
-         cell4.innerHTML = '<a class="waves-effect waves-light btn" onclick="asignarEmergencia()">Seleccionar </a>';
+     $selectDropdown.append(
+      $("<option></option>")
+        .attr("value",data.key)
+        .text(data.val().suceso + " En " + data.val().lugarAccidente)
+     );
+    });
+
+    $('select').material_select();
+
+});
+
+//Obtenemos las ambulancias disponibles.
+var cantAmbulancias = 0;
+
+$(document).ready(function() {
+
+  var $selectDropdown = 
+      $("#selectAmbulancias");
+
+
+    //Cargamos los datos de la DB de Firebase.
+    var dbRefObjectERegistradas = firebase.database().ref('ambulancias/');
+    dbRefObjectERegistradas.orderByChild("estado").equalTo("Disponible").on("child_added", function(data) {
+     $selectDropdown.append(
+      $("<option></option>")
+        .attr("value",data.key)
+        .text(data.key)
+      );
+      cantAmbulancias += 1;
+    });
+
+    if (cantAmbulancias == 0) {
+         $selectDropdown.append(
+        $("<option disabled></option>")
+        .text("No Hay Ambulancias Disponibles")
+      );
+
+    }
+
+
+
+    $('select').material_select();
 
 });
     
+
+
 
 //Obtenemos las emergencias en Camino.
 var table = document.getElementById('enCaminoTableBody');

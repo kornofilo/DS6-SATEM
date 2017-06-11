@@ -5,7 +5,7 @@
     Archivo:  (checkLogin.js)
 */
 
-        //Si los datos ingresados son correctos, se redigirá al usuario a la página principal.
+        //Comprobamos si el usuario se encuentra logueado.
         firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
         } else {

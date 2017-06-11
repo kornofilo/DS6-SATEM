@@ -9,14 +9,11 @@
 var tableAsignar = document.getElementById('asignarTableBody');
         
     //Cargamos los datos de la DB de Firebase.
-    var dbRefObject = firebase.database().ref('emergencias/');
+    var dbRefObjectERegistradas = firebase.database().ref('emergencias/');
     var contAsignar = 0;
-    var options =  getOptions();
-    dbRefObject.orderByChild("estado").equalTo("Registrada").on("child_added", function(data) {
+    dbRefObjectERegistradas.orderByChild("estado").equalTo("Registrada").on("child_added", function(data) {
         ambulanciasid= "ambulancias" + contAsignar;
         contAsignar += 1;
-
-
         var row = tableAsignar.insertRow(-1);
         var cell1 = row.insertCell(0); 
         cell1.innerHTML = data.key;
@@ -30,22 +27,7 @@ var tableAsignar = document.getElementById('asignarTableBody');
          cell4.innerHTML = '<a class="waves-effect waves-light btn" onclick="asignarEmergencia()">Seleccionar </a>';
 
 });
-        function getOptions(){
-         var ambulanciaRefObject = firebase.database().ref('ambulancias/');
-         var i = 0;
-         var options = new Array();
-        
-         ambulanciaRefObject.orderByChild("estado").equalTo("Disponible").on("child_added", function(dataAmbulance) {
-             
-            options[i] = dataAmbulance.key;
-            i+= 1;
-
-
-        });
-
-           return options; 
-        }
-
+    
 
 //Obtenemos las emergencias en Camino.
 var table = document.getElementById('enCaminoTableBody');

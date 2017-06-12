@@ -25,6 +25,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
@@ -89,10 +93,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void updateUI(FirebaseUser currentUser) {
-
-    }
-
     @Override
     public void onClick(View v) {
         ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarLogin);
@@ -129,6 +129,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
         }
+    }//Fin Onclick
+
+    //Almacenamos en el perfil del
+    void setAmbulanceNumber(final String ambulancia){
+        /*postRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                User user = mutableData.getValue(User.class);
+                if (user == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                user.ambulancia = ambulancia;
+
+                // Set value and report transaction success
+                mutableData.setValue(p);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+            }*/
+
     }
 
 

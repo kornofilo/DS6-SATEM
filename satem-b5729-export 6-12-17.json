@@ -1,0 +1,155 @@
+{
+  "ambulancias" : {
+    "A1" : {
+      "cantidadEmergencias" : 1,
+      "estado" : "Ocupada",
+      "ultimaEmergencia" : "11"
+    },
+    "A2" : {
+      "cantidadEmergencias" : 0,
+      "estado" : "Disponible",
+      "ultimaEmergencia" : "1"
+    },
+    "A3" : {
+      "cantidadEmergencias" : 0,
+      "estado" : "Ocupada",
+      "ultimaEmergencia" : "5"
+    },
+    "A4" : {
+      "cantidadEmergencias:" : 0,
+      "estado" : "Disponible",
+      "ultimaEmergencia:" : 1
+    },
+    "A5" : {
+      "cantidadEmergencias:" : 0,
+      "estado" : "Disponible",
+      "ultimaEmergencia:" : 1
+    },
+    "A6" : {
+      "cantidadEmergencias:" : 0,
+      "estado" : "Disponible",
+      "ultimaEmergencia:" : 1
+    },
+    "A7" : {
+      "cantidadEmergencias:" : 0,
+      "estado" : "Disponible",
+      "ultimaEmergencia:" : 1
+    },
+    "undefined" : {
+      "cantidadEmergencias" : 2,
+      "estado" : "Ocupada",
+      "ultimaEmergencia" : "11"
+    }
+  },
+  "emergencias" : [ {
+    "lugar" : "Cafetín"
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "9/6/2017 a las 19:58:51",
+    "lugarAccidente" : "Calle Cuarta, David",
+    "numAmbulancia" : "A1,A2",
+    "suceso" : "Choque de autos."
+  }, {
+    "estado" : "Registrada",
+    "fechaRegistro" : "10/6/2017 a las 22:2:45",
+    "lugarAccidente" : "LAB",
+    "numAmbulancia" : "",
+    "suceso" : "Quemaron un Arduino ajeno."
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "10/6/2017 a las 22:2:45",
+    "lugarAccidente" : "LAB",
+    "numAmbulancia" : "",
+    "suceso" : "Quemaron un Arduino ajeno."
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "10/6/2017 a las 22:8:33",
+    "lugarAccidente" : "Calle Cuarta, David",
+    "numAmbulancia" : "",
+    "suceso" : "Choque de autos."
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "11/6/2017 a las 0:39:21",
+    "lugarAccidente" : "Terronal",
+    "numAmbulancia" : "A3",
+    "suceso" : "Un Skater sufrió una aparatosa caída."
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "11/6/2017 a las 0:40:58",
+    "lugarAccidente" : "Cruce de Boquerón",
+    "numAmbulancia" : "A4",
+    "suceso" : "Múltiple colisión de autos."
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "11/6/2017 a las 0:42:18",
+    "lugarAccidente" : "Domino's Pizza - Paso Canoas",
+    "numAmbulancia" : "",
+    "suceso" : "Un cliente se atoró con un peperoni."
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "11/6/2017 a las 0:45:52",
+    "lugarAccidente" : "Domino's Pizza - Paso Canoas",
+    "numAmbulancia" : "",
+    "suceso" : "Un cliente se atoró con un peperoni."
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "11/6/2017 a las 0:53:21",
+    "lugarAccidente" : "Central City Police Department",
+    "numAmbulancia" : "",
+    "suceso" : "Un médico forense fue impactado por un rayo."
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "11/6/2017 a las 1:1:8",
+    "lugarAccidente" : "Central City Police Department",
+    "numAmbulancia" : "",
+    "suceso" : "Un médico forense fue impactado por un rayo."
+  }, {
+    "estado" : "En Camino",
+    "fechaRegistro" : "12/6/2017 a las 18:29:41",
+    "lugarAccidente" : "El rancho",
+    "numAmbulancia" : "A1",
+    "suceso" : "Se robaron las raquetas de ping-pong."
+  } ],
+  "interacciones" : {
+    "ambulancia" : 1,
+    "cedula" : "4-123-1234",
+    "condicion" : "valor",
+    "diagnostico" : "ninguno",
+    "edad" : 21,
+    "emergencia" : "0001",
+    "estado" : "bool",
+    "fecha" : "2017-05-23",
+    "hospital" : "valor",
+    "nombre" : "juan",
+    "paramedico" : "primero",
+    "riesgo" : "valor",
+    "sexo" : "M",
+    "sintomas" : "heridas en el brazo"
+  },
+  "pacientes" : {
+    "12345" : {
+      "cedula" : 0,
+      "nombre" : "juan"
+    },
+    "12346" : {
+      "cedula" : 1,
+      "nombre" : "maria"
+    },
+    "12347" : {
+      "cedula" : 5,
+      "nombre" : "mariana"
+    },
+    "54321" : {
+      "cedula" : 7,
+      "nombre" : "jose"
+    }
+  },
+  "users" : {
+    "Qo7PyLzMssWm9xUMifoteGDsDtF2" : {
+      "ambulancia" : "A1",
+      "correo" : "Logan@rialvic.com",
+      "nombre" : "Logan",
+      "rol" : "Paramédico"
+    }
+  }
+}

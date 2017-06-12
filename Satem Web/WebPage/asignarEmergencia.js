@@ -17,13 +17,15 @@
 	       //Seteamos el estado de las ambulancias seleccionadas como ocupadas.
 	       for(var i=0;i < values.length; i++){
 	        //Recuperamos las emergencias seleccionadas en el formulario.
-	          var dbRefObject = firebase.database().ref('ambulancias/' + values[i])
-
-	              
-	           
-	           dbRefObject.update({
-	   				estado: "Ocupada",
-	   				ultimaEmergencia: selectEmergency.value,
+	          var dbRefAmbulancias = firebase.database().ref('ambulancias/' + values[i]);
+	          dbRefAmbulancias.on('value', function(snapshot) {
+	                 console.log(snapshot.val());  
+	                  var postDataAmbulancia = {
+	                  estado: "Ocupada",
+					  ultimaEmergencia: selectEmergency.value,
+					  cantidadEmergencias: parseInt(snapshot.val().cantidadEmergencias) + 1
+			        };
+	               updates['/ambulancias/' + values[i]] = postDataAmbulancia;           
 				});
 	        }
 
@@ -46,7 +48,7 @@
 	          console.log(updates);
 
 	          //Agregamos la nueva emergencia.
-	           firebase.database().ref().update(updates,function(error) {
+	          firebase.database().ref().update(updates,function(error) {
 	                if (error) {
 	                alert("Error al asignar la emergencia: " + error);
 	                } else {

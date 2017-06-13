@@ -144,12 +144,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         ambulanceRef.child("users").child(userNow.getUid()).child("ambulancia").runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
-                User userValues = mutableData.getValue(User.class);
-
-                userValues.ambulancia = ambulancia;
-
-                // Set value and report transaction success
-                mutableData.setValue(userValues);
+                mutableData.setValue(ambulancia);
                 System.out.println("transaction "  + Transaction.success(mutableData));
                 return Transaction.success(mutableData);
             }

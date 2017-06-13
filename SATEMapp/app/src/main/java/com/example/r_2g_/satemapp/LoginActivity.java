@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,13 +26,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     TextView emailET, passwordET, ambulanceET;
+    DatabaseReference myRef;
+
 
 
     @Override
@@ -67,12 +71,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    System.out.print("onAuthStateChanged:signed_in:" + user.getUid());
+                    System.out.println("onAuthStateChanged:signed_in:" + user.getUid());
                     Intent itentMain = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(itentMain);
                 } else {
                     // User is signed out
-                    System.out.print("onAuthStateChanged:signed_out");
+                    System.out.println("onAuthStateChanged:signed_out");
                 }
             }
         };
@@ -100,11 +104,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final Intent intent;
         switch (v.getId()){
             case R.id.buttonLogin:{
-                if(!emailET.getText().toString().equals("") && !passwordET.getText().toString().equals("")){
+                if(!emailET.getText().toString().equals("") && !passwordET.getText().toString().equals("") && !ambulanceET.getText().toString().equals("")){
                     String emailV = emailET.getText().toString();
                     String passwordV = passwordET.getText().toString();
                     intent = new Intent(LoginActivity.this,MainActivity.class);
-                    intent.putExtra("numAmbulance",ambulanceET.getText().toString());
                     mAuth.signInWithEmailAndPassword(emailV, passwordV)
                             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -117,6 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
                                                 Toast.LENGTH_SHORT).show();
                                     }else if (task.isSuccessful()){
+                                        setAmbulanceNumber(ambulanceET.getText().toString());
                                         startActivity(intent);
                                         finish();
                                     }
@@ -133,27 +137,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     //Almacenamos en el perfil del
     void setAmbulanceNumber(final String ambulancia){
-        /*postRef.runTransaction(new Transaction.Handler() {
+        final FirebaseUser userNow = FirebaseAuth.getInstance().getCurrentUser();
+        System.out.println("uid " + userNow.getUid());
+        DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();
+        System.out.println(ambulanceRef.child("users").child(userNow.getUid()).child("ambulancia"));
+        ambulanceRef.child("users").child(userNow.getUid()).child("ambulancia").runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
-                User user = mutableData.getValue(User.class);
-                if (user == null) {
-                    return Transaction.success(mutableData);
-                }
+                User userValues = mutableData.getValue(User.class);
 
-                user.ambulancia = ambulancia;
+                userValues.ambulancia = ambulancia;
 
                 // Set value and report transaction success
-                mutableData.setValue(p);
+                mutableData.setValue(userValues);
+                System.out.println("transaction "  + Transaction.success(mutableData));
                 return Transaction.success(mutableData);
             }
 
             @Override
             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
 
-            }*/
+            }
 
-    }
+    });
+    }//Fin setAmbulanceNumber
 
 
 }

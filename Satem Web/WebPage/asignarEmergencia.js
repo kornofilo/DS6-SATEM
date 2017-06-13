@@ -18,7 +18,7 @@
 	       for(var i=0;i < values.length; i++){
 	        //Recuperamos las emergencias seleccionadas en el formulario.
 	          var dbRefAmbulancias = firebase.database().ref('ambulancias/' + values[i]);
-	          dbRefAmbulancias.on('value', function(snapshot) {
+	          dbRefAmbulancias.once('value', function(snapshot) {
 	                 console.log(snapshot.val());  
 	                  var postDataAmbulancia = {
 	                  estado: "Ocupada",

@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity{
     FirebaseDatabase database;
     static DatabaseReference myRef;
     static Bundle extras;
-    static FirebaseUser user;
-    User userData;
+    static String ambulancia;
+
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity{
         }
 
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -89,11 +88,7 @@ public class MainActivity extends AppCompatActivity{
         tabLayout.setupWithViewPager(mViewPager);
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("emergencias");
-
-        //Obtenemos el #de ambulancia del paramedico
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        getUserData(user.getUid());
+        myRef = database.getReference("emergencias/");
 
     }
 
@@ -131,6 +126,10 @@ public class MainActivity extends AppCompatActivity{
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -156,12 +155,15 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-
             View rootView = null;
-            Query emergenciasQuery = myRef.orderByChild("ambulancias").equalTo(user.getUid());
+
+
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1: {
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
+                    //Extraemos los valores en los Textviews y Spinners
+
                     //EditTexts
                     final EditText nombre, cedula,sintomas,lugar,diagnostico;
                     nombre = (EditText) rootView.findViewById(R.id.editTextNombrePaciente);
@@ -175,13 +177,6 @@ public class MainActivity extends AppCompatActivity{
                     genero = (Spinner) rootView.findViewById(R.id.spinnerSexo);
                     condicionVital = (Spinner) rootView.findViewById(R.id.spinnerCondVital);
                     riesgo = (Spinner) rootView.findViewById(R.id.spinnerRiesgo);
-
-
-
-
-
-
-                    //Extraemos los valores en los Textviews y Spinners
 
 
                     Button enviarEmergencia = (Button) rootView.findViewById(R.id.buttonEnviar);
@@ -248,49 +243,11 @@ public class MainActivity extends AppCompatActivity{
                 break;
                 case 2: {
                     rootView = inflater.inflate(R.layout.fragment_historial, container, false);
-                    // Leemos desde la base de datos.
-                    final View finalRootView1 = rootView;
+                    fillTab2(rootView);
 
-                    emergenciasQuery.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            // This method is called once with the initial value and again
-                            // whenever data at this location is updated.
-                            //Emergencias value = dataSnapshot.getValue(Emergencias.class);
-                            TextView noHistTV;
-                            noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
-                            if(dataSnapshot.getValue() == null) {
-                                noHistTV.setVisibility(View.VISIBLE);
-                            }else{
-                                noHistTV.setVisibility(View.INVISIBLE);
-                                ListView historialLV;
-                                historialLV = (ListView) finalRootView1.findViewById(R.id.listViewHistorial);
-                                Map<String, String> historialMap = new HashMap<>();
-                                ArrayList<String> mylist = new ArrayList<>();
-                                ArrayAdapter<String> adapter;
-
-                                for(DataSnapshot ds : dataSnapshot.getChildren() ){
-                                     String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
-                                             + "\n\n -Fecha: " +  ds.child("fecha").getValue().toString()
-                                             + "\n\n -Lugar: " +  ds.child("lugarAccidente").getValue().toString()
-                                             + "\n\n -Síntomas: " + ds.child("sintomas").getValue().toString()
-                                             + "\n\n -Diagnóstico: " + ds.child("diagnostico").getValue().toString();
-
-                                    mylist.add(resumen);
-                                }
-                                adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,mylist);
-                                historialLV.setAdapter(adapter);
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError error) {
-                            // Failed to read value
-                            System.out.println("Failed to read value." + error.toException());
-                        }
-                    });
                 }
+
+
                 break;
                 //En el case #3, cargamos el fragment que contendrá el perfil del usuario logueado.
                 case 3: {
@@ -310,6 +267,73 @@ public class MainActivity extends AppCompatActivity{
             return rootView;
 
         }
+
+        void fillTab2(View rootView) {
+            DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();
+            Query getDataQuery = ambulanceRef.child("users/").child(user.getUid());
+            getDataQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    ambulancia = dataSnapshot.child("ambulancia").getValue().toString();
+                    System.out.println(ambulancia);
+
+                }
+
+
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    System.out.println("Failed to read value." + error.toException());
+                }
+            });
+            System.out.println(user.getUid() +" ambulancia: " + ambulancia);
+            final View finalRootView1 = rootView;
+
+            Query emergenciasQuery = myRef.orderByChild("numAmbulancia").equalTo(ambulancia);
+            emergenciasQuery.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    //Emergencias value = dataSnapshot.getValue(Emergencias.class);
+                    TextView noHistTV;
+                    noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
+                    if(dataSnapshot.getValue() == null) {
+                        noHistTV.setVisibility(View.VISIBLE);
+                    }else{
+                        noHistTV.setVisibility(View.INVISIBLE);
+                        ListView historialLV;
+                        historialLV = (ListView) finalRootView1.findViewById(R.id.listViewHistorial);
+                        ArrayList<String> mylist = new ArrayList<>();
+                        ArrayAdapter<String> adapter;
+
+                        for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                            String resumen =
+                                     "#" + ds.getKey() + "\n"
+                                     + "-Suceso: " +  ds.child("suceso").getValue().toString() + "\n"
+                                     + "-Lugar: " +  ds.child("lugarAccidente").getValue().toString();
+
+                            mylist.add(resumen);
+                            System.out.println(ds.child("lugarAccidente").getValue());
+
+                        }
+                        adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,mylist);
+                        historialLV.setAdapter(adapter);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    System.out.println("Failed to read value." + error.toException());
+                }
+            });
+
+        }
+
 
     }
 
@@ -352,31 +376,10 @@ public class MainActivity extends AppCompatActivity{
         }//Fin getPageTitle.
     }//Fin SectionsPagerAdapter.
 
-    private void getUserData(String uid) {
-        DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();
-        Query getDataQuery = ambulanceRef.child("users").orderByKey().equalTo(uid);
-
-        System.out.println("Query  " + ambulanceRef.child("users").orderByKey().equalTo(uid));
-        getDataQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                for(DataSnapshot ds : dataSnapshot.getChildren() ){
-                    System.out.println(ds.child("ambulancia").getValue());
-
-                }
-
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                System.out.println("Failed to read value." + error.toException());
-            }
-        });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
     }
 
 }//Fin de clase.

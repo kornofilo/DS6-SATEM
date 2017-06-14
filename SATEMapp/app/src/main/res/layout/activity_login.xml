@@ -43,16 +43,16 @@
         android:id="@+id/editTextNAmbulancia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/numAmb"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
         android:layout_above="@+id/buttonForget"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="55dp"
-        android:layout_alignParentEnd="true" />
+        android:ems="10"
+        android:hint="@string/numAmb"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonLogin"

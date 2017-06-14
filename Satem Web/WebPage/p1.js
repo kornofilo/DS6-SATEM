@@ -21,7 +21,7 @@ document.getElementById("buscarPacienteForm")
     var dbRefObject = firebase.database().ref('pacientes/');
     var contAsignar = 0;
     
-    dbRefObject.orderByKey().equalTo("0").on("child_added", function(data) {
+    dbRefObject.orderByKey().equalTo("12345").on("child_added", function(data) {
         contAsignar += 1;
         console.log(data);
 

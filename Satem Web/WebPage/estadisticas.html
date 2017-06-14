@@ -71,7 +71,7 @@
                 </tr>
             </thead>
         </table>
-        <script src="getpaciente.js"></script>
+        <script src="p1.js"></script>
         </div>
 <script>
 var pieData = [{value: 40,color:"#0b82e7",highlight: "#0c62ab",label: "Google Chrome"},
@@ -122,10 +122,14 @@ var pieData = [{value: 40,color:"#0b82e7",highlight: "#0c62ab",label: "Google Ch
 
   } 
   var aldair=50,vanesa=50,julia=70;
+  var meses = new Array("general","campeon","dopar","Abril","Mayo","Junio","Julio");
+  var valores  = new Array(80,40,30,50,34,23,12);
+  var valores2 = new Array(56,67,56,45,89,45,23);
+  
 
-  var manuel='sexo';
     var lineChartData = {
-      labels : [manuel,"Febrero","Marzo","Abril","Mayo","Junio","Julio"],
+      //aqui pasamos los valores del arreglo a la base de la grafica
+      labels :meses,
       datasets : [
         {
           label: "Primera serie de datos",
@@ -135,7 +139,7 @@ var pieData = [{value: 40,color:"#0b82e7",highlight: "#0c62ab",label: "Google Ch
           pointStrokeColor : "#fff",
           pointHighlightFill : "#fff",
           pointHighlightStroke : "rgba(220,220,220,1)",
-          data : [90,30,10,80,15,5,15]
+          data :valores2
         },
         {
           label: "Segunda serie de datos",
@@ -145,7 +149,7 @@ var pieData = [{value: 40,color:"#0b82e7",highlight: "#0c62ab",label: "Google Ch
           pointStrokeColor : "#fff",
           pointHighlightFill : "#fff",
           pointHighlightStroke : "rgba(151,187,205,1)",
-          data : [aldair,vanesa,julia,40,85,55,15]
+          data :valores
         }
       ]
 

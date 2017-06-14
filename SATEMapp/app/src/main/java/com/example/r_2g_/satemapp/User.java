@@ -2,11 +2,8 @@ package com.example.r_2g_.satemapp;
 
 
 public class User {
-    public String nombre;
-
-
-
-    public String ambulancia;
+    private String nombre;
+    private String ambulancia;
 
     public User(String nombre, String ambulancia) {
         this.nombre = nombre;

@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity{
     FirebaseDatabase database;
     static DatabaseReference myRef;
     static Bundle extras;
+    static FirebaseUser user;
+    User userData;
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -90,7 +92,8 @@ public class MainActivity extends AppCompatActivity{
         myRef = database.getReference("emergencias");
 
         //Obtenemos el #de ambulancia del paramedico
-        extras = getIntent().getExtras();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        getUserData(user.getUid());
 
     }
 
@@ -155,8 +158,7 @@ public class MainActivity extends AppCompatActivity{
                                  Bundle savedInstanceState) {
 
             View rootView = null;
-            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            Query emergenciasQuery = myRef.orderByChild("paramedico").equalTo(user.getEmail());
+            Query emergenciasQuery = myRef.orderByChild("ambulancias").equalTo(user.getUid());
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1: {
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -308,6 +310,7 @@ public class MainActivity extends AppCompatActivity{
             return rootView;
 
         }
+
     }
 
     /**
@@ -348,4 +351,32 @@ public class MainActivity extends AppCompatActivity{
             return null;
         }//Fin getPageTitle.
     }//Fin SectionsPagerAdapter.
+
+    private void getUserData(String uid) {
+        DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();
+        Query getDataQuery = ambulanceRef.child("users").orderByKey().equalTo(uid);
+
+        System.out.println("Query  " + ambulanceRef.child("users").orderByKey().equalTo(uid));
+        getDataQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                    System.out.println(ds.child("ambulancia").getValue());
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                System.out.println("Failed to read value." + error.toException());
+            }
+        });
+    }
+
 }//Fin de clase.

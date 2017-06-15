@@ -208,6 +208,7 @@ public class MainActivity extends AppCompatActivity{
 
         private void fillTabDiagnostico(final View rootView) {
             final ArrayList<String> emergenciasData = new ArrayList<>();
+            final Paciente paciente = new Paciente();
             //Extraemos los valores en los Textviews y Spinners
 
             final TextView emergencia = (TextView) rootView.findViewById(R.id.textViewResumenEmergencia);
@@ -238,7 +239,7 @@ public class MainActivity extends AppCompatActivity{
 
 
             //Traemos las emergencias asignadas a la ambulancia.
-            String miAmbulancia =  pref.getString("setAmbulancia",null);
+            final String miAmbulancia =  pref.getString("setAmbulancia",null);
             DatabaseReference ambulanciaRef = database.getReference("ambulancias/" + miAmbulancia + "/emergenciaActual");
             ambulanciaRef.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -264,6 +265,7 @@ public class MainActivity extends AppCompatActivity{
                         riesgoTV.setVisibility(View.GONE);
                         riesgo.setVisibility(View.GONE);
                     }else {
+                        //Si la ambulancia tiene una emergencia en proceso, mostramos el formulario de diagnóstico de pacientes.
                         emergencia.setTextColor(Color.BLACK);
                         enviarEmergencia.setVisibility(View.VISIBLE);
                         emergenciaActualTV.setVisibility(View.VISIBLE);
@@ -279,6 +281,9 @@ public class MainActivity extends AppCompatActivity{
                         condicionVital.setVisibility(View.VISIBLE);
                         riesgoTV.setVisibility(View.VISIBLE);
                         riesgo.setVisibility(View.VISIBLE);
+
+                        //Seteamos el ID de la emergencia en el diagnostico del paciente.
+                        paciente.setIdEmergencia(dataSnapshot.getValue().toString());
                         Query misEmergenciaQuery2 = myRef.orderByKey().equalTo(dataSnapshot.getValue().toString());
                         misEmergenciaQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -325,6 +330,7 @@ public class MainActivity extends AppCompatActivity{
                     String nombreV = nombre.getText().toString();
                     String cedulaV = cedula.getText().toString();
                     String generoV = genero.getSelectedItem().toString();
+                    String sucesoV = suceso.getText().toString();
                     String lugarV = lugar.getText().toString();
                     String sintomasV = sintomas.getText().toString();
                     String diagnosticoV = diagnostico.getText().toString();
@@ -335,21 +341,23 @@ public class MainActivity extends AppCompatActivity{
                     DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
                     //Llenamos el objeto Emergencias con los datos obtenidos por el usuario.
-                    final Emergencias emergencia = new Emergencias(nombreV,
-                            cedulaV,
-                            extras.getString("numAmbulance"),
-                            lugarV,
-                            generoV,
-                            user.getEmail(),
-                            hourdateFormat.format(date),
-                            sintomasV,
-                            diagnosticoV,
-                            condicionVitalV,
-                            riesgoV,
-                            "En Camino");
+                    paciente.setNombre(nombreV);
+                    paciente.setCedula(cedulaV);
+                    paciente.setCedula(cedulaV);
+                    paciente.setSuceso(sucesoV);
+                    paciente.setLugarAccidente(lugarV);
+                    paciente.setSintomas(sintomasV);
+                    paciente.setDiagnostico(diagnosticoV);
+                    paciente.setCondicionVital(condicionVitalV);
+                    paciente.setRiesgo(riesgoV);
+                    paciente.setFecha(hourdateFormat.format(date));
+                    paciente.setNumAmbulancia(miAmbulancia);
+                    paciente.setNumAmbulancia_paramedico(miAmbulancia + "_" + user.getEmail());
+
 
                     if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
-                        pacientesReference.child(cedulaV).setValue(emergencia);
+                        String id = myRef.push().getKey();
+                        pacientesReference.child(id).setValue(paciente);
                         Toast.makeText(getActivity(),"Emergencia Enviada Correctamente.",Toast.LENGTH_SHORT).show();
 
                         //Limpiamos los datos
@@ -357,6 +365,7 @@ public class MainActivity extends AppCompatActivity{
                         cedula.setText("");
                         lugar.setText("");
                         sintomas.setText("");
+                        suceso.setText("");
                         diagnostico.setText("");
 
                         mViewPager.setCurrentItem(1, true);

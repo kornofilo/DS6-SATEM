@@ -16,6 +16,11 @@
     <!-- Activar Notificaciones -->
     <string name="pref_title_enable_notifications">Activar Notificaciones</string>
 
+    <!-- Cambiar numero de ambulancia -->
+    <string name="pref_title_set_ambulancia">Cambiar Número de Ambulancia</string>
+    <string name="pref_description_set_ambulancia">Introduzca el número de ambulancia en el que estás atendiendo.</string>
+
+
     <!-- Regresar a Nuevo Paciente -->
     <string name="pref_title_backTo_newPatient">Regresar a Nuevo Cliente</string>
     <string name="pref_description_backTo_newPatient">Al enviar una emergencia, se le redireccionará al formulario de Nuevo Paciente.</string>

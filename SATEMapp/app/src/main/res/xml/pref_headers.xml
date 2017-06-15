@@ -16,5 +16,12 @@
         android:key="enableNotifications_switch"
         android:summary="@string/pref_description_backTo_newPatient"
         android:title="@string/pref_title_backTo_newPatient" />
+
+     <EditTextPreference
+         android:defaultValue="true"
+         android:key="setAmbulancia"
+         android:summary="@string/pref_description_set_ambulancia"
+         android:title="@string/pref_title_set_ambulancia" />
+
  </PreferenceCategory>
 </PreferenceScreen>

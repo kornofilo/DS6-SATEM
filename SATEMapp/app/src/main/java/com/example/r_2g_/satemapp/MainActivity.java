@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         //Verificamos el tema seleccionado por el usuario
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+
         boolean tema = pref.getBoolean("nightMode_switch", false);
 
         //Dependiendo del valor recuperado, se establece el tema para la activity.

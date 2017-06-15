@@ -7,9 +7,9 @@
 
 
 package com.example.r_2g_.satemapp;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.EditTextPreference;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,15 +29,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     TextView emailET, passwordET, ambulanceET;
-    DatabaseReference myRef;
-
+    SharedPreferences pref;
 
 
     @Override
@@ -46,8 +44,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         super.onCreate(savedInstanceState);
         //Verificamos el tema seleccionado por el usuario
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        pref  = PreferenceManager.getDefaultSharedPreferences(this);
         boolean tema = pref.getBoolean("nightMode_switch", true);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
 
         //Dependiendo del valor recuperado, se establece el tema para la activity.
         if(tema) {
@@ -139,13 +139,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     void setAmbulanceNumber(final String ambulancia){
         final FirebaseUser userNow = FirebaseAuth.getInstance().getCurrentUser();
         System.out.println("uid " + userNow.getUid());
-        DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();
         System.out.println(ambulanceRef.child("users").child(userNow.getUid()).child("ambulancia"));
         ambulanceRef.child("users").child(userNow.getUid()).child("ambulancia").runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 mutableData.setValue(ambulancia);
                 System.out.println("transaction "  + Transaction.success(mutableData));
+                //Seteamos el numero de ambulancia como SharedPreference
+                // EditTextPreference ambulanciaPref ;
+                /*ambulanciaPref.getEditText("");
+                ambulanciaPref.setText(ambulancia);*/
                 return Transaction.success(mutableData);
             }
 

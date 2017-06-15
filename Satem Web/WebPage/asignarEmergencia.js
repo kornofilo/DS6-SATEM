@@ -40,6 +40,7 @@
 			          lugarAccidente: snapshot.val().lugarAccidente,
 			          suceso : snapshot.val().suceso,
 			          estado : "En Camino",
+			          estado_ambulancia: "En Camino" + "_" + values.join(),
 			          fechaRegistro: snapshot.val().fechaRegistro
 			        };
 	               updates['/emergencias/' + selectEmergency.value] = postData;           

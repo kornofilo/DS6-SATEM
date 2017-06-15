@@ -9,8 +9,10 @@ package com.example.r_2g_.satemapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ScrollingView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
@@ -47,7 +49,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
-    FirebaseDatabase database;
+    static FirebaseDatabase database;
     static DatabaseReference myRef;
     static Bundle extras;
     static String ambulancia;
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity{
 
                 break;
 
-                case 2: {
+                case 3: {
                     rootView = inflater.inflate(R.layout.fragment_historial, container, false);
                     fillTab2(rootView);
 
@@ -186,7 +188,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
 
                 //En el case #3, cargamos el fragment que contendrá el perfil del usuario logueado.
-                case 3: {
+                case 2: {
                     rootView = inflater.inflate(R.layout.fragment_profile, container, false);
                     //Recuperamos los datos del usuario logueado y lo seteamos a su determinado Textview.
                     if (user != null) {
@@ -204,16 +206,27 @@ public class MainActivity extends AppCompatActivity{
 
         }
 
-        private void fillTabDiagnostico(View rootView) {
+        private void fillTabDiagnostico(final View rootView) {
+            final ArrayList<String> emergenciasData = new ArrayList<>();
             //Extraemos los valores en los Textviews y Spinners
 
+            final TextView emergencia = (TextView) rootView.findViewById(R.id.textViewResumenEmergencia);
+            final TextView emergenciaActualTV = (TextView) rootView.findViewById(R.id.textViewEmergencia);
+            final TextView generoTV = (TextView) rootView.findViewById(R.id.textViewSexo);
+            final TextView condicionVitalTV = (TextView) rootView.findViewById(R.id.textViewCondVital);
+            final TextView riesgoTV = (TextView) rootView.findViewById(R.id.textViewRiesgo);
+
+
+
             //EditTexts
-            final EditText nombre, cedula,sintomas,lugar,diagnostico;
+            final EditText nombre, cedula,sintomas,lugar,diagnostico, suceso;
             nombre = (EditText) rootView.findViewById(R.id.editTextNombrePaciente);
             cedula = (EditText) rootView.findViewById(R.id.editTextCedula);
+            suceso = (EditText) rootView.findViewById(R.id.editTextSuceso);
             lugar = (EditText) rootView.findViewById(R.id.editTextLugar);
             sintomas = (EditText) rootView.findViewById(R.id.editTextSintomas);
             diagnostico = (EditText) rootView.findViewById(R.id.editTextDiagnostico);
+
 
             //Spinners
             final Spinner genero, condicionVital,riesgo;
@@ -221,13 +234,94 @@ public class MainActivity extends AppCompatActivity{
             condicionVital = (Spinner) rootView.findViewById(R.id.spinnerCondVital);
             riesgo = (Spinner) rootView.findViewById(R.id.spinnerRiesgo);
 
+            final Button enviarEmergencia = (Button) rootView.findViewById(R.id.buttonEnviar);
 
-            Button enviarEmergencia = (Button) rootView.findViewById(R.id.buttonEnviar);
+
+            //Traemos las emergencias asignadas a la ambulancia.
+            String miAmbulancia =  pref.getString("setAmbulancia",null);
+            DatabaseReference ambulanciaRef = database.getReference("ambulancias/" + miAmbulancia + "/emergenciaActual");
+            ambulanciaRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    System.out.println( "query1 " + dataSnapshot);
+                    if(dataSnapshot.getValue() == null || dataSnapshot.getValue().toString().equals("")){
+
+
+                        emergencia.setText("* Atención La ambulancia seleccionada no tiene emergencias en curso o no está registrada en el sistema. *");
+                        emergencia.setTextColor(Color.RED);
+                        enviarEmergencia.setVisibility(View.GONE);
+                        emergenciaActualTV.setVisibility(View.GONE);
+                        nombre.setVisibility(View.GONE);
+                        cedula.setVisibility(View.GONE);
+                        generoTV.setVisibility(View.GONE);
+                        genero.setVisibility(View.GONE);
+                        suceso.setVisibility(View.GONE);
+                        lugar.setVisibility(View.GONE);
+                        sintomas.setVisibility(View.GONE);
+                        diagnostico.setVisibility(View.GONE);
+                        condicionVitalTV.setVisibility(View.GONE);
+                        condicionVital.setVisibility(View.GONE);
+                        riesgoTV.setVisibility(View.GONE);
+                        riesgo.setVisibility(View.GONE);
+                    }else {
+                        emergencia.setTextColor(Color.BLACK);
+                        enviarEmergencia.setVisibility(View.VISIBLE);
+                        emergenciaActualTV.setVisibility(View.VISIBLE);
+                        nombre.setVisibility(View.VISIBLE);
+                        cedula.setVisibility(View.VISIBLE);
+                        generoTV.setVisibility(View.VISIBLE);
+                        genero.setVisibility(View.VISIBLE);
+                        suceso.setVisibility(View.VISIBLE);
+                        lugar.setVisibility(View.VISIBLE);
+                        sintomas.setVisibility(View.VISIBLE);
+                        diagnostico.setVisibility(View.VISIBLE);
+                        condicionVitalTV.setVisibility(View.VISIBLE);
+                        condicionVital.setVisibility(View.VISIBLE);
+                        riesgoTV.setVisibility(View.VISIBLE);
+                        riesgo.setVisibility(View.VISIBLE);
+                        Query misEmergenciaQuery2 = myRef.orderByKey().equalTo(dataSnapshot.getValue().toString());
+                        misEmergenciaQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                                    System.out.println( "query2 " + ds);
+                                    emergencia.setText(ds.child("suceso").getValue().toString() + " @ " + ds.child("lugarAccidente").getValue().toString());
+                                    lugar.setText(ds.child("lugarAccidente").getValue().toString());
+                                    suceso.setText(ds.child("suceso").getValue().toString());
+                                }
+
+
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+                                // Failed to read value
+                                System.out.println("Failed to read value." + error.toException());
+                            }
+                        });
+                    }
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    System.out.println("Failed to read value." + error.toException());
+                }
+            });
+
+
+
+
 
             enviarEmergencia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String id = myRef.push().getKey();
+                    DatabaseReference pacientesReference = database.getReference("pacientes");
                     String nombreV = nombre.getText().toString();
                     String cedulaV = cedula.getText().toString();
                     String generoV = genero.getSelectedItem().toString();
@@ -255,7 +349,7 @@ public class MainActivity extends AppCompatActivity{
                             "En Camino");
 
                     if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
-                        myRef.child(id).setValue(emergencia);
+                        pacientesReference.child(cedulaV).setValue(emergencia);
                         Toast.makeText(getActivity(),"Emergencia Enviada Correctamente.",Toast.LENGTH_SHORT).show();
 
                         //Limpiamos los datos
@@ -274,6 +368,8 @@ public class MainActivity extends AppCompatActivity{
 
                 }
             });
+
+
 
         }
 
@@ -303,14 +399,15 @@ public class MainActivity extends AppCompatActivity{
                         ArrayAdapter<String> adapter;
 
                         for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                            System.out.println(ds);
                             String resumen =
                                      "#" + ds.getKey() + "\n"
                                      + "-Suceso: " +  ds.child("suceso").getValue().toString() + "\n"
                                      + "-Lugar: " +  ds.child("lugarAccidente").getValue().toString() + "\n"
-                                             + "-Fecha: " + ds.child("fechaRegistro").getValue().toString();
+                                             + "-Fecha: " + ds.child("fechaRegistro").getValue().toString() + "\n"
+                                             + "-Estado: " + ds.child("estado").getValue().toString() + "\n";
 
                             mylist.add(resumen);
-                            System.out.println(ds.child("lugarAccidente").getValue());
 
                         }
                         adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,mylist);
@@ -352,7 +449,7 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 3;
         }
 
         //Setemos los nombres de las pestañas.
@@ -362,6 +459,8 @@ public class MainActivity extends AppCompatActivity{
                 case 0:
                     return "Diagnóstico del Paciente";
                 case 1:
+                    return "Pacientes de la Emergencia";
+                case 2:
                     return "Historial de Emergencias";
             }
             return null;

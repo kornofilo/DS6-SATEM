@@ -147,7 +147,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 mutableData.setValue(ambulancia);
                 System.out.println("transaction "  + Transaction.success(mutableData));
                 //Seteamos el numero de ambulancia como SharedPreference
-                // EditTextPreference ambulanciaPref ;
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("setAmbulancia",ambulancia);
+                editor.apply();
                 /*ambulanciaPref.getEditText("");
                 ambulanciaPref.setText(ambulancia);*/
                 return Transaction.success(mutableData);

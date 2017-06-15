@@ -69,6 +69,9 @@
 
     <string name="logout">Cerrar Sesión</string>
     <string name="lugar">Lugar del Accidente</string>
+    <string name="emergenciaActual">Emergencia Actual:</string>
+    <string name="suceso">Suceso</string>
+    <string name="action_profle">Mi Perfil</string>
 
 
 </resources>

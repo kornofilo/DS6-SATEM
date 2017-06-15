@@ -56,13 +56,14 @@ public class MainActivity extends AppCompatActivity{
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static ViewPager mViewPager;
+    static SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         //Verificamos el tema seleccionado por el usuario
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         boolean tema = pref.getBoolean("nightMode_switch", false);
 
@@ -163,75 +164,16 @@ public class MainActivity extends AppCompatActivity{
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1: {
                     rootView = inflater.inflate(R.layout.fragment_main, container, false);
-                    //Extraemos los valores en los Textviews y Spinners
+                    fillTabDiagnostico(rootView);
 
-                    //EditTexts
-                    final EditText nombre, cedula,sintomas,lugar,diagnostico;
-                    nombre = (EditText) rootView.findViewById(R.id.editTextNombrePaciente);
-                    cedula = (EditText) rootView.findViewById(R.id.editTextCedula);
-                    lugar = (EditText) rootView.findViewById(R.id.editTextLugar);
-                    sintomas = (EditText) rootView.findViewById(R.id.editTextSintomas);
-                    diagnostico = (EditText) rootView.findViewById(R.id.editTextDiagnostico);
-
-                    //Spinners
-                    final Spinner genero, condicionVital,riesgo;
-                    genero = (Spinner) rootView.findViewById(R.id.spinnerSexo);
-                    condicionVital = (Spinner) rootView.findViewById(R.id.spinnerCondVital);
-                    riesgo = (Spinner) rootView.findViewById(R.id.spinnerRiesgo);
+                }
 
 
-                    Button enviarEmergencia = (Button) rootView.findViewById(R.id.buttonEnviar);
+                break;
 
-                    enviarEmergencia.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String id = myRef.push().getKey();
-                            String nombreV = nombre.getText().toString();
-                            String cedulaV = cedula.getText().toString();
-                            String generoV = genero.getSelectedItem().toString();
-                            String lugarV = lugar.getText().toString();
-                            String sintomasV = sintomas.getText().toString();
-                            String diagnosticoV = diagnostico.getText().toString();
-                            String condicionVitalV = condicionVital.getSelectedItem().toString();
-                            String riesgoV = riesgo.getSelectedItem().toString();
-
-                            Date date = new Date();
-                            DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-                            //Llenamos el objeto Emergencias con los datos obtenidos por el usuario.
-                            final Emergencias emergencia = new Emergencias(nombreV,
-                                    cedulaV,
-                                    extras.getString("numAmbulance"),
-                                    lugarV,
-                                    generoV,
-                                    user.getEmail(),
-                                    hourdateFormat.format(date),
-                                    sintomasV,
-                                    diagnosticoV,
-                                    condicionVitalV,
-                                    riesgoV,
-                                    "En Camino");
-
-                            if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
-                                myRef.child(id).setValue(emergencia);
-                                Toast.makeText(getActivity(),"Emergencia Enviada Correctamente.",Toast.LENGTH_SHORT).show();
-
-                                //Limpiamos los datos
-                                nombre.setText("");
-                                cedula.setText("");
-                                lugar.setText("");
-                                sintomas.setText("");
-                                diagnostico.setText("");
-
-                                mViewPager.setCurrentItem(1, true);
-
-
-                            }
-                            else
-                                Toast.makeText(getActivity(),"Por favor, llene todos los campos.",Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
+                case 2: {
+                    rootView = inflater.inflate(R.layout.fragment_historial, container, false);
+                    fillTab2(rootView);
 
 
                     //Inicializamos la Clase Emergencias.
@@ -242,14 +184,7 @@ public class MainActivity extends AppCompatActivity{
 
                 }
                 break;
-                case 2: {
-                    rootView = inflater.inflate(R.layout.fragment_historial, container, false);
-                    fillTab2(rootView);
 
-                }
-
-
-                break;
                 //En el case #3, cargamos el fragment que contendrá el perfil del usuario logueado.
                 case 3: {
                     rootView = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -269,30 +204,87 @@ public class MainActivity extends AppCompatActivity{
 
         }
 
-        void fillTab2(View rootView) {
-            DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();
-            Query getDataQuery = ambulanceRef.child("users/").child(user.getUid());
-            getDataQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        private void fillTabDiagnostico(View rootView) {
+            //Extraemos los valores en los Textviews y Spinners
+
+            //EditTexts
+            final EditText nombre, cedula,sintomas,lugar,diagnostico;
+            nombre = (EditText) rootView.findViewById(R.id.editTextNombrePaciente);
+            cedula = (EditText) rootView.findViewById(R.id.editTextCedula);
+            lugar = (EditText) rootView.findViewById(R.id.editTextLugar);
+            sintomas = (EditText) rootView.findViewById(R.id.editTextSintomas);
+            diagnostico = (EditText) rootView.findViewById(R.id.editTextDiagnostico);
+
+            //Spinners
+            final Spinner genero, condicionVital,riesgo;
+            genero = (Spinner) rootView.findViewById(R.id.spinnerSexo);
+            condicionVital = (Spinner) rootView.findViewById(R.id.spinnerCondVital);
+            riesgo = (Spinner) rootView.findViewById(R.id.spinnerRiesgo);
+
+
+            Button enviarEmergencia = (Button) rootView.findViewById(R.id.buttonEnviar);
+
+            enviarEmergencia.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onClick(View v) {
+                    String id = myRef.push().getKey();
+                    String nombreV = nombre.getText().toString();
+                    String cedulaV = cedula.getText().toString();
+                    String generoV = genero.getSelectedItem().toString();
+                    String lugarV = lugar.getText().toString();
+                    String sintomasV = sintomas.getText().toString();
+                    String diagnosticoV = diagnostico.getText().toString();
+                    String condicionVitalV = condicionVital.getSelectedItem().toString();
+                    String riesgoV = riesgo.getSelectedItem().toString();
 
-                    ambulancia = dataSnapshot.child("ambulancia").getValue().toString();
-                    System.out.println(ambulancia);
+                    Date date = new Date();
+                    DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-                }
+                    //Llenamos el objeto Emergencias con los datos obtenidos por el usuario.
+                    final Emergencias emergencia = new Emergencias(nombreV,
+                            cedulaV,
+                            extras.getString("numAmbulance"),
+                            lugarV,
+                            generoV,
+                            user.getEmail(),
+                            hourdateFormat.format(date),
+                            sintomasV,
+                            diagnosticoV,
+                            condicionVitalV,
+                            riesgoV,
+                            "En Camino");
+
+                    if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
+                        myRef.child(id).setValue(emergencia);
+                        Toast.makeText(getActivity(),"Emergencia Enviada Correctamente.",Toast.LENGTH_SHORT).show();
+
+                        //Limpiamos los datos
+                        nombre.setText("");
+                        cedula.setText("");
+                        lugar.setText("");
+                        sintomas.setText("");
+                        diagnostico.setText("");
+
+                        mViewPager.setCurrentItem(1, true);
 
 
+                    }
+                    else
+                        Toast.makeText(getActivity(),"Por favor, llene todos los campos.",Toast.LENGTH_SHORT).show();
 
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    System.out.println("Failed to read value." + error.toException());
                 }
             });
-            System.out.println(user.getUid() +" ambulancia: " + ambulancia);
-            final View finalRootView1 = rootView;
 
-            Query emergenciasQuery = myRef.orderByChild("numAmbulancia").equalTo(ambulancia);
+        }
+
+
+
+        void fillTab2(View rootView) {
+
+            final View finalRootView1 = rootView;
+            String miAmbulancia =  pref.getString("setAmbulancia",null);
+            System.out.println(miAmbulancia);
+            Query emergenciasQuery = myRef.orderByChild("numAmbulancia").equalTo(miAmbulancia);
             emergenciasQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -314,7 +306,8 @@ public class MainActivity extends AppCompatActivity{
                             String resumen =
                                      "#" + ds.getKey() + "\n"
                                      + "-Suceso: " +  ds.child("suceso").getValue().toString() + "\n"
-                                     + "-Lugar: " +  ds.child("lugarAccidente").getValue().toString();
+                                     + "-Lugar: " +  ds.child("lugarAccidente").getValue().toString() + "\n"
+                                             + "-Fecha: " + ds.child("fechaRegistro").getValue().toString();
 
                             mylist.add(resumen);
                             System.out.println(ds.child("lugarAccidente").getValue());
@@ -359,7 +352,7 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         //Setemos los nombres de las pestañas.
@@ -367,11 +360,9 @@ public class MainActivity extends AppCompatActivity{
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Datos del Paciente";
+                    return "Diagnóstico del Paciente";
                 case 1:
-                    return "Historial";
-                case 2:
-                    return "Perfil";
+                    return "Historial de Emergencias";
             }
             return null;
         }//Fin getPageTitle.

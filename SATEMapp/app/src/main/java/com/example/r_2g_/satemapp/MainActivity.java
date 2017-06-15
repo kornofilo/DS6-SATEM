@@ -173,32 +173,28 @@ public class MainActivity extends AppCompatActivity{
 
                 break;
 
+
+
+                //En el case #3, cargamos el fragment que contendrá el perfil del usuario logueado.
+                case 2: {
+                    rootView = inflater.inflate(R.layout.fragment_historial_pacientes, container, false);
+                    fillTabHistorialPacientes(rootView);
+
+
+                }
+                break;
+
                 case 3: {
                     rootView = inflater.inflate(R.layout.fragment_historial, container, false);
                     fillTab2(rootView);
 
 
-                    //Inicializamos la Clase Emergencias.
 
 
 
 
 
                 }
-                break;
-
-                //En el case #3, cargamos el fragment que contendrá el perfil del usuario logueado.
-                case 2: {
-                    rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-                    //Recuperamos los datos del usuario logueado y lo seteamos a su determinado Textview.
-                    if (user != null) {
-                        String email = user.getEmail();
-                        TextView emailTV;
-                        emailTV = (TextView) rootView.findViewById(R.id.textViewEmailLog);
-                        emailTV.setText(email);
-                    }
-
-            }
                 break;
             }//Fin Switch-Case.
 
@@ -352,7 +348,7 @@ public class MainActivity extends AppCompatActivity{
                     paciente.setRiesgo(riesgoV);
                     paciente.setFecha(hourdateFormat.format(date));
                     paciente.setNumAmbulancia(miAmbulancia);
-                    paciente.setNumAmbulancia_paramedico(miAmbulancia + "_" + user.getEmail());
+                    paciente.setIdEmergencia_numAmbulancia_paramedico(paciente.getIdEmergencia() + "_" + miAmbulancia + "_" + user.getEmail());
 
 
                     if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
@@ -389,15 +385,14 @@ public class MainActivity extends AppCompatActivity{
             final View finalRootView1 = rootView;
             String miAmbulancia =  pref.getString("setAmbulancia",null);
             System.out.println(miAmbulancia);
-            Query emergenciasQuery = myRef.orderByChild("numAmbulancia").equalTo(miAmbulancia);
+            Query emergenciasQuery = myRef.orderByChild("ambulancia");
             emergenciasQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-                    //Emergencias value = dataSnapshot.getValue(Emergencias.class);
+
                     TextView noHistTV;
                     noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
+                    System.out.println("the last0 " + dataSnapshot.getRef());
                     if(dataSnapshot.getValue() == null) {
                         noHistTV.setVisibility(View.VISIBLE);
                     }else{
@@ -408,7 +403,7 @@ public class MainActivity extends AppCompatActivity{
                         ArrayAdapter<String> adapter;
 
                         for(DataSnapshot ds : dataSnapshot.getChildren() ){
-                            System.out.println(ds);
+                            System.out.println("the last" + ds);
                             String resumen =
                                      "#" + ds.getKey() + "\n"
                                      + "-Suceso: " +  ds.child("suceso").getValue().toString() + "\n"
@@ -417,6 +412,7 @@ public class MainActivity extends AppCompatActivity{
                                              + "-Estado: " + ds.child("estado").getValue().toString() + "\n";
 
                             mylist.add(resumen);
+
 
                         }
                         adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,mylist);
@@ -431,6 +427,81 @@ public class MainActivity extends AppCompatActivity{
                     System.out.println("Failed to read value." + error.toException());
                 }
             });
+
+        }
+
+        void fillTabHistorialPacientes(View rootView) {
+
+            final View finalRootView1 = rootView;
+            final String miAmbulancia =  pref.getString("setAmbulancia",null);
+            final ListView historialLV = (ListView) finalRootView1.findViewById(R.id.listViewHistorial);
+
+            DatabaseReference ambulanciaRef = database.getReference("ambulancias/" + miAmbulancia + "/emergenciaActual");
+            final TextView noHistTV;
+            noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
+            ambulanciaRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    System.out.println( "query1 " + dataSnapshot);
+                    if(dataSnapshot.getValue() != null){
+                        DatabaseReference pacientesRef = database.getReference("pacientes/");
+                        Query pacientesQuery = pacientesRef.orderByChild("idEmergencia_numAmbulancia_paramedico").equalTo(dataSnapshot.getValue().toString() + "_" + miAmbulancia + "_" + user.getEmail());
+                        pacientesQuery.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                                if(dataSnapshot.getValue() == null) {
+                                    noHistTV.setVisibility(View.VISIBLE);
+                                    historialLV.setVisibility(View.INVISIBLE);
+
+                                }else{
+                                    noHistTV.setVisibility(View.INVISIBLE);
+                                    ArrayList<String> mylist = new ArrayList<>();
+                                    ArrayAdapter<String> adapter;
+
+                                    for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                                        System.out.println(ds);
+                                        String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
+                                                +  "\n\n -Fecha: " +  ds.child("fecha").getValue().toString()
+                                                + "\n\n -Lugar: " +  ds.child("lugarAccidente").getValue().toString()
+                                                + "\n\n -Síntomas: " + ds.child("sintomas").getValue().toString()
+                                                + "\n\n -Diagnóstico: " + ds.child("diagnostico").getValue().toString();
+
+                                        mylist.add(resumen);
+
+                                    }
+                                    adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,mylist);
+                                    historialLV.setAdapter(adapter);
+                                }
+
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+                                // Failed to read value
+                                System.out.println("Failed to read value." + error.toException());
+                            }
+                        });
+                    }else{
+                        noHistTV.setText("Esta ambulancia no tiene una emergencia proceso en estos momentos ");
+                    }
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    System.out.println("Failed to read value." + error.toException());
+                }
+            });
+
+
+
+
 
         }
 

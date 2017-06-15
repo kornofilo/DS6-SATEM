@@ -11,7 +11,7 @@ public class Paciente {
     public String lugarAccidente;
     public String idEmergencia;
     public String suceso;
-    public String numAmbulancia_paramedico;
+    public String idEmergencia_numAmbulancia_paramedico;
     public String genero;
     public String paramedico;
     public String  fecha;
@@ -24,14 +24,14 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(String nombre, String cedula, String numAmbulancia, String lugarAccidente, String suceso, String numAmbulancia_paramedico, String genero, String paramedico, String fecha, String sintomas, String diagnostico, String condicionVital, String riesgo, String estado, String idEmergencia) {
+    public Paciente(String nombre, String cedula, String numAmbulancia, String lugarAccidente, String suceso, String idEmergencia_numAmbulancia_paramedico, String genero, String paramedico, String fecha, String sintomas, String diagnostico, String condicionVital, String riesgo, String estado, String idEmergencia) {
         this.nombre = nombre;
         this.cedula = cedula;
         this.idEmergencia = idEmergencia;
         this.numAmbulancia = numAmbulancia;
         this.lugarAccidente = lugarAccidente;
         this.suceso = suceso;
-        this.numAmbulancia_paramedico = numAmbulancia_paramedico;
+        this.idEmergencia_numAmbulancia_paramedico = idEmergencia_numAmbulancia_paramedico;
         this.genero = genero;
         this.paramedico = paramedico;
         this.fecha = fecha;
@@ -82,13 +82,7 @@ public class Paciente {
         this.suceso = suceso;
     }
 
-    public String getNumAmbulancia_paramedico() {
-        return numAmbulancia_paramedico;
-    }
 
-    public void setNumAmbulancia_paramedico(String numAmbulancia_paramedico) {
-        this.numAmbulancia_paramedico = numAmbulancia_paramedico;
-    }
 
     public String getGenero() {
         return genero;
@@ -160,5 +154,13 @@ public class Paciente {
 
     public void setIdEmergencia(String idEmergencia) {
         this.idEmergencia = idEmergencia;
+    }
+
+    public String getIdEmergencia_numAmbulancia_paramedico() {
+        return idEmergencia_numAmbulancia_paramedico;
+    }
+
+    public void setIdEmergencia_numAmbulancia_paramedico(String idEmergencia_numAmbulancia_paramedico) {
+        this.idEmergencia_numAmbulancia_paramedico = idEmergencia_numAmbulancia_paramedico;
     }
 }

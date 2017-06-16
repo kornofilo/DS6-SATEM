@@ -9,6 +9,7 @@
     function asignarEmergencia() {
        var updates = {};
        var selectEmergency = document.getElementById("selectEmergencia");
+       var ambulancia = {};
        var values = $('#selectAmbulancias').val();
        	console.log(values.length + selectEmergency.value);  
        	//Validamos los campos del formulario.
@@ -16,18 +17,24 @@
 
 	       //Seteamos el estado de las ambulancias seleccionadas como ocupadas.
 	       for(var i=0;i < values.length; i++){
+	       	
+	       		ambulancia[values[i]] = values[i];
+	       	
 	        //Recuperamos las emergencias seleccionadas en el formulario.
 	          var dbRefAmbulancias = firebase.database().ref('ambulancias/' + values[i]);
 	          dbRefAmbulancias.once('value', function(snapshot) {
 	                 console.log(snapshot.val());  
 	                  var postDataAmbulancia = {
-	                  estado: "Ocupada",
-					  ultimaEmergencia: selectEmergency.value,
+	                  estado: "Ocupada",	                 
+					  emergeciaActual: selectEmergency.value,
 					  cantidadEmergencias: parseInt(snapshot.val().cantidadEmergencias) + 1
 			        };
 	               updates['/ambulancias/' + values[i]] = postDataAmbulancia;           
 				});
-	        }
+	        }//Fin del ciclo for.
+
+	               console.log(ambulancia);
+
 
 
 
@@ -39,6 +46,7 @@
 	                  numAmbulancia: values.join(),
 			          lugarAccidente: snapshot.val().lugarAccidente,
 			          suceso : snapshot.val().suceso,
+			          ambulancia,
 			          estado : "En Camino",
 			          estado_ambulancia: "En Camino" + "_" + values.join(),
 			          fechaRegistro: snapshot.val().fechaRegistro

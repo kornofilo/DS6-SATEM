@@ -33,7 +33,7 @@
     <string name="condVital">Condición Vital:</string>
     <string name="riesgo">Riesgo:</string>
     <string name="enviar">Enviar</string>
-    <string name="NTU">No tiene urgencias Registradas en el Sistema.</string>
+    <string name="NTU">No ha registrado pacientes en la emergencia actual.</string>
     <string name="usuario">E-Mail</string>
     <string name="password">Contraseña</string>
     <string name="numAmb">Número de Ambulancia</string>

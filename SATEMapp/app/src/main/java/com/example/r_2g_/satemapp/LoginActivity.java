@@ -46,7 +46,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //Verificamos el tema seleccionado por el usuario
         pref  = PreferenceManager.getDefaultSharedPreferences(this);
         boolean tema = pref.getBoolean("nightMode_switch", true);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
 
         //Dependiendo del valor recuperado, se establece el tema para la activity.
@@ -137,6 +136,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     //Almacenamos en el perfil del
     void setAmbulanceNumber(final String ambulancia){
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         final FirebaseUser userNow = FirebaseAuth.getInstance().getCurrentUser();
         System.out.println("uid " + userNow.getUid());
         final DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();

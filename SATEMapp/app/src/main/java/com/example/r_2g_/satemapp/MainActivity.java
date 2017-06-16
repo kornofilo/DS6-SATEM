@@ -384,15 +384,17 @@ public class MainActivity extends AppCompatActivity{
 
             final View finalRootView1 = rootView;
             String miAmbulancia =  pref.getString("setAmbulancia",null);
-            System.out.println(miAmbulancia);
-            Query emergenciasQuery = myRef.orderByChild("ambulancia");
+            System.out.println(myRef.orderByChild("ambulancia/"+ miAmbulancia));
+            Query emergenciasQuery = myRef.orderByChild("ambulancia/"+ miAmbulancia).equalTo(miAmbulancia);
+
+
             emergenciasQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     TextView noHistTV;
                     noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
-                    System.out.println("the last0 " + dataSnapshot.getRef());
+                    System.out.println("the last0 " + dataSnapshot.getRef() +  " " +dataSnapshot);
                     if(dataSnapshot.getValue() == null) {
                         noHistTV.setVisibility(View.VISIBLE);
                     }else{
@@ -485,7 +487,8 @@ public class MainActivity extends AppCompatActivity{
                             }
                         });
                     }else{
-                        noHistTV.setText("Esta ambulancia no tiene una emergencia proceso en estos momentos ");
+                        noHistTV.setVisibility(View.VISIBLE);
+                        noHistTV.setText("Esta ambulancia no tiene una emergencia en proceso en estos momentos.");
                     }
 
 

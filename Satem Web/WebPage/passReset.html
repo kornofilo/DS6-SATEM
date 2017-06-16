@@ -1,3 +1,10 @@
+ <!--	
+    Desarrollo De Software VI
+    Proyecto Final - SATEM
+    Elaborado por: Aldair de Gracia, Ricardo Rubio, Víctor Pineda 
+    Archivo:  (index.html)
+ -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +18,8 @@
         main {
         flex: 1 0 auto;
             }
-        </style>
+    </style>
+    
 <!-- lista de librerias a usarse-->
     <meta charset="utf-8">
    
@@ -23,8 +31,23 @@
 <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     
-    <title>SATEM - Password Reset</title>
+    <title>SATEM - Password Reset</title> <!-- SATEM Password Reset-->
+
+    <!-- Script de autenticación de firebase.  -->
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyAsd8xhLCobjaqcYXC5nuUYXdJ-PNBxGAo",
+    authDomain: "satem-b5729.firebaseapp.com",
+    databaseURL: "https://satem-b5729.firebaseio.com",
+    projectId: "satem-b5729",
+    storageBucket: "satem-b5729.appspot.com",
+    messagingSenderId: "673931608444"
+    };
+    firebase.initializeApp(config);</script>
     
+
 
 </head>
 <body>
@@ -32,6 +55,17 @@
     </header>
 
     <main>
+        <!-- firebase password reset script-->
+        <script>
+            var auth = firebase.auth();
+            var emailAddress = "user@example.com";
+
+            auth.sendPasswordResetEmail(emailAddress).then(function() {
+            // Email sent.
+            }, function(error) {
+            // An error happened.
+            });
+        </script>
     </main>
 
     <footer>

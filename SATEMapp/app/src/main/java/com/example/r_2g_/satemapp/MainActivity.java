@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -431,7 +432,7 @@ public class MainActivity extends AppCompatActivity{
 
         }
 
-        void fillTabHistorialPacientes(View rootView) {
+        void fillTabHistorialPacientes(final View rootView) {
 
             final View finalRootView1 = rootView;
             final String miAmbulancia =  pref.getString("setAmbulancia",null);
@@ -456,24 +457,38 @@ public class MainActivity extends AppCompatActivity{
                                     noHistTV.setVisibility(View.VISIBLE);
                                     historialLV.setVisibility(View.INVISIBLE);
 
-                                }else{
+                                }else {
                                     noHistTV.setVisibility(View.INVISIBLE);
                                     ArrayList<String> mylist = new ArrayList<>();
                                     ArrayAdapter<String> adapter;
 
-                                    for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                                    for (final DataSnapshot ds : dataSnapshot.getChildren()) {
                                         System.out.println(ds);
                                         String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
-                                                +  "\n\n -Fecha: " +  ds.child("fecha").getValue().toString()
-                                                + "\n\n -Lugar: " +  ds.child("lugarAccidente").getValue().toString()
+                                                + "\n\n -Fecha: " + ds.child("fecha").getValue().toString()
+                                                + "\n\n -Lugar: " + ds.child("lugarAccidente").getValue().toString()
                                                 + "\n\n -Síntomas: " + ds.child("sintomas").getValue().toString()
                                                 + "\n\n -Diagnóstico: " + ds.child("diagnostico").getValue().toString();
 
                                         mylist.add(resumen);
 
-                                    }
-                                    adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,mylist);
-                                    historialLV.setAdapter(adapter);
+                                        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mylist);
+                                        historialLV.setAdapter(adapter);
+                                        historialLV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                            @Override
+                                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                System.out.println("Tocaste un item");
+                                                Intent intent = new Intent(getActivity(), UpdateActivity.class);
+                                                intent.putExtra("nombre",ds.child("nombre").getValue().toString());
+                                                startActivity(intent);
+                                            }
+
+                                            @Override
+                                            public void onNothingSelected(AdapterView<?> parent) {
+
+                                            }
+                                        });//Fin del onItemSelectedListener
+                                    }//Fin del for
                                 }
 
                             }

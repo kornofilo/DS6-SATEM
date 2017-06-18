@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
                                                 Toast.LENGTH_SHORT).show();
                                     }else if (task.isSuccessful()){
+                                        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
                                         setAmbulanceNumber(ambulanceET.getText().toString());
                                         startActivity(intent);
                                         finish();
@@ -137,17 +138,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //Almacenamos en el perfil del
     void setAmbulanceNumber(final String ambulancia){
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         final FirebaseUser userNow = FirebaseAuth.getInstance().getCurrentUser();
-        System.out.println("uid " + userNow.getUid());
         final DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();
-        System.out.println(ambulanceRef.child("users").child(userNow.getUid()).child("ambulancia"));
         ambulanceRef.child("users").child(userNow.getUid()).child("ambulancia").runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 mutableData.setValue(ambulancia);
-                System.out.println("transaction "  + Transaction.success(mutableData));
                 //Seteamos el numero de ambulancia como SharedPreference
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("setAmbulancia",ambulancia);

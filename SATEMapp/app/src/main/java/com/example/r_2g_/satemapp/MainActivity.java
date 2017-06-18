@@ -405,7 +405,6 @@ public class MainActivity extends AppCompatActivity{
                         ArrayAdapter<String> adapter;
 
                         for(DataSnapshot ds : dataSnapshot.getChildren() ){
-                            System.out.println("the last" + ds);
                             String resumen =
                                      "#" + ds.getKey() + "\n"
                                      + "-Suceso: " +  ds.child("suceso").getValue().toString() + "\n"
@@ -466,6 +465,7 @@ public class MainActivity extends AppCompatActivity{
                                         System.out.println(ds);
                                         String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
                                                 + "\n\n -Fecha: " + ds.child("fecha").getValue().toString()
+                                                + "\n\n -Suceso: " + ds.child("suceso").getValue().toString()
                                                 + "\n\n -Lugar: " + ds.child("lugarAccidente").getValue().toString()
                                                 + "\n\n -Síntomas: " + ds.child("sintomas").getValue().toString()
                                                 + "\n\n -Diagnóstico: " + ds.child("diagnostico").getValue().toString();
@@ -477,11 +477,19 @@ public class MainActivity extends AppCompatActivity{
                                         historialLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                System.out.println("Tocaste un item");
+                                                //Al seleccionar un item del listview, llevamos al usuario a un formulario para que pueda actualizar el diagnóstico del paciente.
                                                 Intent intent = new Intent(getActivity(), UpdateActivity.class);
                                                 intent.putExtra("nombre",ds.child("nombre").getValue().toString());
                                                 intent.putExtra("cedula",ds.child("cedula").getValue().toString());
+                                                intent.putExtra("genero",ds.child("genero").getValue().toString());
                                                 intent.putExtra("suceso",ds.child("suceso").getValue().toString());
+                                                intent.putExtra("lugarAccidente",ds.child("lugarAccidente").getValue().toString());
+                                                intent.putExtra("sintomas",ds.child("sintomas").getValue().toString());
+                                                intent.putExtra("diagnostico",ds.child("diagnostico").getValue().toString());
+                                                intent.putExtra("condicionVital",ds.child("condicionVital").getValue().toString());
+                                                intent.putExtra("riesgo",ds.child("riesgo").getValue().toString());
+                                                intent.putExtra("key",ds.getKey());
+
 
                                                 startActivity(intent);
                                             }

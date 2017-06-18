@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity{
                     //Llenamos el objeto Emergencias con los datos obtenidos por el usuario.
                     paciente.setNombre(nombreV);
                     paciente.setCedula(cedulaV);
-                    paciente.setCedula(cedulaV);
+                    paciente.setGenero(generoV);
                     paciente.setSuceso(sucesoV);
                     paciente.setLugarAccidente(lugarV);
                     paciente.setSintomas(sintomasV);
@@ -474,20 +474,18 @@ public class MainActivity extends AppCompatActivity{
 
                                         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mylist);
                                         historialLV.setAdapter(adapter);
-                                        historialLV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                        historialLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
-                                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                 System.out.println("Tocaste un item");
                                                 Intent intent = new Intent(getActivity(), UpdateActivity.class);
                                                 intent.putExtra("nombre",ds.child("nombre").getValue().toString());
+                                                intent.putExtra("cedula",ds.child("cedula").getValue().toString());
+                                                intent.putExtra("suceso",ds.child("suceso").getValue().toString());
+
                                                 startActivity(intent);
                                             }
-
-                                            @Override
-                                            public void onNothingSelected(AdapterView<?> parent) {
-
-                                            }
-                                        });//Fin del onItemSelectedListener
+                                        });
                                     }//Fin del for
                                 }
 

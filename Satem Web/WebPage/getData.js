@@ -67,7 +67,7 @@ $(document).ready(function() {
 var table = document.getElementById('enCaminoTableBody');
 
           
-
+    var cont = 0;
     //Cargamos los datos de la DB de Firebase.
     var dbRefObject = firebase.database().ref('emergencias/');
     dbRefObject.orderByChild("estado").equalTo("En Camino").on("child_added", function(data) {
@@ -84,7 +84,8 @@ var table = document.getElementById('enCaminoTableBody');
         var cell4 = row.insertCell(4);
         cell4.innerHTML = data.val().suceso;
         var cel5 = row.insertCell(5);
-        cel5.innerHTML = '<a class="waves-effect waves-light btn">Finalizar</a>';
+        cel5.innerHTML = '<a class="waves-effect waves-light btn" id="finalizarbtn' + cont + '" onclick="finalizarEmergencia(this); return false;">Finalizar</a>';
+        cont += 1;
 });
 
 

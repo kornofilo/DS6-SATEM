@@ -6,7 +6,19 @@
 */
 
 
-    function finalizarEmergencia() {
+    function finalizarEmergencia(element) {
+
+    
+     	  	console.log(element.id);
+     	  	var button = document.getElementById(element.id);
+     	  	console.log(button.parentNode.parentNode.rowIndex);
+        	$('ul.tabs').tabs('select_tab', 'test4');
+
+
+
+
+
+
      
          
-     }
+   }

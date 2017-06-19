@@ -8,17 +8,24 @@
 
     function finalizarEmergencia(element) {
 
-    
-     	  	console.log(element.id);
+    		var table = document.getElementById('enCaminoTable');
+     	  	console.log(element);
      	  	var button = document.getElementById(element.id);
-     	  	console.log(button.parentNode.parentNode.rowIndex);
+     	  	var rowvalue = button.parentNode.parentNode.rowIndex;
+     	  	var cell = table.rows[rowvalue].cells[0];
+     	  	var idEmergencia = cell.firstChild.data;
+        	console.log(idEmergencia);
+
+
+
         	$('ul.tabs').tabs('select_tab', 'test4');
 
+        	var dbRefEmergencia = firebase.database().ref('emergencias/' + idEmergencia + '/estado');
+        	console.log(dbRefEmergencia);
+        	dbRefEmergencia.transaction(function(status) {
+        		status = "Finalizada";
+   				return status;
+			});
 
-
-
-
-
-     
          
    }

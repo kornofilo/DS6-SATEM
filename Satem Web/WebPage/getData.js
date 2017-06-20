@@ -89,4 +89,26 @@ var table = document.getElementById('enCaminoTableBody');
 });
 
 
+//Obtenemos las emergencias finalizadas.
+var tableFinalizada = document.getElementById('finalizadaTableBody');
+
+    //Cargamos los datos de la DB de Firebase.
+    var dbRefObjectFinalizada = firebase.database().ref('emergencias/');
+    dbRefObjectFinalizada.orderByChild("estado").equalTo("Finalizada").on("child_added", function(data) {
+
+        var row = tableFinalizada.insertRow(-1);
+        var cell1 = row.insertCell(0); 
+        cell1.innerHTML = data.key;
+        var cell2 = row.insertCell(1);
+        cell2.innerHTML = data.val().numAmbulancia;
+        var cell2 = row.insertCell(2);
+        cell2.innerHTML = data.val().lugarAccidente;
+        var cell3 = row.insertCell(3);
+        cell3.innerHTML = data.val().fechaRegistro;
+        var cell4 = row.insertCell(4);
+        cell4.innerHTML = data.val().suceso;
+        var cel5 = row.insertCell(5);
+});
+
+
 

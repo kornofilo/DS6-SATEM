@@ -19,10 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    Perfil perfil;
     FirebaseUser user;
     TextView profileText;
     ImageView profilePicture;
@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
                         "Ambulancia actual: " + miAmbulancia
 
                 );
-
+                Picasso.with(getBaseContext()).load(dataSnapshot.child("profilePic").getValue().toString()).into(profilePicture);
             }
 
             @Override

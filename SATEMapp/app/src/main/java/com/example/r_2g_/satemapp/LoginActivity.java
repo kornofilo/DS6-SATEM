@@ -119,7 +119,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
                                                 Toast.LENGTH_SHORT).show();
                                     }else if (task.isSuccessful()){
-                                        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+                                        if(FirebaseDatabase.getInstance() == null){
+                                            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+                                        }
                                         setAmbulanceNumber(ambulanceET.getText().toString());
                                         startActivity(intent);
                                         finish();
@@ -141,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         final FirebaseUser userNow = FirebaseAuth.getInstance().getCurrentUser();
         final DatabaseReference ambulanceRef = FirebaseDatabase.getInstance().getReference();
-        ambulanceRef.child("users").child(userNow.getUid()).child("ambulancia").runTransaction(new Transaction.Handler() {
+        ambulanceRef.child("paramedicos").child(userNow.getUid()).child("ambulancia").runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 mutableData.setValue(ambulancia);

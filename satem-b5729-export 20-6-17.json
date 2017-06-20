@@ -1,0 +1,146 @@
+{
+  "ambulancias" : {
+    "A1" : {
+      "cantidadEmergencias" : 9,
+      "emergenciaActual" : "5",
+      "estado" : "Disponible"
+    },
+    "A10" : {
+      "cantidadEmergencias" : 32,
+      "estado" : "Ocupada",
+      "ultimaEmergencia" : "5"
+    },
+    "A2" : {
+      "cantidadEmergencias" : 15,
+      "emergenciaActual" : "1",
+      "estado" : "Disponible"
+    },
+    "A3" : {
+      "cantidadEmergencias" : 11,
+      "emergenciaActual" : "3",
+      "estado" : "Ocupada"
+    },
+    "A4" : {
+      "cantidadEmergencias" : 14,
+      "emergenciaActual" : "2",
+      "estado" : "Dispobible"
+    },
+    "A5" : {
+      "cantidadEmergencias" : 11,
+      "emergenciaActual" : "2",
+      "estado" : "Ocupada"
+    },
+    "A6" : {
+      "cantidadEmergencias" : 7,
+      "emergenciaActual" : "1",
+      "estado" : "Ocupada"
+    },
+    "A7" : {
+      "cantidadEmergencias" : 31,
+      "emergenciaActual" : "",
+      "estado" : "Ocupada"
+    },
+    "A8" : {
+      "cantidadEmergencias" : 17,
+      "emergenciaActual" : "5",
+      "estado" : "Ocupada"
+    },
+    "A9" : {
+      "cantidadEmergencias" : 18,
+      "emergenciaActual" : "5",
+      "estado" : "Ocupada"
+    }
+  },
+  "emergencias" : [ null, {
+    "ambulancia" : {
+      "A1" : "A1",
+      "A2" : "A2"
+    },
+    "estado" : "Finalizada",
+    "fechaRegistro" : "9/6/2017 a las 19:58:51",
+    "lugarAccidente" : "Calle Cuarta, David",
+    "numAmbulancia" : "A2",
+    "suceso" : "Choque de autos."
+  }, null, {
+    "estado" : "Finalizada",
+    "estado_ambulancia" : "En Camino_A4",
+    "fechaRegistro" : "10/6/2017 a las 22:2:45",
+    "lugarAccidente" : "LAB",
+    "numAmbulancia" : "A4",
+    "suceso" : "Quemaron un Arduino ajeno."
+  }, {
+    "estado" : "Finalizada",
+    "estado_ambulancia" : "En Camino_A2,A3",
+    "fechaRegistro" : "10/6/2017 a las 22:8:33",
+    "lugarAccidente" : "Calle Cuarta, David",
+    "numAmbulancia" : "A2,A3",
+    "suceso" : "Colisión entre una motocicleta y un sedán."
+  }, {
+    "ambulancia" : {
+      "A8" : "A8",
+      "A9" : "A9"
+    },
+    "estado" : "Finalizada",
+    "estado_ambulancia" : "En Camino_A8,A9",
+    "fechaRegistro" : "11/6/2017 a las 0:39:21",
+    "lugarAccidente" : "Terronal",
+    "numAmbulancia" : "A8,A9",
+    "suceso" : "Un Skater sufrió una aparatosa caída."
+  } ],
+  "pacientes" : {
+    "12345" : {
+      "cedula" : 0,
+      "nombre" : "juan"
+    },
+    "12346" : {
+      "cedula" : 1,
+      "nombre" : "maria"
+    },
+    "12347" : {
+      "cedula" : 5,
+      "nombre" : "mariana"
+    },
+    "54321" : {
+      "cedula" : 7,
+      "nombre" : "jose"
+    },
+    "-KmiCCnr940OYcIr852R" : {
+      "cedula" : "12345-678",
+      "condicionVital" : "Estable",
+      "diagnostico" : "Ta' preña'",
+      "fecha" : "15/06/2017 19:01:58",
+      "genero" : "Femenino",
+      "idEmergencia" : "3",
+      "idEmergencia_numAmbulancia_paramedico" : "3_A2_logan@rialvic.com",
+      "lugarAccidente" : "LAB",
+      "nombre" : "Natasha Romanoff",
+      "numAmbulancia" : "A2",
+      "riesgo" : "Bajo",
+      "sintomas" : "Náuseas",
+      "suceso" : "Quemaron un Arduino ajeno."
+    },
+    "-Kmj94URJlzA_Yq96Myg" : {
+      "cedula" : "1251968",
+      "condicionVital" : "Estable",
+      "diagnostico" : "Posible contusión.",
+      "fecha" : "15/06/2017 23:27:55",
+      "genero" : "Masculino",
+      "idEmergencia" : "5",
+      "idEmergencia_numAmbulancia_paramedico" : "5_A8_logan@rialvic.com",
+      "lugarAccidente" : "Plaza Terronal",
+      "nombre" : "Anthony Frank Hawk",
+      "numAmbulancia" : "A8",
+      "riesgo" : "Bajo",
+      "sintomas" : "El paciente está inconsciente luego de un fuerte golpe en la cabeza.",
+      "suceso" : "Un Skater profesional sufrió una aparatosa caída."
+    }
+  },
+  "users" : {
+    "Qo7PyLzMssWm9xUMifoteGDsDtF2" : {
+      "ambulancia" : "01",
+      "correo" : "Logan@rialvic.com",
+      "nombre" : "Logan",
+      "rol" : "Paramédico"
+    }
+  }
+}

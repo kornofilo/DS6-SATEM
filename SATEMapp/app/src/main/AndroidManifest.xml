@@ -24,9 +24,9 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
-
-        <activity android:name=".UpdateActivity"
-            android:label="@string/updateLabel"/>
+        <activity
+            android:name=".UpdateActivity"
+            android:label="@string/updateLabel" />
     </application>
 
 </manifest>

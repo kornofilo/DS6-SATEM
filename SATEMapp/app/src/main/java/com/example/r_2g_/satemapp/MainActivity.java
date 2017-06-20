@@ -397,6 +397,7 @@ public class MainActivity extends AppCompatActivity{
                     System.out.println("the last0 " + dataSnapshot.getRef() +  " " +dataSnapshot);
                     if(dataSnapshot.getValue() == null) {
                         noHistTV.setVisibility(View.VISIBLE);
+                        noHistTV.setText("La ambulancia actual no cuenta con emergencias registradas en el sistema.");
                     }else{
                         noHistTV.setVisibility(View.INVISIBLE);
                         ListView historialLV;

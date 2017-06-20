@@ -35,7 +35,14 @@
                     status = "Disponible";
                     return status;
                 });
+
+               dbRefAmbulancia = firebase.database().ref('ambulancias/' + data.key + '/emergenciaActual' );
+               dbRefAmbulancia.transaction(function(actual) {
+                    actual = null;  
+                    return actual; 
+                });
              });
+            
 
          
    }

@@ -117,8 +117,11 @@ public class MainActivity extends AppCompatActivity{
             startActivity(intentMenu);
             finish();
         } else if (id == R.id.action_logout) {
-            FirebaseAuth.getInstance().signOut();
             intentMenu = new Intent(this, LoginActivity.class);
+            startActivity(intentMenu);
+            finish();
+        } else if (id == R.id.action_profile) {
+            intentMenu = new Intent(this, ProfileActivity.class);
             startActivity(intentMenu);
             finish();
         }

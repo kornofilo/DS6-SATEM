@@ -73,6 +73,8 @@
     <string name="suceso">Suceso</string>
     <string name="action_profle">Mi Perfil</string>
     <string name="updateLabel">Actualizar Diagnóstico</string>
+    <string name="title_activity_profile">profileActivity</string>
+    <string name="large_text">Profile</string>
 
 
 </resources>

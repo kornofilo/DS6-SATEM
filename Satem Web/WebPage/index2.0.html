@@ -184,11 +184,26 @@
    
 
     <div id="test5" class="col s12"> 
-    <div class="input-field"> 
-              <input id="cedulaInput" type="search" aria-controls="finalizadaTable" placeholder="Buscar"> 
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label> 
-              <i class="material-icons">close</i> 
-          </div> 
+    <table class="highlight" id="pacientesTable"> 
+              <thead> 
+                <tr> 
+                  <th>Cédula</th> 
+                  <th>Nombre</th> 
+                  <th>Género</th> 
+                  <th># de Ambulancia</th> 
+                  <th>Lugar del Accidente</th> 
+                  <th>Suceso</th> 
+                  <th>Fecha</th> 
+                  <th>Síntomas</th> 
+                  <th>Diagnóstico</th> 
+                  <th>Condición Vital</th> 
+                  <th>Riesgo</th> 
+                </tr> 
+            </thead> 
+            <tbody id="pacientesBody"> 
+               
+            </tbody> 
+    </table> 
      
  
    </div>  

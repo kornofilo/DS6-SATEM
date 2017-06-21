@@ -91,27 +91,6 @@ var table = document.getElementById('enCaminoTableBody');
 
 //Obtenemos las emergencias finalizadas.
 
-
-    //Cargamos los datos de la DB de Firebase.
- /*   var dbRefObjectFinalizada = firebase.database().ref('emergencias/');
-    dbRefObjectFinalizada.orderByChild("estado").equalTo("Finalizada").on("child_added", function(data) {
-
-
-
-        var row = tableFinalizada.insertRow(-1);
-        var cell1 = row.insertCell(0); 
-        cell1.innerHTML = data.key;
-        var cell2 = row.insertCell(1);
-        cell2.innerHTML = data.val().numAmbulancia;
-        var cell2 = row.insertCell(2);
-        cell2.innerHTML = data.val().lugarAccidente;
-        var cell3 = row.insertCell(3);
-        cell3.innerHTML = data.val().fechaRegistro;
-        var cell4 = row.insertCell(4);
-        cell4.innerHTML = data.val().suceso;
-        var cel5 = row.insertCell(5);
-}); */
-
     $(document).ready(function(){
           var dbRefObjectFinalizada = firebase.database().ref('emergencias/');
           var table = $('#finalizadaTable').DataTable( {
@@ -136,6 +115,34 @@ var table = document.getElementById('enCaminoTableBody');
 
 
       });//Fin JQuery
+
+//Obtenemos a los pacientes registrados.
+
+$(document).ready(function(){
+          var dbRefObjectFinalizada = firebase.database().ref('pacientes/');
+          var tablePacientes = $('#pacientesTable').DataTable( {
+          "paging":   false,
+          "ordering": false,
+          "info":     false,
+          } ); 
+
+          //Eliminamos el searchbar por defecto.
+          $('.dataTables_filter').remove();
+
+          dbRefObjectFinalizada.on("child_added", function(data) {
+          var dataSet = [data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo];
+          tablePacientes.rows.add([dataSet]).draw();  
+          
+        });
+
+           //Seteamos el searchbar superior para que pueda realizar un filtrado de la tabla.
+           $('#cedulaInput').keyup(function(){
+              tablePacientes.search( $(this).val() ).draw();
+           })       
+
+
+      });//Fin JQuery
+
 
 
      

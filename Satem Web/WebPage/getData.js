@@ -120,12 +120,16 @@ var table = document.getElementById('enCaminoTableBody');
           "info":     false,
           } ); 
 
+          //Eliminamos el searchbar por defecto.
+          $('.dataTables_filter').remove();
+
           dbRefObjectFinalizada.orderByChild("estado").equalTo("Finalizada").on("child_added", function(data) {
           var dataSet = [data.key,data.val().numAmbulancia,data.val().lugarAccidente,data.val().fechaRegistro, data.val().suceso];
           table.rows.add([dataSet]).draw();  
           
         });
 
+           //Seteamos el searchbar superior para que pueda realizar un filtrado de la tabla.
            $('#cedulaInput').keyup(function(){
               table.search( $(this).val() ).draw();
            })       

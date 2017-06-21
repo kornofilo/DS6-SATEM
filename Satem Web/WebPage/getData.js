@@ -90,11 +90,13 @@ var table = document.getElementById('enCaminoTableBody');
 
 
 //Obtenemos las emergencias finalizadas.
-var tableFinalizada = document.getElementById('finalizadaTableBody');
+
 
     //Cargamos los datos de la DB de Firebase.
-    var dbRefObjectFinalizada = firebase.database().ref('emergencias/');
+ /*   var dbRefObjectFinalizada = firebase.database().ref('emergencias/');
     dbRefObjectFinalizada.orderByChild("estado").equalTo("Finalizada").on("child_added", function(data) {
+
+
 
         var row = tableFinalizada.insertRow(-1);
         var cell1 = row.insertCell(0); 
@@ -108,7 +110,31 @@ var tableFinalizada = document.getElementById('finalizadaTableBody');
         var cell4 = row.insertCell(4);
         cell4.innerHTML = data.val().suceso;
         var cel5 = row.insertCell(5);
-});
+}); */
+
+    $(document).ready(function(){
+          var dbRefObjectFinalizada = firebase.database().ref('emergencias/');
+          var table = $('#finalizadaTable').DataTable( {
+          "paging":   false,
+          "ordering": false,
+          "info":     false,
+          } ); 
+
+          dbRefObjectFinalizada.orderByChild("estado").equalTo("Finalizada").on("child_added", function(data) {
+          var dataSet = [data.key,data.val().numAmbulancia,data.val().lugarAccidente,data.val().fechaRegistro, data.val().suceso];
+          table.rows.add([dataSet]).draw();  
+          
+        });
+
+           $('#cedulaInput').keyup(function(){
+              table.search( $(this).val() ).draw();
+           })       
+
+
+      });//Fin JQuery
+
+
+     
 
 
 

@@ -27,7 +27,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <link rel="stylesheet" href="CSS/materialize.min.css"> 
     <title>SATEM</title> 
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script> 
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" ></script> 
+    <script src="js/jquery.dataTables.js" type="text/javascript"></script>
     <script defer src="js/materialize.min.js"></script> 
  
      
@@ -64,13 +65,11 @@
     <div class="nav-wrapper"> 
       <ul> 
        <li> 
-        <form id="buscarPacienteForm" method="GET"> 
             <div class="input-field"> 
-            <input id="cedulaInput" type="search" placeholder="Buscar" required> 
-            <label class="label-icon" for="search"><i class="material-icons">search</i></label> 
-            <i class="material-icons">close</i> 
+              <input id="cedulaInput" type="search" aria-controls="finalizadaTable" placeholder="Buscar"> 
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label> 
+              <i class="material-icons">close</i> 
           </div> 
-        </form> 
        </li> 
        <li><a href="#" onclick="logOut(); return false;">Cerrar Sesion</a></li> 
       </ul> 
@@ -181,7 +180,15 @@
     </table>       
 
     </div> <!-- tab finalizada--> 
+
+   
+
     <div id="test5" class="col s12"> 
+    <div class="input-field"> 
+              <input id="cedulaInput" type="search" aria-controls="finalizadaTable" placeholder="Buscar"> 
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label> 
+              <i class="material-icons">close</i> 
+          </div> 
      
  
    </div>  
@@ -321,6 +328,8 @@ window.myPie = new Chart(ctx4).Line(lineChartData, {responsive:true});
     <script src="getPaciente.js"></script> 
     <script src="logout.js"></script> 
     <script src="finalizarEmergencia.js"></script> 
+
+
  
   </body> 
           

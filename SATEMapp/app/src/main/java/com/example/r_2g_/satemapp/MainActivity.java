@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity{
 
     static FirebaseDatabase database;
     static DatabaseReference myRef;
-    static Bundle extras;
-    static String ambulancia;
+
+
 
 
 
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         //Verificamos el tema seleccionado por el usuario
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -116,13 +117,18 @@ public class MainActivity extends AppCompatActivity{
              intentMenu = new Intent(this, SettingsActivity.class);
             startActivity(intentMenu);
             finish();
-        } else if (id == R.id.action_logout) {
-            intentMenu = new Intent(this, LoginActivity.class);
-            startActivity(intentMenu);
-            finish();
-        } else if (id == R.id.action_profile) {
+        }
+
+        if (id == R.id.action_profile) {
             intentMenu = new Intent(this, ProfileActivity.class);
             startActivity(intentMenu);
+            finish();
+        }
+
+        if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intentLogout = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intentLogout);
             finish();
         }
         return super.onOptionsItemSelected(item);

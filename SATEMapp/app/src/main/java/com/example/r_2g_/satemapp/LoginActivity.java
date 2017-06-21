@@ -119,9 +119,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
                                                 Toast.LENGTH_SHORT).show();
                                     }else if (task.isSuccessful()){
-                                        if(FirebaseDatabase.getInstance() == null){
-                                            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-                                        }
                                         setAmbulanceNumber(ambulanceET.getText().toString());
                                         startActivity(intent);
                                         finish();

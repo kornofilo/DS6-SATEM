@@ -156,8 +156,7 @@ public class Paciente {
         this.idEmergencia = idEmergencia;
     }
 
-    public String getIdEmergencia_numAmbulancia_paramedico() {
-        return idEmergencia_numAmbulancia_paramedico;
+    public String getIdEmergencia_numAmbulancia_paramedico() {       return idEmergencia_numAmbulancia_paramedico;
     }
 
     public void setIdEmergencia_numAmbulancia_paramedico(String idEmergencia_numAmbulancia_paramedico) {

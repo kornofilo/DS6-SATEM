@@ -22,20 +22,14 @@
           //Verificamos si el usuario cuenta con los privilegios para ingresar al sistema.
           var dbRefDoc = firebase.database().ref('doctores/');
           dbRefDoc.orderByChild("correo").on("child_added", function(data) {
-
-            if(data.val().correo === email){
+            console.log(data.val().correo === txtEmail.value);
+            if(data.val().correo === txtEmail.value){
               role = true;
 
             }
-        });
-
-
-
-
-          
-          //Verificamos si los datos de login son correctos.
-          if(role === true){
-          auth.signInWithEmailAndPassword(email,password).catch(function(error) {      
+            //Verificamos si los datos de login son correctos.
+            if(role == true){
+            auth.signInWithEmailAndPassword(email,password).catch(function(error) {      
             if(error){
               if (error.code == "auth/wrong-password") 
                 window.alert("El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.");
@@ -49,12 +43,27 @@
           }else {
                window.alert("El correo ingresado no se encuentra registrado en el sistema. Inténtelo de nuevo.");      
              }
-          }//Fin de la función login.  
+          
+});
+       
 
-         //Si los datos ingresados son correctos, se redigirá al usuario a la página principal.
+     
+
+}//Fin de la función login.  
+
+   //Si los datos ingresados son correctos, se redigirá al usuario a la página principal.
         firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           window.location = "index.html";
-        } 
-});
+          } 
+        });
+
+        
+
+
+
+
+
+          
+          
 

@@ -4,6 +4,7 @@
     Elaborado por: Aldair de Gracia, Ricardo Rubio, Víctor Pineda 
     Archivo:  (login.js)
 */
+
     
 
     function login() {
@@ -16,11 +17,20 @@
         const password = txtPassword.value;
         
         const auth = firebase.auth();
+        var role = false;
 
         //Intentamos loguearnos con los datos ingresados.
-          
-          //Verificamos si los datos de login son correctos.
-          auth.signInWithEmailAndPassword(email,password).catch(function(error) {      
+          //Verificamos si el usuario cuenta con los privilegios para ingresar al sistema.
+          var dbRefOperator = firebase.database().ref('operadores/');
+          dbRefOperator.orderByChild("correo").on("child_added", function(data) {
+            console.log(data.val().correo === txtEmail.value);
+            if(data.val().correo === txtEmail.value){
+              role = true;
+
+            }
+            //Verificamos si los datos de login son correctos.
+            if(role == true){
+            auth.signInWithEmailAndPassword(email,password).catch(function(error) {      
             if(error){
               if (error.code == "auth/wrong-password") 
                 window.alert("El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.");
@@ -31,12 +41,29 @@
 
               }//Fin del if.
             });
-          }//Fin de la función login.  
+          }else {
+               window.alert("El correo ingresado no se encuentra registrado en el sistema. Inténtelo de nuevo.");      
+             }
+          
+          });
+       
 
-         //Si los datos ingresados son correctos, se redigirá al usuario a la página principal.
+       
+
+}//Fin de la función login.  
+
+ //Si los datos ingresados son correctos, se redigirá al usuario a la página principal.
         firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           window.location = "index2.0.html";
-        } 
-});
+          } 
+        });
 
+        
+
+
+
+
+
+          
+          

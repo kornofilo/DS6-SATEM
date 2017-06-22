@@ -1,0 +1,189 @@
+{
+  "ambulancias" : {
+    "A1" : {
+      "cantidadEmergencias" : 11,
+      "estado" : "Disponible"
+    },
+    "A10" : {
+      "cantidadEmergencias" : 32,
+      "estado" : "Ocupada",
+      "ultimaEmergencia" : "5"
+    },
+    "A2" : {
+      "cantidadEmergencias" : 15,
+      "emergenciaActual" : "1",
+      "estado" : "Disponible"
+    },
+    "A3" : {
+      "cantidadEmergencias" : 11,
+      "emergenciaActual" : "3",
+      "estado" : "Ocupada"
+    },
+    "A4" : {
+      "cantidadEmergencias" : 14,
+      "emergenciaActual" : "2",
+      "estado" : "Dispobible"
+    },
+    "A5" : {
+      "cantidadEmergencias" : 11,
+      "emergenciaActual" : "2",
+      "estado" : "Ocupada"
+    },
+    "A6" : {
+      "cantidadEmergencias" : 7,
+      "emergenciaActual" : "1",
+      "estado" : "Ocupada"
+    },
+    "A7" : {
+      "cantidadEmergencias" : 31,
+      "emergenciaActual" : "",
+      "estado" : "Ocupada"
+    },
+    "A8" : {
+      "cantidadEmergencias" : 17,
+      "emergenciaActual" : "5",
+      "estado" : "Ocupada"
+    },
+    "A9" : {
+      "cantidadEmergencias" : 18,
+      "emergenciaActual" : "5",
+      "estado" : "Ocupada"
+    }
+  },
+  "doctores" : {
+    "3R9Hpl7lz4YncJGGVAYtUffZGzv2" : {
+      "correo" : "drstrange@satem.es",
+      "nombre" : "Stephen Strange"
+    }
+  },
+  "emergencias" : [ null, {
+    "ambulancia" : {
+      "A1" : "A1",
+      "A2" : "A2"
+    },
+    "estado" : "Finalizada",
+    "fechaRegistro" : "9/6/2017 a las 19:58:51",
+    "lugarAccidente" : "Calle Cuarta, David",
+    "numAmbulancia" : "A2",
+    "suceso" : "Choque de autos."
+  }, null, {
+    "estado" : "Finalizada",
+    "estado_ambulancia" : "En Camino_A4",
+    "fechaRegistro" : "10/6/2017 a las 22:2:45",
+    "lugarAccidente" : "LAB",
+    "numAmbulancia" : "A4",
+    "suceso" : "Quemaron un Arduino ajeno."
+  }, {
+    "estado" : "Finalizada",
+    "estado_ambulancia" : "En Camino_A2,A3",
+    "fechaRegistro" : "10/6/2017 a las 22:8:33",
+    "lugarAccidente" : "Calle Cuarta, David",
+    "numAmbulancia" : "A2,A3",
+    "suceso" : "Colisión entre una motocicleta y un sedán."
+  }, {
+    "ambulancia" : {
+      "A8" : "A8",
+      "A9" : "A9"
+    },
+    "estado" : "Finalizada",
+    "fechaRegistro" : "11/6/2017 a las 0:39:21",
+    "lugarAccidente" : "Terronal",
+    "numAmbulancia" : "A8,A9",
+    "suceso" : "Un Skater sufrió una aparatosa caída."
+  }, {
+    "ambulancia" : {
+      "A1" : "A1"
+    },
+    "estado" : "Finalizada",
+    "fechaRegistro" : "20/6/2017 a las 14:24:18",
+    "lugarAccidente" : "UTP",
+    "numAmbulancia" : "A1",
+    "suceso" : "Le quitaron el salón épico a un grupo de Software."
+  } ],
+  "operadores" : {
+    "wJnP0WkqyqUN1ofT5InVHF5erbA2" : {
+      "correo" : "rialvic@gmail.com",
+      "nombre" : "RIALVIC OPERATOR"
+    }
+  },
+  "pacientes" : {
+    "-KmiCCnr940OYcIr852R" : {
+      "cedula" : "12345-678",
+      "condicionVital" : "Estable",
+      "diagnostico" : "Ta' preña'",
+      "fecha" : "15/06/2017 19:01:58",
+      "genero" : "Femenino",
+      "idEmergencia" : "3",
+      "idEmergencia_numAmbulancia_paramedico" : "3_A2_logan@rialvic.com",
+      "lugarAccidente" : "LAB",
+      "nombre" : "Natasha Romanoff",
+      "numAmbulancia" : "A2",
+      "riesgo" : "Bajo",
+      "sintomas" : "Náuseas",
+      "suceso" : "Quemaron un Arduino ajeno."
+    },
+    "-Kmj94URJlzA_Yq96Myg" : {
+      "cedula" : "1251968",
+      "condicionVital" : "Estable",
+      "diagnostico" : "Posible contusión.",
+      "fecha" : "15/06/2017 23:27:55",
+      "genero" : "Masculino",
+      "idEmergencia" : "5",
+      "idEmergencia_numAmbulancia_paramedico" : "5_A8_logan@rialvic.com",
+      "lugarAccidente" : "Plaza Terronal",
+      "nombre" : "Anthony Frank Hawk",
+      "numAmbulancia" : "A8",
+      "riesgo" : "Bajo",
+      "sintomas" : "El paciente está inconsciente luego de un fuerte golpe en la cabeza.",
+      "suceso" : "Un Skater profesional sufrió una aparatosa caída."
+    },
+    "-Kn7dKtUhPDlcvUFQelk" : {
+      "cedula" : "SD-15225",
+      "condicionVital" : "Crítico",
+      "diagnostico" : "El paciente perdió un dedo producto de la caída. Costillas rotas",
+      "fecha" : "20/06/2017 22:14:58",
+      "genero" : "Masculino",
+      "idEmergencia" : "5",
+      "idEmergencia_numAmbulancia_paramedico" : "5_A8_logan@rialvic.com",
+      "lugarAccidente" : "Terronal - Conway",
+      "nombre" : "PJ Black ",
+      "numAmbulancia" : "A8",
+      "riesgo" : "Medio",
+      "sintomas" : "El paciente se encuentra inconciente.",
+      "suceso" : "Un Skater sufrió una aparatosa caída."
+    },
+    "-KnD3dQ-QjpWtv3xovjC" : {
+      "cedula" : "8-765-9999",
+      "condicionVital" : "Estable",
+      "diagnostico" : "Posible desgarro muscular.",
+      "fecha" : "22/06/2017 04:32:25",
+      "genero" : "Femenino",
+      "idEmergencia" : "5",
+      "idEmergencia_numAmbulancia_paramedico" : "5_A8_logan@rialvic.com",
+      "lugarAccidente" : "Terronal - Esti Games",
+      "nombre" : "Becky Lynch",
+      "numAmbulancia" : "A8",
+      "riesgo" : "Bajo",
+      "sintomas" : "Dolor en el tobillo de la pierna izquierda.",
+      "suceso" : "Un Skater sufrió una aparatosa caída."
+    }
+  },
+  "paramedicos" : {
+    "QK8JBFpURrd3VFbQPCdiL6M76tI2" : {
+      "ambulancia" : "none",
+      "correo" : "zlatan@rialvic.com",
+      "nombre" : "Zlatan Ibrahimovic"
+    },
+    "Qo7PyLzMssWm9xUMifoteGDsDtF2" : {
+      "ambulancia" : "A8",
+      "correo" : "Logan@rialvic.com",
+      "nombre" : "James Howlett",
+      "profilePic" : "https://firebasestorage.googleapis.com/v0/b/satem-b5729.appspot.com/o/logan-rialvic.com%20profile%20picture.jpg?alt=media&token=0fe552a2-eb17-46d8-b0bd-4c5f3fd50e8f"
+    },
+    "pXk0jYBXdmeCtxLBQeZMqMTFaAW2" : {
+      "ambulancia" : "none",
+      "correo" : "aldair@rialvic.com",
+      "nombre" : "Aldair de Gracia"
+    }
+  }
+}

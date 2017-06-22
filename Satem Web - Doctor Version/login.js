@@ -16,10 +16,25 @@
         const password = txtPassword.value;
         
         const auth = firebase.auth();
+        var role = false;
 
         //Intentamos loguearnos con los datos ingresados.
+          //Verificamos si el usuario cuenta con los privilegios para ingresar al sistema.
+          var dbRefDoc = firebase.database().ref('doctores/');
+          dbRefDoc.orderByChild("correo").on("child_added", function(data) {
+
+            if(data.val().correo === email){
+              role = true;
+
+            }
+        });
+
+
+
+
           
           //Verificamos si los datos de login son correctos.
+          if(role === true){
           auth.signInWithEmailAndPassword(email,password).catch(function(error) {      
             if(error){
               if (error.code == "auth/wrong-password") 
@@ -31,6 +46,9 @@
 
               }//Fin del if.
             });
+          }else {
+               window.alert("El correo ingresado no se encuentra registrado en el sistema. Inténtelo de nuevo.");      
+             }
           }//Fin de la función login.  
 
          //Si los datos ingresados son correctos, se redigirá al usuario a la página principal.

@@ -7,6 +7,7 @@
     
 
     function login() {
+        Materialize.toast('Iniciando Sesión', 4000) // 4000 is the duration of the toast   
         //Obtener valores del Login
         const txtEmail = document.getElementById('email');
         const txtPassword = document.getElementById('password');
@@ -19,7 +20,7 @@
         //Intentamos loguearnos con los datos ingresados.
           
           //Verificamos si los datos de login son correctos.
-          auth.signInWithEmailAndPassword(email,password).catch(function(error) {         
+          auth.signInWithEmailAndPassword(email,password).catch(function(error) {      
             if(error){
               if (error.code == "auth/wrong-password") 
                 window.alert("El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.");
@@ -38,4 +39,4 @@
           window.location = "index2.0.html";
         } 
 });
-        
+

@@ -76,7 +76,7 @@
     <div class="container">
       <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
-        <form class="col s12" method="post" onsubmit="reset();return false;">
+        <form class="col s12" id="myForm" name="myForm" method="post" onsubmit="reset(); return false;">
 
 
           <div class='row'>
@@ -85,11 +85,9 @@
               <label for='email'>Ingrese su email</label>
             </div>
           </div>
-          <center>
             <div class='row'>
-              <button type='submit' name='btn_Enviar' class='col s12 btn btn-large waves-effect indigo'>Enviar</button>
+              <button type="submit" name="btn_Enviar" class="col s12 btn btn-large waves-effect indigo">Enviar</button>
             </div>
-          </center>
         </form>
       </div>
     </div>

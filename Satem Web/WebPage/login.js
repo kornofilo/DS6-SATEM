@@ -38,3 +38,4 @@
           window.location = "index2.0.html";
         } 
 });
+        

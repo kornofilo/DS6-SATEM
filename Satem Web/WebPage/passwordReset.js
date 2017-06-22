@@ -1,5 +1,7 @@
  //<!-- firebase password reset script-->
 
+document.getElementById("myForm").onsubmit = function() {reset()};
+
 
  function reset() {
      console.log("im here");
@@ -11,9 +13,11 @@
     var auth = firebase.auth();
     var emailAddress = email;
     console.log(emailAddress);
-    auth.sendPasswordResetEmail(emailAddress).then(function () {
+    auth.sendPasswordResetEmail(emailAddress).then(
+
+        function () {
          // Email sent.
      }, function (error) {
          // An error happened.
      });
- };
+}

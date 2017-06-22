@@ -29,13 +29,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     TextView emailET, passwordET, ambulanceET;
     SharedPreferences pref;
+    boolean role = false;
 
 
     @Override
@@ -62,6 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         passwordET = (EditText) findViewById(R.id.editTextPassword);
         ambulanceET = (EditText) findViewById(R.id.editTextNAmbulancia);
         mAuth = FirebaseAuth.getInstance();
+
 
         //Si el usuario ya está logueado, lo redirigimos al la activity principal.
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -103,33 +107,53 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final Intent intent;
         switch (v.getId()){
             case R.id.buttonLogin:{
+                role = false;
                 if(!emailET.getText().toString().equals("") && !passwordET.getText().toString().equals("") && !ambulanceET.getText().toString().equals("")){
                     String emailV = emailET.getText().toString();
                     String passwordV = passwordET.getText().toString();
                     intent = new Intent(LoginActivity.this,MainActivity.class);
-                    mAuth.signInWithEmailAndPassword(emailV, passwordV)
-                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                    // If sign in fails, display a message to the user. If sign in succeeds
-                                    // the auth state listener will be notified and logic to handle the
-                                    // signed in user can be handled in the listener.
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
-                                                Toast.LENGTH_SHORT).show();
-                                    }else if (task.isSuccessful()){
-                                        setAmbulanceNumber(ambulanceET.getText().toString());
-                                        startActivity(intent);
-                                        finish();
+                        System.out.println("BEFORE" +role);
+                        checkRole(emailV);
+                        System.out.println(role);
+
+
+                    if(role){
+                        mAuth.signInWithEmailAndPassword(emailV, passwordV)
+                                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                        // If sign in fails, display a message to the user. If sign in succeeds
+                                        // the auth state listener will be notified and logic to handle the
+                                        // signed in user can be handled in the listener.
+                                        if (!task.isSuccessful()) {
+                                            Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
+                                                    Toast.LENGTH_SHORT).show();
+                                            role = false;
+                                        }else if (task.isSuccessful()){
+                                            setAmbulanceNumber(ambulanceET.getText().toString());
+                                            startActivity(intent);
+                                            finish();
+                                        }
+
                                     }
+                                });
+                    }else{
+                        Toast.makeText(LoginActivity.this, "El correo ingresado no se encuentra registrado en el sistema. Inténtelo de nuevo.",
+                                Toast.LENGTH_SHORT).show();
+                    }
 
-                                }
-                            });
+
                 }
                 break;
 
 
+            }
+            case R.id.buttonForget:{
+                //Reseteo de password
+
+                    break;
             }
         }
     }//Fin Onclick
@@ -158,6 +182,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     });
     }//Fin setAmbulanceNumber
+
+    //La función checkRole consulta si el e-mail ingresado cuenta con los privilegios de paramedico.
+    void  checkRole(final String email){
+        DatabaseReference paramedicoRef = FirebaseDatabase.getInstance().getReference("paramedicos/");
+        Query paramedicoQuery = paramedicoRef.orderByChild("correo");
+
+        paramedicoQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                    System.out.println(ds.child("correo").getValue().toString());
+                    if(email.equals(ds.child("correo").getValue().toString())){
+                        role = true;
+                        System.out.println("ENCONTRADO");
+                    }else{
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 
 }

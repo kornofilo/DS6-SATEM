@@ -104,47 +104,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarLogin);
         pb.setVisibility(View.VISIBLE);
-        final Intent intent;
         switch (v.getId()){
             case R.id.buttonLogin:{
-                role = false;
+
                 if(!emailET.getText().toString().equals("") && !passwordET.getText().toString().equals("") && !ambulanceET.getText().toString().equals("")){
                     String emailV = emailET.getText().toString();
                     String passwordV = passwordET.getText().toString();
-                    intent = new Intent(LoginActivity.this,MainActivity.class);
-
-                        System.out.println("BEFORE" +role);
-                        checkRole(emailV);
-                        System.out.println(role);
-
-
-                    if(role){
-                        mAuth.signInWithEmailAndPassword(emailV, passwordV)
-                                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                        // If sign in fails, display a message to the user. If sign in succeeds
-                                        // the auth state listener will be notified and logic to handle the
-                                        // signed in user can be handled in the listener.
-                                        if (!task.isSuccessful()) {
-                                            Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
-                                                    Toast.LENGTH_SHORT).show();
-                                            role = false;
-                                        }else if (task.isSuccessful()){
-                                            setAmbulanceNumber(ambulanceET.getText().toString());
-                                            startActivity(intent);
-                                            finish();
-                                        }
-
-                                    }
-                                });
-                    }else{
-                        Toast.makeText(LoginActivity.this, "El correo ingresado no se encuentra registrado en el sistema. Inténtelo de nuevo.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-
-
+                    checkRole(emailV,passwordV);
                 }
                 break;
 
@@ -183,33 +149,66 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     });
     }//Fin setAmbulanceNumber
 
-    //La función checkRole consulta si el e-mail ingresado cuenta con los privilegios de paramedico.
-    void  checkRole(final String email){
+    void checkRole(final String email, final String password){
         DatabaseReference paramedicoRef = FirebaseDatabase.getInstance().getReference("paramedicos/");
-        Query paramedicoQuery = paramedicoRef.orderByChild("correo");
+        final boolean[] role = new boolean[1];
 
-        paramedicoQuery.addValueEventListener(new ValueEventListener() {
+        System.out.println("BEFORE " + role[0]);
+
+
+        paramedicoRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     System.out.println(ds.child("correo").getValue().toString());
-                    if(email.equals(ds.child("correo").getValue().toString())){
-                        role = true;
+                    if (email.equals(ds.child("correo").getValue().toString())) {
                         System.out.println("ENCONTRADO");
-                    }else{
+                        login(email,password);
+                        role[0] = true;
                     }
-
+                    System.out.println("MEANWHILE " + role[0]);
                 }
 
+                if (!role[0]) {
+
+                    Toast.makeText(LoginActivity.this, "El correo ingresado no está registrado en el sistema. Inténtelo de nuevo.",
+                            Toast.LENGTH_SHORT).show();                }
+
+
+
             }
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+
+    }//Fin de la función login.
+
+     public void login(String email, String password){
+         mAuth.signInWithEmailAndPassword(email, password)
+                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                     @Override
+                     public void onComplete(@NonNull Task<AuthResult> task) {
+
+                         // If sign in fails, display a message to the user. If sign in succeeds
+                         // the auth state listener will be notified and logic to handle the
+                         // signed in user can be handled in the listener.
+                         if (!task.isSuccessful()) {
+                             Toast.makeText(LoginActivity.this, "El Nombre de Usuario o Contraseña ingresada son incorrectos. Inténtelo de nuevo.",
+                                     Toast.LENGTH_SHORT).show();
+                             role = false;
+                         }else if (task.isSuccessful()){
+                             setAmbulanceNumber(ambulanceET.getText().toString());
+                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                             startActivity(intent);
+                             finish();
+                         }
+
+                     }
+                 });
+     }
     }
-
-
-
-}

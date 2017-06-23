@@ -117,9 +117,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
             case R.id.buttonForget:{
-                //Reseteo de password
-
-                    break;
+                Intent intent = new Intent(LoginActivity.this,passwordReset.class);
+                startActivity(intent);
+                finish();
             }
         }
     }//Fin Onclick

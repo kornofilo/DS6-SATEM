@@ -70,11 +70,12 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/olvidosucontrasenha"
-        android:textColor="@color/colorForget"
         android:layout_above="@+id/buttonLogin"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="39dp" />
+        android:layout_marginBottom="39dp"
+        android:onClick="onClick"
+        android:text="@string/olvidosucontrasenha"
+        android:textColor="@color/colorForget" />
 
     <TextView
         android:id="@+id/textView2"

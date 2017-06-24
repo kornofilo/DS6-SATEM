@@ -40,6 +40,9 @@
     <string name="login">Iniciar Sesión</string>
     <string name="olvidosucontrasenha">¿Olvidó su Contraseña?</string>
     <string name="loginTitle">Inicio de Sesión</string>
+    <string name="occupiedOrInvalidAmbulance">* Atención La ambulancia seleccionada no tiene emergencias en curso o no está registrada en el sistema. *</string>
+    <string name="noHistEmergencyAmbulance">La ambulancia actual no cuenta con emergencias registradas en el sistema.</string>
+    <string name="noCurrentEmergencyAmbulance">    Esta ambulancia no tiene una emergencia en proceso en estos momentos.</string>
 
     <string-array name="sexoOpts">
         <item>Femenino</item>

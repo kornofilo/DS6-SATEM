@@ -38,6 +38,7 @@ $(document).ready(function() {
 
     //Cargamos los datos de la DB de Firebase.
     var dbRefObjectERegistradas = firebase.database().ref('ambulancias/');
+    //Child_added: Agrega una ambulancia al select cada vez que una ambulancia pasa al estado "Disponible."
     dbRefObjectERegistradas.orderByChild("estado").equalTo("Disponible").on("child_added", function(data) {
      $selectDropdown.append(
       $("<option></option>")
@@ -46,10 +47,9 @@ $(document).ready(function() {
       );
 
     });
-
+    //Child_removed: Elimina del select a aquellas ambulancias que han pasado al estado de "Ocupadas".
     dbRefObjectERegistradas.orderByChild("estado").equalTo("Disponible").on("child_removed", function(data) {
       $("#selectAmbulancias option[value='" + data.key +"']").remove();
-
     });
 
    
@@ -147,10 +147,3 @@ $(document).ready(function(){
 
 
       });//Fin JQuery
-
-
-
-     
-
-
-

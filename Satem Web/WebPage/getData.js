@@ -18,16 +18,17 @@ $(document).ready(function() {
      $selectDropdown.append(
       $("<option></option>")
         .attr("value",data.key)
-        .text(data.val().suceso + " En " + data.val().lugarAccidente)
+        .text(data.val().suceso + " @ " + data.val().lugarAccidente)
      );
     });
+
+
 
     $('select').material_select();
 
 });
 
 //Obtenemos las ambulancias disponibles.
-var cantAmbulancias = 0;
 
 $(document).ready(function() {
 
@@ -43,17 +44,15 @@ $(document).ready(function() {
         .attr("value",data.key)
         .text(data.key)
       );
-      cantAmbulancias += 1;
+
     });
 
-    if (cantAmbulancias == 0) {
-         $selectDropdown.append(
-        $("<option disabled></option>")
-        .text("No Hay Ambulancias Disponibles")
-      );
+    dbRefObjectERegistradas.orderByChild("estado").equalTo("Disponible").on("child_removed", function(data) {
+      $("#selectAmbulancias option[value='" + data.key +"']").remove();
 
-    }
+    });
 
+   
 
 
     $('select').material_select();
@@ -130,6 +129,12 @@ $(document).ready(function(){
           $('.dataTables_filter').remove();
 
           dbRefObjectFinalizada.on("child_added", function(data) {
+          var dataSet = [data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo];
+          tablePacientes.rows.add([dataSet]).draw();  
+          
+        });
+
+          dbRefObjectFinalizada.on("child_changed", function(data) {
           var dataSet = [data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo];
           tablePacientes.rows.add([dataSet]).draw();  
           

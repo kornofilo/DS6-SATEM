@@ -13,14 +13,14 @@ function inicializar() {
     refambulancias.on('child_added', function(snapshot) {
         keyAmbulancias.push(snapshot.key);
         ambulancias.push(snapshot.val().cantidadEmergencias);
-        console.log(snapshot.key);
-         console.log(keyAmbulancias);
+       // console.log(snapshot.key);
+        // console.log(keyAmbulancias);
 
           barChartData = {
         labels : keyAmbulancias,
         datasets : [
           {
-            fillColor : "#6b9dfa",
+            fillColor : "#008080",
             strokeColor : "#ffffff",
             highlightFill: "#1864f2",
             highlightStroke: "#ffffff",
@@ -31,7 +31,7 @@ function inicializar() {
       }   
 
 
-    console.log(barChartData);
+    //console.log(barChartData);
 
     var ctx3 = document.getElementById("chart-area3").getContext("2d");
    window.myPie = new Chart(ctx3).Bar(barChartData, {responsive:true});

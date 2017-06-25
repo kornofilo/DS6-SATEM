@@ -452,7 +452,6 @@ public class MainActivity extends AppCompatActivity{
                                     ArrayAdapter<String> adapter;
 
                                     for (final DataSnapshot ds : dataSnapshot.getChildren()) {
-                                        System.out.println(ds);
                                         String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
                                                 + "\n\n -Fecha: " + ds.child("fecha").getValue().toString()
                                                 + "\n\n -Suceso: " + ds.child("suceso").getValue().toString()
@@ -461,12 +460,13 @@ public class MainActivity extends AppCompatActivity{
                                                 + "\n\n -Diagnóstico: " + ds.child("diagnostico").getValue().toString();
 
                                         mylist.add(resumen);
-
                                         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mylist);
                                         historialLV.setAdapter(adapter);
                                         historialLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                                System.out.println(position + " " +  id + " " + parent.getSelectedItem());
                                                 //Al seleccionar un item del listview, llevamos al usuario a un formulario para que pueda actualizar el diagnóstico del paciente.
                                                 Intent intent = new Intent(getActivity(), UpdateActivity.class);
                                                 intent.putExtra("nombre",ds.child("nombre").getValue().toString());

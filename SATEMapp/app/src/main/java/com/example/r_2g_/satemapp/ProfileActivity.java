@@ -2,16 +2,11 @@ package com.example.r_2g_.satemapp;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -53,7 +48,6 @@ public class ProfileActivity extends AppCompatActivity {
         ambulanceRef.child("paramedicos").child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot);
                 profileText.setText("Nombre: " + dataSnapshot.child("nombre").getValue().toString() + "\n\n" +
                         "Ambulancia actual: " + miAmbulancia
 

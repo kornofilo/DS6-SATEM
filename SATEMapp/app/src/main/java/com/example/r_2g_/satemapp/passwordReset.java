@@ -2,6 +2,7 @@ package com.example.r_2g_.satemapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,16 +20,30 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 
-
-
 public class passwordReset extends AppCompatActivity implements View.OnClickListener{
+
+    SharedPreferences pref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_reset);
+        //Verificamos el tema seleccionado por el usuario
+        pref  = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean tema = pref.getBoolean("nightMode_switch", true);
+        System.out.println(tema);
 
-        Button button;
+
+        //Dependiendo del valor recuperado, se establece el tema para la activity.
+        if(tema) {
+            setTheme(R.style.AppTheme_Dark);
+        }
+        else {
+            setTheme(R.style.AppTheme);
+        }
+
     }
     @Override
     public void onClick(View v) {

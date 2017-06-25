@@ -1,9 +1,5 @@
 package com.example.r_2g_.satemapp;
 
-/**
- * Created by wsses on 06/15/2017.
- */
-
 public class Paciente {
     private String nombre;
     private String cedula;

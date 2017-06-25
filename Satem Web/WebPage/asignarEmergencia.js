@@ -33,11 +33,6 @@
 				});
 	        }//Fin del ciclo for.
 
-	               console.log(ambulancia);
-
-
-
-
 	        //Actualizamos la emergencia asignada.
 	         var dbRefEmergencia = firebase.database().ref('emergencias/' + selectEmergency.value);
 	          dbRefEmergencia.on('value', function(snapshot) {
@@ -53,8 +48,6 @@
 	               updates['/emergencias/' + selectEmergency.value] = postData;           
 				});
 	         
-	          console.log(updates);
-
 	          //Agregamos la nueva emergencia.
 	          firebase.database().ref().update(updates,function(error) {
 	                if (error) {

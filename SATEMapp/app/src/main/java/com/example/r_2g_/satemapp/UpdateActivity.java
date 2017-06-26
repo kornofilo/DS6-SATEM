@@ -109,6 +109,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
                     Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
 
 
 

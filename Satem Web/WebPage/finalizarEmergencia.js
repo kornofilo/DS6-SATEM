@@ -14,9 +14,9 @@
      	  	var cell = table.rows[rowvalue].cells[0];
      	  	var idEmergencia = cell.firstChild.data;
 
-
-
         	$('ul.tabs').tabs('select_tab', 'test4');
+
+
 
             //Seteamos el estado de la emergencia seleccionada como Finalizada.
         	var dbRefEmergencia = firebase.database().ref('emergencias/' + idEmergencia + '/estado');
@@ -42,7 +42,11 @@
                     return actual; 
                 });
              });
-            
+
+
+            //Eliminamos la columna en que se encuentra la emergencia.
+            document.getElementById('enCaminoTable').deleteRow(rowvalue);
+
 
          
    }

@@ -1,13 +1,9 @@
 package com.example.r_2g_.satemapp;
 
-/**
- * Created by wsses on 06/15/2017.
- */
-
 public class Paciente {
     public String nombre;
-    public String cedula;
-    public String numAmbulancia;
+    private String cedula;
+    private String numAmbulancia;
     public String lugarAccidente;
     public String idEmergencia;
     public String suceso;
@@ -42,35 +38,23 @@ public class Paciente {
         this.estado = estado;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getCedula() {
-        return cedula;
-    }
 
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 
-    public String getNumAmbulancia() {
-        return numAmbulancia;
-    }
 
     public void setNumAmbulancia(String numAmbulancia) {
         this.numAmbulancia = numAmbulancia;
     }
 
-    public String getLugarAccidente() {
-        return lugarAccidente;
-    }
 
-    public void setLugarAccidente(String lugarAccidente) {
+    void setLugarAccidente(String lugarAccidente) {
         this.lugarAccidente = lugarAccidente;
     }
 
@@ -78,17 +62,11 @@ public class Paciente {
         return suceso;
     }
 
-    public void setSuceso(String suceso) {
+    void setSuceso(String suceso) {
         this.suceso = suceso;
     }
 
-
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
+    void setGenero(String genero) {
         this.genero = genero;
     }
 
@@ -104,7 +82,7 @@ public class Paciente {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -112,54 +90,44 @@ public class Paciente {
         return sintomas;
     }
 
-    public void setSintomas(String sintomas) {
+    void setSintomas(String sintomas) {
         this.sintomas = sintomas;
     }
 
-    public String getDiagnostico() {
-        return diagnostico;
-    }
-
-    public void setDiagnostico(String diagnostico) {
+    void setDiagnostico(String diagnostico) {
         this.diagnostico = diagnostico;
     }
 
-    public String getCondicionVital() {
-        return condicionVital;
-    }
-
-    public void setCondicionVital(String condicionVital) {
+    void setCondicionVital(String condicionVital) {
         this.condicionVital = condicionVital;
     }
 
-    public String getRiesgo() {
-        return riesgo;
-    }
-
-    public void setRiesgo(String riesgo) {
+    void setRiesgo(String riesgo) {
         this.riesgo = riesgo;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public String getCedula() {
+        return cedula;
     }
 
-    public String getIdEmergencia() {
+    public String getGenero() {
+        return genero;
+    }
+
+    String getIdEmergencia() {
         return idEmergencia;
     }
 
-    public void setIdEmergencia(String idEmergencia) {
+    void setIdEmergencia(String idEmergencia) {
         this.idEmergencia = idEmergencia;
     }
 
-    public String getIdEmergencia_numAmbulancia_paramedico() {       return idEmergencia_numAmbulancia_paramedico;
-    }
 
-    public void setIdEmergencia_numAmbulancia_paramedico(String idEmergencia_numAmbulancia_paramedico) {
+    void setIdEmergencia_numAmbulancia_paramedico(String idEmergencia_numAmbulancia_paramedico) {
         this.idEmergencia_numAmbulancia_paramedico = idEmergencia_numAmbulancia_paramedico;
     }
 }

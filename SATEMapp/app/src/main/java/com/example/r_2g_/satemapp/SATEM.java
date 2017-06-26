@@ -11,6 +11,4 @@ public class SATEM extends Application {
         super.onCreate();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
-
-
 }

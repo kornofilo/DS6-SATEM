@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -88,9 +87,6 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
             //Obtenemos el key del nodo del paciente:
              pacienteKey = extras.getString("key");
-
-
-
         }
     }
 
@@ -110,13 +106,6 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
                     mutableData.child("diagnostico").setValue(diagnosticoET.getText().toString());
                     mutableData.child("condicionVital").setValue(condicionVitalSP.getSelectedItem().toString());
                     mutableData.child("riesgo").setValue(riesgoSP.getSelectedItem().toString());
-
-
-
-
-
-
-
 
                     Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
                     startActivity(intent);

@@ -44,18 +44,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity{
 
     static FirebaseDatabase database;
     static DatabaseReference myRef;
-
-
-
-
-
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static ViewPager mViewPager;
     static SharedPreferences pref;
@@ -212,7 +207,6 @@ public class MainActivity extends AppCompatActivity{
         }
 
         private void fillTabDiagnostico(final View rootView) {
-            final ArrayList<String> emergenciasData = new ArrayList<>();
             final Paciente paciente = new Paciente();
             //Extraemos los valores en los Textviews y Spinners
 
@@ -221,8 +215,6 @@ public class MainActivity extends AppCompatActivity{
             final TextView generoTV = (TextView) rootView.findViewById(R.id.textViewSexo);
             final TextView condicionVitalTV = (TextView) rootView.findViewById(R.id.textViewCondVital);
             final TextView riesgoTV = (TextView) rootView.findViewById(R.id.textViewRiesgo);
-
-
 
             //EditTexts
             final EditText nombre, cedula,sintomas,lugar,diagnostico, suceso;
@@ -233,7 +225,6 @@ public class MainActivity extends AppCompatActivity{
             sintomas = (EditText) rootView.findViewById(R.id.editTextSintomas);
             diagnostico = (EditText) rootView.findViewById(R.id.editTextDiagnostico);
 
-
             //Spinners
             final Spinner genero, condicionVital,riesgo;
             genero = (Spinner) rootView.findViewById(R.id.spinnerSexo);
@@ -242,18 +233,16 @@ public class MainActivity extends AppCompatActivity{
 
             final Button enviarEmergencia = (Button) rootView.findViewById(R.id.buttonEnviar);
 
-
             //Traemos las emergencias asignadas a la ambulancia.
             final String miAmbulancia =  pref.getString("setAmbulancia",null);
             DatabaseReference ambulanciaRef = database.getReference("ambulancias/" + miAmbulancia + "/emergenciaActual");
             ambulanciaRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    System.out.println( "query1 " + dataSnapshot);
                     if(dataSnapshot.getValue() == null || dataSnapshot.getValue().toString().equals("")){
 
 
-                        emergencia.setText("* Atención La ambulancia seleccionada no tiene emergencias en curso o no está registrada en el sistema. *");
+                        emergencia.setText(R.string.occupiedOrInvalidAmbulance);
                         emergencia.setTextColor(Color.RED);
                         enviarEmergencia.setVisibility(View.GONE);
                         emergenciaActualTV.setVisibility(View.GONE);
@@ -307,8 +296,6 @@ public class MainActivity extends AppCompatActivity{
 
                             @Override
                             public void onCancelled(DatabaseError error) {
-                                // Failed to read value
-                                System.out.println("Failed to read value." + error.toException());
                             }
                         });
                     }
@@ -319,8 +306,7 @@ public class MainActivity extends AppCompatActivity{
 
                 @Override
                 public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    System.out.println("Failed to read value." + error.toException());
+
                 }
             });
 
@@ -406,7 +392,7 @@ public class MainActivity extends AppCompatActivity{
                     System.out.println("the last0 " + dataSnapshot.getRef() +  " " +dataSnapshot);
                     if(dataSnapshot.getValue() == null) {
                         noHistTV.setVisibility(View.VISIBLE);
-                        noHistTV.setText("La ambulancia actual no cuenta con emergencias registradas en el sistema.");
+                        noHistTV.setText(R.string.noHistEmergencyAmbulance);
                     }else{
                         noHistTV.setVisibility(View.INVISIBLE);
                         ListView historialLV;
@@ -423,8 +409,6 @@ public class MainActivity extends AppCompatActivity{
                                              + "-Estado: " + ds.child("estado").getValue().toString() + "\n";
 
                             mylist.add(resumen);
-
-
                         }
                         adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,mylist);
                         historialLV.setAdapter(adapter);
@@ -434,8 +418,6 @@ public class MainActivity extends AppCompatActivity{
 
                 @Override
                 public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    System.out.println("Failed to read value." + error.toException());
                 }
             });
 
@@ -443,13 +425,14 @@ public class MainActivity extends AppCompatActivity{
 
         void fillTabHistorialPacientes(final View rootView) {
 
-            final View finalRootView1 = rootView;
+            final ArrayList<Paciente> misPacientes = new ArrayList<>();
+
             final String miAmbulancia =  pref.getString("setAmbulancia",null);
-            final ListView historialLV = (ListView) finalRootView1.findViewById(R.id.listViewHistorial);
+            final ListView historialLV = (ListView) rootView.findViewById(R.id.listViewHistorial);
 
             DatabaseReference ambulanciaRef = database.getReference("ambulancias/" + miAmbulancia + "/emergenciaActual");
             final TextView noHistTV;
-            noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
+            noHistTV = (TextView) rootView.findViewById(R.id.textViewNTU);
             ambulanciaRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -471,8 +454,13 @@ public class MainActivity extends AppCompatActivity{
                                     ArrayList<String> mylist = new ArrayList<>();
                                     ArrayAdapter<String> adapter;
 
+
                                     for (final DataSnapshot ds : dataSnapshot.getChildren()) {
-                                        System.out.println(ds);
+                                        Paciente paciente = new Paciente();
+                                        paciente.setNombre(ds.child("nombre").getValue().toString());
+                                        paciente.setCedula(ds.child("cedula").getValue().toString());
+                                        paciente.setGenero(ds.child("genero").getValue().toString());
+                                        misPacientes.add(paciente);
                                         String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
                                                 + "\n\n -Fecha: " + ds.child("fecha").getValue().toString()
                                                 + "\n\n -Suceso: " + ds.child("suceso").getValue().toString()
@@ -481,44 +469,41 @@ public class MainActivity extends AppCompatActivity{
                                                 + "\n\n -Diagnóstico: " + ds.child("diagnostico").getValue().toString();
 
                                         mylist.add(resumen);
-
                                         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mylist);
                                         historialLV.setAdapter(adapter);
                                         historialLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                System.out.println(misPacientes.get(position).getNombre());
                                                 //Al seleccionar un item del listview, llevamos al usuario a un formulario para que pueda actualizar el diagnóstico del paciente.
                                                 Intent intent = new Intent(getActivity(), UpdateActivity.class);
-                                                intent.putExtra("nombre",ds.child("nombre").getValue().toString());
-                                                intent.putExtra("cedula",ds.child("cedula").getValue().toString());
-                                                intent.putExtra("genero",ds.child("genero").getValue().toString());
-                                                intent.putExtra("suceso",ds.child("suceso").getValue().toString());
+                                                intent.putExtra("nombre",misPacientes.get(position).getNombre());
+                                                intent.putExtra("cedula",misPacientes.get(position).getCedula());
+                                                intent.putExtra("genero",misPacientes.get(position).getGenero());
+                                                /*intent.putExtra("suceso",ds.child("suceso").getValue().toString());
                                                 intent.putExtra("lugarAccidente",ds.child("lugarAccidente").getValue().toString());
                                                 intent.putExtra("sintomas",ds.child("sintomas").getValue().toString());
                                                 intent.putExtra("diagnostico",ds.child("diagnostico").getValue().toString());
                                                 intent.putExtra("condicionVital",ds.child("condicionVital").getValue().toString());
                                                 intent.putExtra("riesgo",ds.child("riesgo").getValue().toString());
-                                                intent.putExtra("key",ds.getKey());
-
+                                                intent.putExtra("key",ds.getKey());*/
 
                                                 startActivity(intent);
                                             }
                                         });
-                                    }//Fin del for
+                                    }//Fin del for.
                                 }
-
-                            }
+                            }//Fin OnDataChange.
 
 
                             @Override
                             public void onCancelled(DatabaseError error) {
                                 // Failed to read value
-                                System.out.println("Failed to read value." + error.toException());
                             }
                         });
                     }else{
                         noHistTV.setVisibility(View.VISIBLE);
-                        noHistTV.setText("Esta ambulancia no tiene una emergencia en proceso en estos momentos.");
+                        noHistTV.setText(R.string.noCurrentEmergencyAmbulance);
                     }
 
 
@@ -527,27 +512,19 @@ public class MainActivity extends AppCompatActivity{
 
                 @Override
                 public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    System.out.println("Failed to read value." + error.toException());
+
                 }
             });
-
-
-
-
-
         }
-
-
     }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -579,11 +556,5 @@ public class MainActivity extends AppCompatActivity{
             return null;
         }//Fin getPageTitle.
     }//Fin SectionsPagerAdapter.
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        finish();
-    }
 
 }//Fin de clase.

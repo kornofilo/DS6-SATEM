@@ -44,6 +44,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -424,6 +425,8 @@ public class MainActivity extends AppCompatActivity{
 
         void fillTabHistorialPacientes(final View rootView) {
 
+            final ArrayList<Paciente> misPacientes = new ArrayList<>();
+
             final String miAmbulancia =  pref.getString("setAmbulancia",null);
             final ListView historialLV = (ListView) rootView.findViewById(R.id.listViewHistorial);
 
@@ -451,7 +454,13 @@ public class MainActivity extends AppCompatActivity{
                                     ArrayList<String> mylist = new ArrayList<>();
                                     ArrayAdapter<String> adapter;
 
+
                                     for (final DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        Paciente paciente = new Paciente();
+                                        paciente.setNombre(ds.child("nombre").getValue().toString());
+                                        paciente.setCedula(ds.child("cedula").getValue().toString());
+                                        paciente.setGenero(ds.child("genero").getValue().toString());
+                                        misPacientes.add(paciente);
                                         String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
                                                 + "\n\n -Fecha: " + ds.child("fecha").getValue().toString()
                                                 + "\n\n -Suceso: " + ds.child("suceso").getValue().toString()
@@ -465,21 +474,19 @@ public class MainActivity extends AppCompatActivity{
                                         historialLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                                                System.out.println(position + " " +  id + " " + parent.getSelectedItem());
+                                                System.out.println(misPacientes.get(position).getNombre());
                                                 //Al seleccionar un item del listview, llevamos al usuario a un formulario para que pueda actualizar el diagnóstico del paciente.
                                                 Intent intent = new Intent(getActivity(), UpdateActivity.class);
-                                                intent.putExtra("nombre",ds.child("nombre").getValue().toString());
-                                                intent.putExtra("cedula",ds.child("cedula").getValue().toString());
-                                                intent.putExtra("genero",ds.child("genero").getValue().toString());
-                                                intent.putExtra("suceso",ds.child("suceso").getValue().toString());
+                                                intent.putExtra("nombre",misPacientes.get(position).getNombre());
+                                                intent.putExtra("cedula",misPacientes.get(position).getCedula());
+                                                intent.putExtra("genero",misPacientes.get(position).getGenero());
+                                                /*intent.putExtra("suceso",ds.child("suceso").getValue().toString());
                                                 intent.putExtra("lugarAccidente",ds.child("lugarAccidente").getValue().toString());
                                                 intent.putExtra("sintomas",ds.child("sintomas").getValue().toString());
                                                 intent.putExtra("diagnostico",ds.child("diagnostico").getValue().toString());
                                                 intent.putExtra("condicionVital",ds.child("condicionVital").getValue().toString());
                                                 intent.putExtra("riesgo",ds.child("riesgo").getValue().toString());
-                                                intent.putExtra("key",ds.getKey());
-
+                                                intent.putExtra("key",ds.getKey());*/
 
                                                 startActivity(intent);
                                             }

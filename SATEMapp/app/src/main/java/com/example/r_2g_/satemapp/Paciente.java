@@ -1,7 +1,7 @@
 package com.example.r_2g_.satemapp;
 
 public class Paciente {
-    private String nombre;
+    public String nombre;
     private String cedula;
     private String numAmbulancia;
     public String lugarAccidente;
@@ -104,6 +104,18 @@ public class Paciente {
 
     void setRiesgo(String riesgo) {
         this.riesgo = riesgo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public String getGenero() {
+        return genero;
     }
 
     String getIdEmergencia() {

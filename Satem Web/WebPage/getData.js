@@ -133,9 +133,17 @@ $(document).ready(function(){
 
           dbRefObjectPacientes.on("child_added", function(data) {
           var dataSet = [data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo];
-          tablePacientes.rows.add([dataSet]).draw();  
           
-        });
+          tablePacientes.node().id = "1";
+          tablePacientes.
+            rows.
+            add([dataSet]).
+            draw();        
+          });
+
+          dbRefObjectPacientes.on("child_changed", function(data) {
+            //         
+          });
 
            //Seteamos el searchbar superior para que pueda realizar un filtrado de la tabla.
            $('#cedulaInput').keyup(function(){

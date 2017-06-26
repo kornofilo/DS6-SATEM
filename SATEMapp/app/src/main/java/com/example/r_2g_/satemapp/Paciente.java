@@ -1,6 +1,7 @@
 package com.example.r_2g_.satemapp;
 
 public class Paciente {
+    public String id;
     public String nombre;
     private String cedula;
     private String numAmbulancia;
@@ -118,6 +119,34 @@ public class Paciente {
         return genero;
     }
 
+    public String getNumAmbulancia() {
+        return numAmbulancia;
+    }
+
+    public String getLugarAccidente() {
+        return lugarAccidente;
+    }
+
+    public String getIdEmergencia_numAmbulancia_paramedico() {
+        return idEmergencia_numAmbulancia_paramedico;
+    }
+
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public String getCondicionVital() {
+        return condicionVital;
+    }
+
+    public String getRiesgo() {
+        return riesgo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
     String getIdEmergencia() {
         return idEmergencia;
     }
@@ -126,6 +155,13 @@ public class Paciente {
         this.idEmergencia = idEmergencia;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     void setIdEmergencia_numAmbulancia_paramedico(String idEmergencia_numAmbulancia_paramedico) {
         this.idEmergencia_numAmbulancia_paramedico = idEmergencia_numAmbulancia_paramedico;

@@ -8,7 +8,7 @@
 //Obtenemos a los pacientes registrados.
 
 $(document).ready(function(){
-          var dbRefObjectFinalizada = firebase.database().ref('pacientes/');
+          var dbRefObjectPacientes = firebase.database().ref('pacientes/');
           var tablePacientes = $('#pacientesTable').DataTable( {
           "paging":   false,
           "ordering": false,
@@ -18,10 +18,16 @@ $(document).ready(function(){
           //Eliminamos el searchbar por defecto.
           $('.dataTables_filter').remove();
 
-          dbRefObjectFinalizada.on("child_added", function(data) {
-          var dataSet = [data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo];
-          tablePacientes.rows.add([dataSet]).draw();  
-          
+
+          dbRefObjectPacientes.on('child_added', function(data) {    
+           var rowIndex = $('#pacientesTable').dataTable().fnAddData([data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo]);
+           var row = $('#pacientesTable').dataTable().fnGetNodes(rowIndex);
+           $(row).attr('id', data.key);
+        });
+
+
+       dbRefObjectPacientes.on("child_changed", function(data) {
+           $('#pacientesTable').dataTable().fnUpdate( [data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo], document.getElementById(data.key), undefined);
         });
 
            //Seteamos el searchbar superior para que pueda realizar un filtrado de la tabla.
@@ -31,7 +37,6 @@ $(document).ready(function(){
 
 
       });//Fin JQuery
-
 
 
      

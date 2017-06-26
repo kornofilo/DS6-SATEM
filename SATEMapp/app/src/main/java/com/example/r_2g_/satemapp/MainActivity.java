@@ -460,6 +460,14 @@ public class MainActivity extends AppCompatActivity{
                                         paciente.setNombre(ds.child("nombre").getValue().toString());
                                         paciente.setCedula(ds.child("cedula").getValue().toString());
                                         paciente.setGenero(ds.child("genero").getValue().toString());
+                                        paciente.setSuceso(ds.child("suceso").getValue().toString());
+                                        paciente.setLugarAccidente(ds.child("lugarAccidente").getValue().toString());
+                                        paciente.setSintomas(ds.child("sintomas").getValue().toString());
+                                        paciente.setDiagnostico(ds.child("diagnostico").getValue().toString());
+                                        paciente.setCondicionVital(ds.child("condicionVital").getValue().toString());
+                                        paciente.setRiesgo(ds.child("riesgo").getValue().toString());
+                                        paciente.setId(ds.getKey());
+
                                         misPacientes.add(paciente);
                                         String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
                                                 + "\n\n -Fecha: " + ds.child("fecha").getValue().toString()
@@ -480,13 +488,13 @@ public class MainActivity extends AppCompatActivity{
                                                 intent.putExtra("nombre",misPacientes.get(position).getNombre());
                                                 intent.putExtra("cedula",misPacientes.get(position).getCedula());
                                                 intent.putExtra("genero",misPacientes.get(position).getGenero());
-                                                /*intent.putExtra("suceso",ds.child("suceso").getValue().toString());
-                                                intent.putExtra("lugarAccidente",ds.child("lugarAccidente").getValue().toString());
-                                                intent.putExtra("sintomas",ds.child("sintomas").getValue().toString());
-                                                intent.putExtra("diagnostico",ds.child("diagnostico").getValue().toString());
-                                                intent.putExtra("condicionVital",ds.child("condicionVital").getValue().toString());
-                                                intent.putExtra("riesgo",ds.child("riesgo").getValue().toString());
-                                                intent.putExtra("key",ds.getKey());*/
+                                                intent.putExtra("suceso",misPacientes.get(position).getSuceso());
+                                                intent.putExtra("lugarAccidente",misPacientes.get(position).getLugarAccidente());
+                                                intent.putExtra("sintomas",misPacientes.get(position).getSintomas());
+                                                intent.putExtra("diagnostico",misPacientes.get(position).getDiagnostico());
+                                                intent.putExtra("condicionVital",misPacientes.get(position).getCondicionVital());
+                                                intent.putExtra("riesgo",misPacientes.get(position).getRiesgo());
+                                                intent.putExtra("key",misPacientes.get(position).getId());
 
                                                 startActivity(intent);
                                             }

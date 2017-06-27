@@ -14,38 +14,44 @@
      	  	var cell = table.rows[rowvalue].cells[0];
      	  	var idEmergencia = cell.firstChild.data;
 
-        	$('ul.tabs').tabs('select_tab', 'test4');
+
+                var r = confirm("¿Desea finalizar la emergencia?");
+                 if (r == true) {
+                    $('ul.tabs').tabs('select_tab', 'test4');
+                    //Seteamos el estado de la emergencia seleccionada como Finalizada.
+                    var dbRefEmergencia = firebase.database().ref('emergencias/' + idEmergencia + '/estado');
+                    dbRefEmergencia.transaction(function(status) {
+                        status = "Finalizada";
+                        return status;
+                    });
 
 
+                    dbRefEmergencia = firebase.database().ref('emergencias/' + idEmergencia + '/ambulancia');
+                    //Seteamos a las ambulancias asignadas a la emergencia seleccionada como Disponibles.
+                    dbRefEmergencia.on("child_added", function(data) {
 
-            //Seteamos el estado de la emergencia seleccionada como Finalizada.
-        	var dbRefEmergencia = firebase.database().ref('emergencias/' + idEmergencia + '/estado');
-        	dbRefEmergencia.transaction(function(status) {
-        		status = "Finalizada";
-   				return status;
-			});
+                       var dbRefAmbulancia = firebase.database().ref('ambulancias/' + data.key + '/estado' );
+                       dbRefAmbulancia.transaction(function(status) {
+                            status = "Disponible";
+                            return status;
+                        });
 
-
-            dbRefEmergencia = firebase.database().ref('emergencias/' + idEmergencia + '/ambulancia');
-            //Seteamos a las ambulancias asignadas a la emergencia seleccionada como Disponibles.
-            dbRefEmergencia.on("child_added", function(data) {
-
-               var dbRefAmbulancia = firebase.database().ref('ambulancias/' + data.key + '/estado' );
-               dbRefAmbulancia.transaction(function(status) {
-                    status = "Disponible";
-                    return status;
-                });
-
-               dbRefAmbulancia = firebase.database().ref('ambulancias/' + data.key + '/emergenciaActual' );
-               dbRefAmbulancia.transaction(function(actual) {
-                    actual = null;  
-                    return actual; 
-                });
-             });
+                       dbRefAmbulancia = firebase.database().ref('ambulancias/' + data.key + '/emergenciaActual' );
+                       dbRefAmbulancia.transaction(function(actual) {
+                            actual = null;  
+                            return actual; 
+                        });
+                     });
 
 
-            //Eliminamos la columna en que se encuentra la emergencia.
-            document.getElementById('enCaminoTable').deleteRow(rowvalue);
+                    //Eliminamos la columna en que se encuentra la emergencia.
+                    document.getElementById('enCaminoTable').deleteRow(rowvalue);
+                        
+                } 
+      
+
+
+            
 
 
          

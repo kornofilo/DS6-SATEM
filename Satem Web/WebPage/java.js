@@ -13,8 +13,7 @@ function inicializar() {
     refambulancias.on('child_added', function(snapshot) {
         keyAmbulancias.push(snapshot.key);
         ambulancias.push(snapshot.val().cantidadEmergencias);
-       // console.log(snapshot.key);
-        // console.log(keyAmbulancias);
+       
 
           barChartData = {
         labels : keyAmbulancias,

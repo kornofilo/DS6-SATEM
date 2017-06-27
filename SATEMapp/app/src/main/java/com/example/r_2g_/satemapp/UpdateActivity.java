@@ -21,6 +21,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     EditText nombreET, cedulaET,sucesoET,lugarET,sintomasET,diagnosticoET;
     Spinner generoSP,condicionVitalSP,riesgoSP;
     String pacienteKey;
+    boolean tema;
 
 
     @Override
@@ -29,7 +30,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         //Verificamos el tema seleccionado por el usuario
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean tema = pref.getBoolean("nightMode_switch", false);
+        tema = pref.getBoolean("nightMode_switch", false);
 
         //Dependiendo del valor recuperado, se establece el tema para la activity.
         if(tema) {

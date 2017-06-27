@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 
        dbRefObjectPacientes.on("child_changed", function(data) {
-           $('#pacientesTable').dataTable().fnUpdate( [data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo], document.getElementById(data.key), undefined);
+           $('#pacientesTable').dataTable().fnUpdate( [data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo], document.getElementById(data.key), undefined, false, false);
         });
 
            //Seteamos el searchbar superior para que pueda realizar un filtrado de la tabla.

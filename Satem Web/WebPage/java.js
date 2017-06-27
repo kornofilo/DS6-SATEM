@@ -20,7 +20,7 @@ function inicializar() {
         labels : keyAmbulancias,
         datasets : [
           {
-            fillColor : "#008080",
+            fillColor : "#FF8C00",
             strokeColor : "#ffffff",
             highlightFill: "#1864f2",
             highlightStroke: "#ffffff",

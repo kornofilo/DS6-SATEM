@@ -70,6 +70,9 @@ $(document).ready(function() {
           "paging":   false,
           "ordering": false,
           "info":     false,
+           "language": {
+                 "emptyTable": "No se encuentran emergencias en camino."
+              }
           } ); 
 
           //Eliminamos el searchbar por defecto.
@@ -98,6 +101,9 @@ $(document).ready(function() {
           "paging":   false,
           "ordering": false,
           "info":     false,
+          "language": {
+                 "emptyTable": "No se encuentran emergencias finalizadas."
+              }
           } ); 
 
           //Eliminamos el searchbar por defecto.
@@ -125,6 +131,9 @@ $(document).ready(function(){
           "paging":   false,
           "ordering": false,
           "info":     false,
+           "language": {
+                 "emptyTable": "No se encuentran pacientes."
+              }
           } ); 
 
           //Eliminamos el searchbar por defecto.

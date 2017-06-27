@@ -13,6 +13,9 @@ $(document).ready(function(){
           "paging":   false,
           "ordering": false,
           "info":     false,
+           "language": {
+                 "emptyTable": "No se encuentran pacientes."
+              }
           } ); 
 
           //Eliminamos el searchbar por defecto.

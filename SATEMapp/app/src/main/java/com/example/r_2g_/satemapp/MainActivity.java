@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity{
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static ViewPager mViewPager;
     static SharedPreferences pref;
+    static boolean tema;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity{
         //Verificamos el tema seleccionado por el usuario
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean tema = pref.getBoolean("nightMode_switch", false);
+        tema = pref.getBoolean("nightMode_switch", false);
 
         //Dependiendo del valor recuperado, se establece el tema para la activity.
         if(tema) {
@@ -260,7 +261,14 @@ public class MainActivity extends AppCompatActivity{
                         riesgo.setVisibility(View.GONE);
                     }else {
                         //Si la ambulancia tiene una emergencia en proceso, mostramos el formulario de diagnóstico de pacientes.
-                        emergencia.setTextColor(Color.BLACK);
+
+                        //Dependiendo del valor recuperado, se establece el tema para la activity.
+                        if(tema) {
+                            emergencia.setTextColor(Color.WHITE);
+                        }
+                        else {
+                            emergencia.setTextColor(Color.BLACK);
+                        }
                         enviarEmergencia.setVisibility(View.VISIBLE);
                         emergenciaActualTV.setVisibility(View.VISIBLE);
                         nombre.setVisibility(View.VISIBLE);

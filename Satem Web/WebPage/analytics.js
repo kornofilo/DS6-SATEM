@@ -27,7 +27,7 @@ function inicializar() {
           ]
     },
     options: {
-          events: ['click'],
+          events: ["mouseout", "click", "touchstart", "touchmove", "touchend"],
           title: {
         display: true,
         text: 'Cantidad de Emergencias por Ambulancia'

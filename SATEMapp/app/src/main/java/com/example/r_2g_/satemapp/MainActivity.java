@@ -473,7 +473,13 @@ public class MainActivity extends AppCompatActivity{
                                         paciente.setSintomas(ds.child("sintomas").getValue().toString());
                                         paciente.setDiagnostico(ds.child("diagnostico").getValue().toString());
                                         paciente.setCondicionVital(ds.child("condicionVital").getValue().toString());
+                                        paciente.setFecha(ds.child("fecha").getValue().toString());
+                                        paciente.setIdEmergencia_numAmbulancia_paramedico(ds.child("idEmergencia_numAmbulancia_paramedico").getValue().toString());
+                                        paciente.setIdEmergencia(ds.child("idEmergencia").getValue().toString());
+                                        paciente.setNumAmbulancia(ds.child("numAmbulancia").getValue().toString());
                                         paciente.setRiesgo(ds.child("riesgo").getValue().toString());
+
+
                                         paciente.setId(ds.getKey());
 
                                         misPacientes.add(paciente);
@@ -503,6 +509,13 @@ public class MainActivity extends AppCompatActivity{
                                                 intent.putExtra("condicionVital",misPacientes.get(position).getCondicionVital());
                                                 intent.putExtra("riesgo",misPacientes.get(position).getRiesgo());
                                                 intent.putExtra("key",misPacientes.get(position).getId());
+                                                intent.putExtra("idEmergencia",misPacientes.get(position).getIdEmergencia());
+                                                intent.putExtra("idEmergencia_numAmbulancia_paramedico",misPacientes.get(position).getIdEmergencia_numAmbulancia_paramedico());
+                                                intent.putExtra("fecha",misPacientes.get(position).getFecha());
+                                                intent.putExtra("numAmbulancia",misPacientes.get(position).getNumAmbulancia());
+
+
+
 
                                                 startActivity(intent);
                                             }

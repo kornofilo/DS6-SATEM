@@ -15,12 +15,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.R.attr.key;
+
 
 public class UpdateActivity extends AppCompatActivity implements View.OnClickListener {
     static SharedPreferences pref;
     EditText nombreET, cedulaET,sucesoET,lugarET,sintomasET,diagnosticoET;
     Spinner generoSP,condicionVitalSP,riesgoSP;
-    String pacienteKey;
+    String pacienteKey, idEmegencia, INP, fecha, numAmbulancia;
     boolean tema;
 
 
@@ -85,6 +90,17 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             condicionVitalSP.setSelection(getSelectedCondVital(extras.getString("condicionVital")));
             //Riesgo
             riesgoSP.setSelection(getSelectedRiesgo(extras.getString("riesgo")));
+            //Id Emergencia
+            idEmegencia = extras.getString("idEmergencia");
+
+            //NumAmbulancia
+            numAmbulancia = extras.getString("numAmbulancia");
+
+            //INP
+            INP = extras.getString("idEmergencia_numAmbulancia_paramedico");
+
+            //Fecha
+            fecha = extras.getString("fecha");
 
             //Obtenemos el key del nodo del paciente:
              pacienteKey = extras.getString("key");
@@ -93,35 +109,33 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if(!nombreET.getText().toString().equals("") && !cedulaET.getText().toString().equals("") && !generoSP.getSelectedItem().toString().equals("") && !lugarET.getText().toString().equals("") && !sintomasET.getText().toString().equals("") && !diagnosticoET.getText().toString().equals("") && !riesgoSP.getSelectedItem().toString().equals("")){
+        if(!nombreET.getText().toString().equals("") && !cedulaET.getText().toString().equals("") && !generoSP.getSelectedItem().toString().equals("") && !lugarET.getText().toString().equals("") && !sintomasET.getText().toString().equals("") && !diagnosticoET.getText().toString().equals("") && !riesgoSP.getSelectedItem().toString().equals("")) {
             DatabaseReference pacienteRef = FirebaseDatabase.getInstance().getReference();
-            pacienteRef.child("pacientes/" + pacienteKey).runTransaction(new Transaction.Handler() {
-                @Override
-                public Transaction.Result doTransaction(MutableData mutableData) {
-                    mutableData.child("nombre").setValue(nombreET.getText().toString());
-                    mutableData.child("cedula").setValue(cedulaET.getText().toString());
-                    mutableData.child("genero").setValue(generoSP.getSelectedItem().toString());
-                    mutableData.child("suceso").setValue(sucesoET.getText().toString());
-                    mutableData.child("lugarAccidente").setValue(lugarET.getText().toString());
-                    mutableData.child("sintomas").setValue(sintomasET.getText().toString());
-                    mutableData.child("diagnostico").setValue(diagnosticoET.getText().toString());
-                    mutableData.child("condicionVital").setValue(condicionVitalSP.getSelectedItem().toString());
-                    mutableData.child("riesgo").setValue(riesgoSP.getSelectedItem().toString());
+            Paciente paciente = new Paciente();
 
-                    Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+            paciente.setNombre(nombreET.getText().toString());
+            paciente.setCedula(cedulaET.getText().toString());
+            paciente.setGenero(generoSP.getSelectedItem().toString());
+            paciente.setSuceso(sucesoET.getText().toString());
+            paciente.setLugarAccidente(lugarET.getText().toString());
+            paciente.setSintomas(sintomasET.getText().toString());
+            paciente.setDiagnostico(diagnosticoET.getText().toString());
+            paciente.setCondicionVital(condicionVitalSP.getSelectedItem().toString());
+            paciente.setRiesgo(riesgoSP.getSelectedItem().toString());
+            paciente.setIdEmergencia_numAmbulancia_paramedico(INP);
+            paciente.setIdEmergencia(idEmegencia);
+            paciente.setFecha(fecha);
+            paciente.setNumAmbulancia(numAmbulancia);
+            Map<String, Object> postValues = paciente.toMap();
+
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/pacientes/" + pacienteKey, postValues);
+            pacienteRef.updateChildren(childUpdates);
+            Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
 
 
-
-                    return Transaction.success(mutableData);
-                }
-
-                @Override
-                public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-
-                }
-            });
         }
 
     }

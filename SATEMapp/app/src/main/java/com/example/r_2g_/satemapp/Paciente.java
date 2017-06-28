@@ -1,10 +1,13 @@
 package com.example.r_2g_.satemapp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Paciente {
     public String id;
     public String nombre;
-    private String cedula;
-    private String numAmbulancia;
+    public String cedula;
+    public String numAmbulancia;
     public String lugarAccidente;
     public String idEmergencia;
     public String suceso;
@@ -166,4 +169,28 @@ public class Paciente {
     void setIdEmergencia_numAmbulancia_paramedico(String idEmergencia_numAmbulancia_paramedico) {
         this.idEmergencia_numAmbulancia_paramedico = idEmergencia_numAmbulancia_paramedico;
     }
+
+    public Map<String,Object> toMap(){
+        Map pacienteMap = new HashMap<>();
+        
+        pacienteMap.put("nombre",nombre);
+        pacienteMap.put("cedula",cedula);
+        pacienteMap.put("numAmbulancia",numAmbulancia);
+        pacienteMap.put("lugarAccidente",lugarAccidente);
+        pacienteMap.put("idEmergencia",idEmergencia);
+        pacienteMap.put("suceso",suceso);
+        pacienteMap.put("idEmergencia_numAmbulancia_paramedico",idEmergencia_numAmbulancia_paramedico);
+        pacienteMap.put("genero",genero);
+        pacienteMap.put("paramedico",paramedico);
+        pacienteMap.put("fecha",fecha);
+        pacienteMap.put("sintomas",sintomas);
+        pacienteMap.put("diagnostico",diagnostico);
+        pacienteMap.put("condicionVital",condicionVital);
+        pacienteMap.put("riesgo",riesgo);
+        pacienteMap.put("estado",estado);
+
+        return pacienteMap;
+    }
+
+
 }

@@ -22,4 +22,6 @@
      box-shadow: 0 1px 0 0 #ff9800;
 }
 
-.tabs .indicator { background-color: #ff9800 !important; }
+.tabs .indicator { 
+	background-color: #ff9800 !important; 
+}

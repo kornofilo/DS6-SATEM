@@ -31,7 +31,7 @@
 
         <EditText
             android:id="@+id/editTextNombrePaciente"
-            android:layout_width="wrap_content"
+            android:layout_width="582dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:ems="10"
@@ -40,7 +40,7 @@
 
         <EditText
             android:id="@+id/editTextCedula"
-            android:layout_width="wrap_content"
+            android:layout_width="576dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"

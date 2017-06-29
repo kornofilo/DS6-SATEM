@@ -79,7 +79,7 @@ $(document).ready(function() {
           $('.dataTables_filter').remove();
 
           dbRefObjectEnCamino.orderByChild("estado").equalTo("En Camino").on("child_added", function(data) {
-          var dataSet = [data.key,data.val().numAmbulancia,data.val().lugarAccidente,data.val().fechaRegistro, data.val().suceso,'<a class="waves-effect waves-light btn" id="finalizarbtn' + cont + '" onclick="finalizarEmergencia(this); return false;">Finalizar</a>'];
+          var dataSet = [data.key,data.val().numAmbulancia,data.val().lugarAccidente,data.val().fechaRegistro, data.val().suceso,'<a class="waves-effect waves-light btn orange" id="finalizarbtn' + cont + '" onclick="finalizarEmergencia(this); return false;">Finalizar</a>'];
           table.rows.add([dataSet]).draw(); 
                   cont += 1; 
         });

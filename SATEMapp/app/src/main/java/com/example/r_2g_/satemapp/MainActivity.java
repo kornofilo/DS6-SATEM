@@ -291,7 +291,6 @@ public class MainActivity extends AppCompatActivity{
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for(DataSnapshot ds : dataSnapshot.getChildren() ){
-                                    System.out.println( "query2 " + ds);
                                     emergencia.setText(ds.child("suceso").getValue().toString() + " @ " + ds.child("lugarAccidente").getValue().toString());
                                     lugar.setText(ds.child("lugarAccidente").getValue().toString());
                                     suceso.setText(ds.child("suceso").getValue().toString());
@@ -387,7 +386,6 @@ public class MainActivity extends AppCompatActivity{
 
             final View finalRootView1 = rootView;
             String miAmbulancia =  pref.getString("setAmbulancia",null);
-            System.out.println(myRef.orderByChild("ambulancia/"+ miAmbulancia));
             Query emergenciasQuery = myRef.orderByChild("ambulancia/"+ miAmbulancia).equalTo(miAmbulancia);
 
 
@@ -397,7 +395,6 @@ public class MainActivity extends AppCompatActivity{
 
                     TextView noHistTV;
                     noHistTV = (TextView) finalRootView1.findViewById(R.id.textViewNTU);
-                    System.out.println("the last0 " + dataSnapshot.getRef() +  " " +dataSnapshot);
                     if(dataSnapshot.getValue() == null) {
                         noHistTV.setVisibility(View.VISIBLE);
                         noHistTV.setText(R.string.noHistEmergencyAmbulance);

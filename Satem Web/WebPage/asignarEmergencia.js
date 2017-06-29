@@ -26,7 +26,7 @@
 	                 console.log(snapshot.val());  
 	                  var postDataAmbulancia = {
 	                  estado: "Ocupada",	                 
-					  emergeciaActual: selectEmergency.value,
+					  emergenciaActual: selectEmergency.value,
 					  cantidadEmergencias: parseInt(snapshot.val().cantidadEmergencias) + 1
 			        };
 	               updates['/ambulancias/' + values[i]] = postDataAmbulancia;           

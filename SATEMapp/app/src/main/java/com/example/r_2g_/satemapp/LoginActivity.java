@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                      Toast.LENGTH_SHORT).show();
                              role = false;
                          }else if (task.isSuccessful()){
-                             setAmbulanceNumber(ambulanceET.getText().toString());
+                             setAmbulanceNumber(ambulanceET.getText().toString().toUpperCase());
                              Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                              startActivity(intent);
                              finish();

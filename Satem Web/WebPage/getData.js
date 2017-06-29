@@ -68,17 +68,18 @@ $(document).ready(function() {
           var dbRefObjectEnCamino = firebase.database().ref('emergencias/');
           var table = $('#enCaminoTable').DataTable( {
           "paging":   false,
-          "ordering": false,
           "info":     false,
+
            "language": {
                  "emptyTable": "No se encuentran emergencias en camino."
-              }
+              },
+           "order": [[0, 'desc' ]]
           } ); 
 
           //Eliminamos el searchbar por defecto.
           $('.dataTables_filter').remove();
 
-          dbRefObjectEnCamino.orderByChild("estado").equalTo("En Camino").on("child_added", function(data) {
+          dbRefObjectEnCamino.orderByChild("estado").equalTo("En Camino").limitToLast(50).on("child_added", function(data) {
           var dataSet = [data.key,data.val().numAmbulancia,data.val().lugarAccidente,data.val().fechaRegistro, data.val().suceso,'<a class="waves-effect waves-light btn orange" id="finalizarbtn' + cont + '" onclick="finalizarEmergencia(this); return false;">Finalizar</a>'];
           table.rows.add([dataSet]).draw(); 
                   cont += 1; 
@@ -99,17 +100,17 @@ $(document).ready(function() {
           var dbRefObjectFinalizada = firebase.database().ref('emergencias/');
           var table = $('#finalizadaTable').DataTable( {
           "paging":   false,
-          "ordering": false,
           "info":     false,
           "language": {
                  "emptyTable": "No se encuentran emergencias finalizadas."
-              }
+              },
+          "order": [[0, 'desc' ]]
           } ); 
 
           //Eliminamos el searchbar por defecto.
           $('.dataTables_filter').remove();
 
-          dbRefObjectFinalizada.orderByChild("estado").equalTo("Finalizada").on("child_added", function(data) {
+          dbRefObjectFinalizada.orderByChild("estado").equalTo("Finalizada").limitToLast(50).on("child_added", function(data) {
           var dataSet = [data.key,data.val().numAmbulancia,data.val().lugarAccidente,data.val().fechaRegistro, data.val().suceso];
           table.rows.add([dataSet]).draw();  
           
@@ -129,7 +130,6 @@ $(document).ready(function(){
           var dbRefObjectPacientes = firebase.database().ref('pacientes/');
           var tablePacientes = $('#pacientesTable').DataTable( {
           "paging":   false,
-          "ordering": false,
           "info":     false,
            "language": {
                  "emptyTable": "No se encuentran pacientes."
@@ -140,8 +140,8 @@ $(document).ready(function(){
           $('.dataTables_filter').remove();
 
 
-          dbRefObjectPacientes.on('child_added', function(data) {    
-           var rowIndex = $('#pacientesTable').dataTable().fnAddData([data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo]);
+          dbRefObjectPacientes.limitToLast(100).on('child_added', function(data) {    
+           var rowIndex = $('#pacientesTable').dataTable().fnAddData([data.val().cedula,data.val().nombre,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo]);
            var row = $('#pacientesTable').dataTable().fnGetNodes(rowIndex);
            $(row).attr('id', data.key);
         });

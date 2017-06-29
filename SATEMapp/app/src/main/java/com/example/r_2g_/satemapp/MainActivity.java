@@ -44,7 +44,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -317,10 +319,6 @@ public class MainActivity extends AppCompatActivity{
                 }
             });
 
-
-
-
-
             enviarEmergencia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -356,6 +354,7 @@ public class MainActivity extends AppCompatActivity{
                     if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
                         String id = myRef.push().getKey();
                         pacientesReference.child(id).setValue(paciente);
+                        addPacientesCount(user.getUid(), miAmbulancia);
                         Toast.makeText(getActivity(),"Emergencia Enviada Correctamente.",Toast.LENGTH_SHORT).show();
 
                         //Limpiamos los datos
@@ -541,6 +540,45 @@ public class MainActivity extends AppCompatActivity{
 
                 }
             });
+        }
+
+
+        void addPacientesCount(final String uid, final String miAmbulancia){
+            final DatabaseReference userRef = database.getReference("paramedicos/" + uid);
+            System.out.println(userRef.getDatabase());
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    System.out.println(dataSnapshot.getChildrenCount());
+                    Map userMap = new HashMap<>();
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        System.out.println("HERE");
+                        int cantidadPacientes = Integer.parseInt(ds.child("cantidadPacientes").getValue().toString());
+                        cantidadPacientes += 1;
+                        System.out.println(cantidadPacientes);
+                        userMap.put("ambulancia",miAmbulancia);
+                        userMap.put("cantidadPacientes","" +cantidadPacientes);
+                        userMap.put("correo",ds.child("correo").getValue().toString());
+                        userMap.put("nombre",ds.child("nombre").getValue().toString());
+                        userMap.put("profilePic",ds.child("profilePic").getValue().toString());
+
+
+
+                    }
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put(uid, userMap);
+                    userRef.updateChildren(childUpdates);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+
         }
     }
 

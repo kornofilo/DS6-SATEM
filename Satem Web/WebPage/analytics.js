@@ -54,7 +54,7 @@ function inicializar() {
             labels: keyParamedicos,
             datasets: [
             {
-              backgroundColor: ["#d5e1df","#bdcebe","#86af49","#92a8d1"],
+              backgroundColor: ["#d5e1df","#c94c4c","#86af49","#92a8d1"],
               label: "Cantidad de Pacientes Atendidos por Paramédico",
               data: pacientes
             }

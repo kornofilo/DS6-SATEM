@@ -360,9 +360,7 @@ public class MainActivity extends AppCompatActivity{
                         //Limpiamos los datos
                         nombre.setText("");
                         cedula.setText("");
-                        lugar.setText("");
                         sintomas.setText("");
-                        suceso.setText("");
                         diagnostico.setText("");
 
                         mViewPager.setCurrentItem(1, true);
@@ -414,8 +412,10 @@ public class MainActivity extends AppCompatActivity{
 
                             mylist.add(resumen);
                         }
-                        adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,mylist);
-                        historialLV.setAdapter(adapter);
+                        if(!mylist.isEmpty()) {
+                            adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mylist);
+                            historialLV.setAdapter(adapter);
+                        }
                     }
 
                 }
@@ -487,6 +487,7 @@ public class MainActivity extends AppCompatActivity{
                                                 + "\n\n -Diagnóstico: " + ds.child("diagnostico").getValue().toString();
 
                                         mylist.add(resumen);
+
                                         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mylist);
                                         historialLV.setAdapter(adapter);
                                         historialLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -545,29 +546,25 @@ public class MainActivity extends AppCompatActivity{
 
         void addPacientesCount(final String uid, final String miAmbulancia){
             final DatabaseReference userRef = database.getReference("paramedicos/" + uid);
+
             System.out.println(userRef.getDatabase());
-            userRef.addValueEventListener(new ValueEventListener() {
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    System.out.println(dataSnapshot.getChildrenCount());
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                     Map userMap = new HashMap<>();
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        System.out.println("HERE");
-                        int cantidadPacientes = Integer.parseInt(ds.child("cantidadPacientes").getValue().toString());
-                        cantidadPacientes += 1;
-                        System.out.println(cantidadPacientes);
-                        userMap.put("ambulancia",miAmbulancia);
-                        userMap.put("cantidadPacientes","" +cantidadPacientes);
-                        userMap.put("correo",ds.child("correo").getValue().toString());
-                        userMap.put("nombre",ds.child("nombre").getValue().toString());
-                        userMap.put("profilePic",ds.child("profilePic").getValue().toString());
-
-
-
-                    }
+                    System.out.println("HERE");
+                    int cantidadPacientes = Integer.parseInt(dataSnapshot.child("cantidadPacientes").getValue().toString());
+                    cantidadPacientes += 1;
+                    System.out.println(cantidadPacientes);
+                    userMap.put("ambulancia",miAmbulancia);
+                    userMap.put("cantidadPacientes","" +cantidadPacientes);
+                    userMap.put("correo",dataSnapshot.child("correo").getValue().toString());
+                    userMap.put("nombre",dataSnapshot.child("nombre").getValue().toString());
+                    userMap.put("profilePic",dataSnapshot.child("profilePic").getValue().toString());
                     Map<String, Object> childUpdates = new HashMap<>();
-                    childUpdates.put(uid, userMap);
-                    userRef.updateChildren(childUpdates);
+                    childUpdates.put("/paramedicos/" + uid, userMap);
+                    databaseReference.updateChildren(childUpdates);
 
                 }
 

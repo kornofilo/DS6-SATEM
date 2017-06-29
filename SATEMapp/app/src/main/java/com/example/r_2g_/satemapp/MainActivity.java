@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -412,10 +414,9 @@ public class MainActivity extends AppCompatActivity{
 
                             mylist.add(resumen);
                         }
-                        if(!mylist.isEmpty()) {
                             adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mylist);
                             historialLV.setAdapter(adapter);
-                        }
+
                     }
 
                 }
@@ -428,120 +429,136 @@ public class MainActivity extends AppCompatActivity{
         }
 
         void fillTabHistorialPacientes(final View rootView) {
-
-            final ArrayList<Paciente> misPacientes = new ArrayList<>();
-
             final String miAmbulancia =  pref.getString("setAmbulancia",null);
             final ListView historialLV = (ListView) rootView.findViewById(R.id.listViewHistorial);
-
             DatabaseReference ambulanciaRef = database.getReference("ambulancias/" + miAmbulancia + "/emergenciaActual");
             final TextView noHistTV;
             noHistTV = (TextView) rootView.findViewById(R.id.textViewNTU);
             ambulanciaRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    System.out.println( "query1 " + dataSnapshot);
-                    if(dataSnapshot.getValue() != null){
+                    if (dataSnapshot.getValue() != null) {
+                        final ArrayList<Paciente> misPacientes = new ArrayList<>();
+                        final ArrayList<String> mylist = new ArrayList<>();
+                        if (mylist.isEmpty()){
+                            noHistTV.setVisibility(View.VISIBLE);
+                        }
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mylist);
+                            historialLV.setAdapter(adapter);
+
+
                         DatabaseReference pacientesRef = database.getReference("pacientes/");
                         Query pacientesQuery = pacientesRef.orderByChild("idEmergencia_numAmbulancia_paramedico").equalTo(dataSnapshot.getValue().toString() + "_" + miAmbulancia + "_" + user.getEmail());
-                        pacientesQuery.addValueEventListener(new ValueEventListener() {
+                        pacientesQuery.addChildEventListener(new ChildEventListener() {
                             @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    Paciente paciente = new Paciente();
 
+                                    historialLV.setVisibility(View.VISIBLE);
 
-                                if(dataSnapshot.getValue() == null) {
-                                    noHistTV.setVisibility(View.VISIBLE);
-                                    historialLV.setVisibility(View.INVISIBLE);
-
-                                }else {
                                     noHistTV.setVisibility(View.INVISIBLE);
-                                    ArrayList<String> mylist = new ArrayList<>();
-                                    ArrayAdapter<String> adapter;
+
+                                    paciente.setNombre(dataSnapshot.child("nombre").getValue().toString());
+                                    paciente.setCedula(dataSnapshot.child("cedula").getValue().toString());
+                                    paciente.setGenero(dataSnapshot.child("genero").getValue().toString());
+                                    paciente.setSuceso(dataSnapshot.child("suceso").getValue().toString());
+                                    paciente.setLugarAccidente(dataSnapshot.child("lugarAccidente").getValue().toString());
+                                    paciente.setSintomas(dataSnapshot.child("sintomas").getValue().toString());
+                                    paciente.setDiagnostico(dataSnapshot.child("diagnostico").getValue().toString());
+                                    paciente.setCondicionVital(dataSnapshot.child("condicionVital").getValue().toString());
+                                    paciente.setFecha(dataSnapshot.child("fecha").getValue().toString());
+                                    paciente.setIdEmergencia_numAmbulancia_paramedico(dataSnapshot.child("idEmergencia_numAmbulancia_paramedico").getValue().toString());
+                                    paciente.setIdEmergencia(dataSnapshot.child("idEmergencia").getValue().toString());
+                                    paciente.setNumAmbulancia(dataSnapshot.child("numAmbulancia").getValue().toString());
+                                    paciente.setRiesgo(dataSnapshot.child("riesgo").getValue().toString());
+                                    paciente.setId(dataSnapshot.getKey());
+                                    misPacientes.add(paciente);
 
 
-                                    for (final DataSnapshot ds : dataSnapshot.getChildren()) {
-                                        Paciente paciente = new Paciente();
-                                        paciente.setNombre(ds.child("nombre").getValue().toString());
-                                        paciente.setCedula(ds.child("cedula").getValue().toString());
-                                        paciente.setGenero(ds.child("genero").getValue().toString());
-                                        paciente.setSuceso(ds.child("suceso").getValue().toString());
-                                        paciente.setLugarAccidente(ds.child("lugarAccidente").getValue().toString());
-                                        paciente.setSintomas(ds.child("sintomas").getValue().toString());
-                                        paciente.setDiagnostico(ds.child("diagnostico").getValue().toString());
-                                        paciente.setCondicionVital(ds.child("condicionVital").getValue().toString());
-                                        paciente.setFecha(ds.child("fecha").getValue().toString());
-                                        paciente.setIdEmergencia_numAmbulancia_paramedico(ds.child("idEmergencia_numAmbulancia_paramedico").getValue().toString());
-                                        paciente.setIdEmergencia(ds.child("idEmergencia").getValue().toString());
-                                        paciente.setNumAmbulancia(ds.child("numAmbulancia").getValue().toString());
-                                        paciente.setRiesgo(ds.child("riesgo").getValue().toString());
+                                    String resumen = dataSnapshot.child("nombre").getValue().toString() + " (" + dataSnapshot.child("cedula").getValue().toString() + "):"
+                                        + "\n\n -Fecha: " + dataSnapshot.child("fecha").getValue().toString()
+                                        + "\n\n -Suceso: " + dataSnapshot.child("suceso").getValue().toString()
+                                        + "\n\n -Lugar: " + dataSnapshot.child("lugarAccidente").getValue().toString()
+                                        + "\n\n -Síntomas: " + dataSnapshot.child("sintomas").getValue().toString()
+                                        + "\n\n -Diagnóstico: " + dataSnapshot.child("diagnostico").getValue().toString();
 
-
-                                        paciente.setId(ds.getKey());
-
-                                        misPacientes.add(paciente);
-                                        String resumen = ds.child("nombre").getValue().toString() + " (" + ds.child("cedula").getValue().toString() + "):"
-                                                + "\n\n -Fecha: " + ds.child("fecha").getValue().toString()
-                                                + "\n\n -Suceso: " + ds.child("suceso").getValue().toString()
-                                                + "\n\n -Lugar: " + ds.child("lugarAccidente").getValue().toString()
-                                                + "\n\n -Síntomas: " + ds.child("sintomas").getValue().toString()
-                                                + "\n\n -Diagnóstico: " + ds.child("diagnostico").getValue().toString();
-
-                                        mylist.add(resumen);
-
-                                        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mylist);
-                                        historialLV.setAdapter(adapter);
-                                        historialLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                System.out.println(misPacientes.get(position).getNombre());
-                                                //Al seleccionar un item del listview, llevamos al usuario a un formulario para que pueda actualizar el diagnóstico del paciente.
-                                                Intent intent = new Intent(getActivity(), UpdateActivity.class);
-                                                intent.putExtra("nombre",misPacientes.get(position).getNombre());
-                                                intent.putExtra("cedula",misPacientes.get(position).getCedula());
-                                                intent.putExtra("genero",misPacientes.get(position).getGenero());
-                                                intent.putExtra("suceso",misPacientes.get(position).getSuceso());
-                                                intent.putExtra("lugarAccidente",misPacientes.get(position).getLugarAccidente());
-                                                intent.putExtra("sintomas",misPacientes.get(position).getSintomas());
-                                                intent.putExtra("diagnostico",misPacientes.get(position).getDiagnostico());
-                                                intent.putExtra("condicionVital",misPacientes.get(position).getCondicionVital());
-                                                intent.putExtra("riesgo",misPacientes.get(position).getRiesgo());
-                                                intent.putExtra("key",misPacientes.get(position).getId());
-                                                intent.putExtra("idEmergencia",misPacientes.get(position).getIdEmergencia());
-                                                intent.putExtra("idEmergencia_numAmbulancia_paramedico",misPacientes.get(position).getIdEmergencia_numAmbulancia_paramedico());
-                                                intent.putExtra("fecha",misPacientes.get(position).getFecha());
-                                                intent.putExtra("numAmbulancia",misPacientes.get(position).getNumAmbulancia());
-
-
-
-
-                                                startActivity(intent);
-                                            }
-                                        });
-                                    }//Fin del for.
-                                }
-                            }//Fin OnDataChange.
-
+                                    mylist.add(resumen);
+                                    adapter.notifyDataSetChanged();
+                            }
 
                             @Override
-                            public void onCancelled(DatabaseError error) {
-                                // Failed to read value
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                String resumen = dataSnapshot.child("nombre").getValue().toString() + " (" + dataSnapshot.child("cedula").getValue().toString() + "):"
+                                        + "\n\n -Fecha: " + dataSnapshot.child("fecha").getValue().toString()
+                                        + "\n\n -Suceso: " + dataSnapshot.child("suceso").getValue().toString()
+                                        + "\n\n -Lugar: " + dataSnapshot.child("lugarAccidente").getValue().toString()
+                                        + "\n\n -Síntomas: " + dataSnapshot.child("sintomas").getValue().toString()
+                                        + "\n\n -Diagnóstico: " + dataSnapshot.child("diagnostico").getValue().toString();
+
+                                mylist.remove(resumen);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
                             }
                         });
-                    }else{
+                        historialLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                System.out.println(misPacientes.get(position).getNombre());
+                                //Al seleccionar un item del listview, llevamos al usuario a un formulario para que pueda actualizar el diagnóstico del paciente.
+                                Intent intent = new Intent(getActivity(), UpdateActivity.class);
+                                intent.putExtra("nombre",misPacientes.get(position).getNombre());
+                                intent.putExtra("cedula",misPacientes.get(position).getCedula());
+                                intent.putExtra("genero",misPacientes.get(position).getGenero());
+                                intent.putExtra("suceso",misPacientes.get(position).getSuceso());
+                                intent.putExtra("lugarAccidente",misPacientes.get(position).getLugarAccidente());
+                                intent.putExtra("sintomas",misPacientes.get(position).getSintomas());
+                                intent.putExtra("diagnostico",misPacientes.get(position).getDiagnostico());
+                                intent.putExtra("condicionVital",misPacientes.get(position).getCondicionVital());
+                                intent.putExtra("riesgo",misPacientes.get(position).getRiesgo());
+                                intent.putExtra("key",misPacientes.get(position).getId());
+                                intent.putExtra("idEmergencia",misPacientes.get(position).getIdEmergencia());
+                                intent.putExtra("idEmergencia_numAmbulancia_paramedico",misPacientes.get(position).getIdEmergencia_numAmbulancia_paramedico());
+                                intent.putExtra("fecha",misPacientes.get(position).getFecha());
+                                intent.putExtra("numAmbulancia",misPacientes.get(position).getNumAmbulancia());
+
+
+
+
+                                startActivity(intent);
+                            }
+                        });
+
+
+                    } else {
                         noHistTV.setVisibility(View.VISIBLE);
+                        historialLV.setVisibility(View.INVISIBLE);
                         noHistTV.setText(R.string.noCurrentEmergencyAmbulance);
                     }
-
 
 
                 }
 
                 @Override
-                public void onCancelled(DatabaseError error) {
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
             });
-        }
+        }//Fin de la función
 
 
         void addPacientesCount(final String uid, final String miAmbulancia){

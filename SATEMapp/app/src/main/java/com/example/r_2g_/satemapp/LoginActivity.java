@@ -149,6 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
                     if (email.equals(ds.child("correo").getValue().toString())) {
                         login(email,password);
                         role[0] = true;

@@ -72,7 +72,26 @@
          }
       
           
-    }//Fin de la función registrar.    
+  }//Fin de la función registrar.    
+
+  function cantidadAnalytics(){
+    var datetime = currentdate.getDate() + "-"
+                      + (currentdate.getMonth()+1)  + "-" 
+                      + currentdate.getFullYear();
+
+    var dbRefEmergencyStats = firebase.database().ref('EmergencyStats/').limitToLast(7);
+        dbRefObject.orderByKey().once("child_added", function(data) {               
+            console.log(data);
+
+
+
+    });
+
+    
+  }
+
+
+
 
       
 

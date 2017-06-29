@@ -23,6 +23,11 @@ $(document).ready(function() {
     });
 
 
+    dbRefObjectERegistradas.orderByChild("estado").equalTo("Registrada").on("child_removed", function(data) {
+      $("#selectEmergencia option[value='" + data.key +"']").remove();
+    });
+
+
 
     $('select').material_select();
 

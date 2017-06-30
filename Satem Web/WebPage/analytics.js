@@ -133,6 +133,69 @@ function inicializar() {
 
 
 
+ var refEmergency = firebase.database().ref('EmergencyStats/').limitToLast(7);
+    var cantidad=[];
+    var dias = [];
+     refEmergency.on('child_added', function(snapshot) {
+        dias.push(snapshot.key);
+        pacientes.push(snapshot.val().cantidad);
+         
+      // Dibujamos el Chart
+      new Chart(document.getElementById("chart-emergency"), {
+          type: 'line',
+          data: {
+            labels: dias,
+            datasets: [
+            {
+              label: "Cantidad de Emergencias por Día",
+              data: cantidad
+            }
+          ]
+    },
+    options: {
+          events: ["mouseout", "click", "touchstart", "touchmove", "touchend"],
+          title: {
+        display: true,
+        text: 'Cantidad de emergencias'
+        }
+      }
+    });
+    });
+
+
+    /*var pacientesUpdate=[];
+    var keyParamedicosUpdate = [];
+
+     refParamedicos.on('child_changed', function(snapshot) {
+        
+        keyParamedicosUpdate.push(snapshot.val().correo);
+        pacientesUpdate.push(snapshot.val().cantidadPacientes);
+         
+      // Dibujamos el Chart
+      new Chart(document.getElementById("chart-paramedicos"), {
+          type: 'pie',
+          data: {
+            labels: keyParamedicos,
+            datasets: [
+            {
+              backgroundColor: ["#d5e1df","#c94c4c","#86af49","#92a8d1"],
+              label: "Cantidad de Pacientes Atendidos por Paramédico",
+              data: pacientes
+            }
+          ]
+    },
+    options: {
+          events: ["mouseout", "click", "touchstart", "touchmove", "touchend"],
+          title: {
+        display: true,
+        text: 'Cantidad de pacientes atendidos'
+        }
+      }
+    });
+    }); */
+
+
+
 
 
    

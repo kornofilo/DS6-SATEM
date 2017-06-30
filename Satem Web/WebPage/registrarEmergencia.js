@@ -48,14 +48,13 @@
 
                 });
 
-
-                  //Agregamos la nueva emergencia.
+                //Agregamos la nueva emergencia.
                  firebase.database().ref().update(updates,function(error) {
                       if (error) {
                       alert("Error al registrar la emergencia: " + error);
                       } else {
                           alert("La emergencia ha sido registrada exitosamente.");
-                          console.log(firebase.database().ref().update(updates));
+                          cantidadAnalytics();
                       }
                  });
                   //Nos desplazamos a la tab de emergencias registradas.
@@ -75,13 +74,26 @@
   }//Fin de la función registrar.    
 
   function cantidadAnalytics(){
-    var datetime = currentdate.getDate() + "-"
+    var currentdate = new Date(); 
+    var today = currentdate.getDate() + "-"
                       + (currentdate.getMonth()+1)  + "-" 
                       + currentdate.getFullYear();
 
-    var dbRefEmergencyStats = firebase.database().ref('EmergencyStats/').limitToLast(7);
-        dbRefObject.orderByKey().once("child_added", function(data) {               
-            console.log(data);
+    var dbRefEmergencyStats = firebase.database().ref('EmergencyStats/').limitToLast(1);
+        dbRefEmergencyStats.on("child_added", function(data) {    
+           console.log(data.key);           
+            if (today === data.key){
+             dbRefAmbulancia = firebase.database().ref('EmergencyStats/' + today + '/cantidad');
+                       dbRefAmbulancia.transaction(function(cantidad) {
+                            cantidad = parseInt(cantidad) + 1;  
+                            return cantidad; 
+             });
+            }else {
+               firebase.database().ref('EmergencyStats/' + today).set({
+                 cantidad: 1
+               });
+
+            }
 
 
 

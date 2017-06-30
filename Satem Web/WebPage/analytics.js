@@ -160,6 +160,34 @@ function inicializar() {
       }
     });
     });   
+
+    var refEmergency = firebase.database().ref('EmergencyStats/').limitToLast(7);
+    var cantidad=[];
+    var dias = [];
+     refEmergency.on('child_changed', function(snapshot) {
+        dias.push(snapshot.key);
+        cantidad.push(snapshot.val().cantidad);
+         
+      // Dibujamos el Chart
+      new Chart(document.getElementById("chart-emergency"), {
+          type: 'line',
+          data: {
+            labels: dias,
+            datasets: [
+            {
+              label: "Cantidad de Emergencias por Día",
+              data: cantidad
+            }
+          ]
+    },
+    options: {
+          events: ["mouseout", "click", "touchstart", "touchmove", "touchend"],
+          title: {
+        display: true,
+        }
+      }
+    });
+    });    
   
  
       

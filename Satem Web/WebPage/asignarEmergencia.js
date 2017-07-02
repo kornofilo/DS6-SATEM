@@ -11,7 +11,6 @@
        var selectEmergency = document.getElementById("selectEmergencia");
        var ambulancia = {};
        var values = $('#selectAmbulancias').val();
-       	console.log(values.length + selectEmergency.value);  
        	//Validamos los campos del formulario.
        if(selectEmergency.value != undefined && values.length > 0){
        		var r = confirm("¿Desea finalizar la asignación de emergencia?");
@@ -38,7 +37,6 @@
 		        //Actualizamos la emergencia asignada.
 		         var dbRefEmergencia = firebase.database().ref('emergencias/' + selectEmergency.value);
 		          dbRefEmergencia.on('value', function(snapshot) {
-		                 console.log(snapshot.val());  
 		                  var postData = {
 		                  numAmbulancia: values.join(),
 				          lugarAccidente: snapshot.val().lugarAccidente,
@@ -56,7 +54,6 @@
 		                alert("Error al asignar la emergencia: " + error);
 		                } else {
 		                    alert("La emergencia ha sido asignada exitosamente.");
-		                    console.log(firebase.database().ref().update(updates));
 		                    //Nos desplazamos a la tab de emergencias en camino.
 		        			 $(document).ready(function(){
 		            	    	$('ul.tabs').tabs('select_tab', 'test3');

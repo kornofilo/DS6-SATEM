@@ -7,14 +7,9 @@
 
     function registrar() {
         var updates = {};
-
-
-
           //Recuperamos los valores del formulario.
           var txtLugar = document.getElementById('lugar_emergencia');
           var txtDescripcion = document.getElementById('descripcion_emergencia');
-          console.log(txtDescripcion.value.length);
-
         
           //Verificamos que los campos no estén vaciós.
           if( (txtLugar.value != undefined && txtLugar.value.length > 0) && (txtDescripcion.value != undefined && txtDescripcion.value.length > 0)){
@@ -42,27 +37,25 @@
                 var dbRefObject = firebase.database().ref('emergencias/').limitToLast(1);
                 dbRefObject.orderByKey().once("child_added", function(data) {               
                      updates['/emergencias/' + (parseInt(data.key) + 1)] = postData;
-                      console.log(updates);
 
-
-
-                });
-
-                //Agregamos la nueva emergencia.
+                     //Agregamos la nueva emergencia.
                  firebase.database().ref().update(updates,function(error) {
                       if (error) {
                       alert("Error al registrar la emergencia: " + error);
-                      } else {
-                          alert("La emergencia ha sido registrada exitosamente.");
-                          cantidadAnalytics();
-                      }
-                 });
-                  //Nos desplazamos a la tab de emergencias registradas.
-                   $(document).ready(function(){
-                    $('ul.tabs').tabs('select_tab', 'test2');
-                   });
+                      } else {         
+                            console.log(updates);                
+                            alert("La emergencia ha sido registrada exitosamente.");
+                            //Nos desplazamos a la tab de emergencias registradas.
+                            $(document).ready(function(){
+                              $('ul.tabs').tabs('select_tab', 'test2');
+                            });
+                            cantidadAnalytics();
 
+                          }
+                     });     
 
+               });
+                                          
                 //Limpiamos el formulario de registro de emergencias.
                  document.getElementById("myForm").reset(); 
               }//Fin if confirm.
@@ -81,15 +74,16 @@
 
     var dbRefEmergencyStats = firebase.database().ref('EmergencyStats/').limitToLast(1);
         dbRefEmergencyStats.on("child_added", function(data) {    
-           console.log(data.key);           
-            if (today === data.key){
-             dbRefAmbulancia = firebase.database().ref('EmergencyStats/' + today + '/cantidad');
+            if (today === data.val().date){
+             dbRefAmbulancia = firebase.database().ref('EmergencyStats/' + data.key + '/cantidad');
                        dbRefAmbulancia.transaction(function(cantidad) {
                             cantidad = parseInt(cantidad) + 1;  
                             return cantidad; 
              });
             }else {
-               firebase.database().ref('EmergencyStats/' + today).set({
+               var newPostKey = firebase.database().ref().child('EmergencyStats').push().key;
+               firebase.database().ref('EmergencyStats' + '/' + newPostKey + '/').set({
+                 date: today,
                  cantidad: 1
                });
 

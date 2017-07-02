@@ -12,8 +12,8 @@
      <!-- Opción de Regresar a Nuevo Paciente. -->
 
     <SwitchPreference
-        android:defaultValue="true"
-        android:key="enableNotifications_switch"
+        android:defaultValue="false"
+        android:key="backToNewPatient_switch"
         android:summary="@string/pref_description_backTo_newPatient"
         android:title="@string/pref_title_backTo_newPatient" />
 

@@ -138,14 +138,15 @@ $(document).ready(function(){
           "info":     false,
            "language": {
                  "emptyTable": "No se encuentran pacientes."
-              }
+              },
           } ); 
 
           //Eliminamos el searchbar por defecto.
           $('.dataTables_filter').remove();
 
 
-          dbRefObjectPacientes.limitToLast(100).on('child_added', function(data) {    
+          dbRefObjectPacientes.orderByChild('idEmergencia').limitToLast(100).on('child_added', function(data) {  
+           console.log(data.val().nombre );
            var rowIndex = $('#pacientesTable').dataTable().fnAddData([data.val().cedula,data.val().nombre,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo]);
            var row = $('#pacientesTable').dataTable().fnGetNodes(rowIndex);
            $(row).attr('id', data.key);
@@ -153,7 +154,7 @@ $(document).ready(function(){
 
 
        dbRefObjectPacientes.on("child_changed", function(data) {
-           $('#pacientesTable').dataTable().fnUpdate( [data.val().nombre,data.val().cedula,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo], document.getElementById(data.key), undefined, false, false);
+           $('#pacientesTable').dataTable().fnUpdate( [data.val().cedula,data.val().nombre,data.val().genero,data.val().numAmbulancia,data.val().lugarAccidente,data.val().suceso,data.val().fecha,data.val().sintomas,data.val().diagnostico,data.val().condicionVital,data.val().riesgo], document.getElementById(data.key), undefined, false, false);
         });
 
            //Seteamos el searchbar superior para que pueda realizar un filtrado de la tabla.

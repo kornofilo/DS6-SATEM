@@ -24,7 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,7 +46,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity{
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static ViewPager mViewPager;
     static SharedPreferences pref;
-    static boolean tema;
+    static boolean tema, nuevoPacienteOpt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +67,7 @@ public class MainActivity extends AppCompatActivity{
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         tema = pref.getBoolean("nightMode_switch", false);
+        nuevoPacienteOpt = pref.getBoolean("backToNewPatient_switch",false);
 
         //Dependiendo del valor recuperado, se establece el tema para la activity.
         if(tema) {
@@ -196,13 +195,6 @@ public class MainActivity extends AppCompatActivity{
                 case 3: {
                     rootView = inflater.inflate(R.layout.fragment_historial, container, false);
                     fillTab2(rootView);
-
-
-
-
-
-
-
                 }
                 break;
             }//Fin Switch-Case.
@@ -365,8 +357,9 @@ public class MainActivity extends AppCompatActivity{
                         sintomas.setText("");
                         diagnostico.setText("");
 
-                        mViewPager.setCurrentItem(1, true);
-
+                        if(!nuevoPacienteOpt){
+                            mViewPager.setCurrentItem(1, true);
+                        }
 
                     }
                     else

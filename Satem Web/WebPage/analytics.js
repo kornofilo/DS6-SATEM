@@ -137,7 +137,7 @@ function inicializar() {
     var cantidad=[];
     var dias = [];
      refEmergency.on('child_added', function(snapshot) {
-        dias.push(snapshot.key);
+        dias.push(snapshot.val().date);
         cantidad.push(snapshot.val().cantidad);
          
       // Dibujamos el Chart

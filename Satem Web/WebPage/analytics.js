@@ -161,22 +161,21 @@ function inicializar() {
     });
     });   
 
-    var refEmergency = firebase.database().ref('EmergencyStats/').limitToLast(7);
-    var cantidad=[];
-    var dias = [];
+    var cantidadUpdate=[];
+    var diasUpdate = [];
      refEmergency.on('child_changed', function(snapshot) {
-        dias.push(snapshot.val().date);
-        cantidad.push(snapshot.val().cantidad);
+        diasUpdate.push(snapshot.val().date);
+        cantidadUpdate.push(snapshot.val().cantidad);
          
       // Dibujamos el Chart
       new Chart(document.getElementById("chart-emergency"), {
           type: 'line',
           data: {
-            labels: dias,
+            labels: diasUpdate,
             datasets: [
             {
               label: "Cantidad de Emergencias por Día",
-              data: cantidad
+              data: cantidadUpdate
             }
           ]
     },

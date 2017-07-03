@@ -55,7 +55,7 @@
  //Si los datos ingresados son correctos, se redigirá al usuario a la página principal.
         firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          window.location = "index2.0.html";
+          window.location = "index.html";
           } 
         });
 

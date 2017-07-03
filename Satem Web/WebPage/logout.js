@@ -8,7 +8,7 @@
     function logOut() {
        //Cerramos la sesión.
          firebase.auth().signOut().then(function() {
-          window.location = "login2.0.html"
+          window.location = "login.html"
           }).catch(function(error) {
       
         });

@@ -10,6 +10,6 @@
         if (user) {
         } else {
           alert("Debe Iniciar Sesión para poder acceder a esta sección.");
-          window.location = "login2.0.html";
+          window.location = "login.html";
         }
       });

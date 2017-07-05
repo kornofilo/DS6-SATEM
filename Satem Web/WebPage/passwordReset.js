@@ -16,7 +16,6 @@ document.getElementById("myForm").onsubmit = function() {reset()};
     auth.sendPasswordResetEmail(emailAddress).then(
 
         function () {
-            Materialize.toast('I am a toast!', 4000)
        }, function (error) {
      });
 }

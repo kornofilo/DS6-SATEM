@@ -11,7 +11,6 @@ $(document).ready(function(){
           var dbRefObjectPacientes = firebase.database().ref('pacientes/');
           var tablePacientes = $('#pacientesTable').DataTable( {
           "paging":   false,
-          "ordering": false,
           "info":     false,
            "language": {
                  "emptyTable": "No se encuentran pacientes."

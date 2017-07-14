@@ -169,7 +169,9 @@ public class Paciente {
     void setIdEmergencia_numAmbulancia_paramedico(String idEmergencia_numAmbulancia_paramedico) {
         this.idEmergencia_numAmbulancia_paramedico = idEmergencia_numAmbulancia_paramedico;
     }
+    //Cuando envías bastante data a firebase como en el caso del diagnóstico.
 
+    //Es una buena práctica enviarlo todo en un objeto
     public Map<String,Object> toMap(){
         Map pacienteMap = new HashMap<>();
         

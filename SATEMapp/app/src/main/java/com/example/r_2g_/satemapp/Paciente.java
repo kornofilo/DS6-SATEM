@@ -16,6 +16,7 @@ public class Paciente {
     public String paramedico;
     public String  fecha;
     public String sintomas;
+    public String presion;
     public String diagnostico;
     public String condicionVital;
     public String riesgo;
@@ -24,23 +25,26 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(String nombre, String cedula, String numAmbulancia, String lugarAccidente, String suceso, String idEmergencia_numAmbulancia_paramedico, String genero, String paramedico, String fecha, String sintomas, String diagnostico, String condicionVital, String riesgo, String estado, String idEmergencia) {
+    public Paciente(String id, String nombre, String cedula, String numAmbulancia, String lugarAccidente, String idEmergencia, String suceso, String idEmergencia_numAmbulancia_paramedico, String genero, String paramedico, String fecha, String sintomas, String presion, String diagnostico, String condicionVital, String riesgo, String estado) {
+        this.id = id;
         this.nombre = nombre;
         this.cedula = cedula;
-        this.idEmergencia = idEmergencia;
         this.numAmbulancia = numAmbulancia;
         this.lugarAccidente = lugarAccidente;
+        this.idEmergencia = idEmergencia;
         this.suceso = suceso;
         this.idEmergencia_numAmbulancia_paramedico = idEmergencia_numAmbulancia_paramedico;
         this.genero = genero;
         this.paramedico = paramedico;
         this.fecha = fecha;
         this.sintomas = sintomas;
+        this.presion = presion;
         this.diagnostico = diagnostico;
         this.condicionVital = condicionVital;
         this.riesgo = riesgo;
         this.estado = estado;
     }
+
 
 
     public void setNombre(String nombre) {
@@ -169,9 +173,26 @@ public class Paciente {
     void setIdEmergencia_numAmbulancia_paramedico(String idEmergencia_numAmbulancia_paramedico) {
         this.idEmergencia_numAmbulancia_paramedico = idEmergencia_numAmbulancia_paramedico;
     }
+    //getter y setter de test nuevo
+    public String getPresion() {
+        return presion;
+    }
+
+    public void setPresion(String presion) {
+        this.presion = presion;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+
     //Cuando envías bastante data a firebase como en el caso del diagnóstico.
 
     //Es una buena práctica enviarlo todo en un objeto
+    //este hash map es como si fuera un json con los campos
+    //agarra los valores, los pone en el mapa y de ahi los envia a firebase
+
     public Map<String,Object> toMap(){
         Map pacienteMap = new HashMap<>();
         
@@ -186,6 +207,7 @@ public class Paciente {
         pacienteMap.put("paramedico",paramedico);
         pacienteMap.put("fecha",fecha);
         pacienteMap.put("sintomas",sintomas);
+        pacienteMap.put("presion",presion);//campo nuevo de test
         pacienteMap.put("diagnostico",diagnostico);
         pacienteMap.put("condicionVital",condicionVital);
         pacienteMap.put("riesgo",riesgo);

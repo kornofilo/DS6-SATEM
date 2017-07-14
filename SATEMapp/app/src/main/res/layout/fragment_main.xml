@@ -88,6 +88,15 @@
             android:inputType="textMultiLine" />
 
         <EditText
+            android:id="@+id/editTextPresion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:hint="Presion Arterial"
+            android:inputType="textPersonName" />
+
+        <EditText
             android:id="@+id/editTextDiagnostico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

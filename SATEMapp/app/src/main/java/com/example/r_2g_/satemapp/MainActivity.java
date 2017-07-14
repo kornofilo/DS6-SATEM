@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity{
         else {
             setTheme(R.style.AppTheme_NoActionBar);
         }
-
+        //firebase DB references
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -205,19 +205,20 @@ public class MainActivity extends AppCompatActivity{
 
         private void fillTabDiagnostico(final View rootView) {
             final Paciente paciente = new Paciente();
-            //Extraemos los valores en los Textviews y Spinners
 
+            //Extraemos los valores en los Textviews y Spinners
             final TextView emergencia = (TextView) rootView.findViewById(R.id.textViewResumenEmergencia);
             final TextView emergenciaActualTV = (TextView) rootView.findViewById(R.id.textViewEmergencia);
             final TextView generoTV = (TextView) rootView.findViewById(R.id.textViewSexo);
             final TextView condicionVitalTV = (TextView) rootView.findViewById(R.id.textViewCondVital);
             final TextView riesgoTV = (TextView) rootView.findViewById(R.id.textViewRiesgo);
 
-            //EditTexts
-            final EditText nombre, cedula,sintomas,lugar,diagnostico, suceso;
+            //EditTexts y se obtiene la data que viene de los campos
+            final EditText nombre, cedula,sintomas,lugar,diagnostico,presion, suceso;
             nombre = (EditText) rootView.findViewById(R.id.editTextNombrePaciente);
             cedula = (EditText) rootView.findViewById(R.id.editTextCedula);
             suceso = (EditText) rootView.findViewById(R.id.editTextSuceso);
+            presion = (EditText) rootView.findViewById(R.id.editTextPresion);
             lugar = (EditText) rootView.findViewById(R.id.editTextLugar);
             sintomas = (EditText) rootView.findViewById(R.id.editTextSintomas);
             diagnostico = (EditText) rootView.findViewById(R.id.editTextDiagnostico);
@@ -238,7 +239,8 @@ public class MainActivity extends AppCompatActivity{
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.getValue() == null || dataSnapshot.getValue().toString().equals("")){
 
-
+                        //en caso de que no haya ninguna ambulancia entonces pone los campos
+                        //como no visibles.
                         emergencia.setText(R.string.occupiedOrInvalidAmbulance);
                         emergencia.setTextColor(Color.RED);
                         enviarEmergencia.setVisibility(View.GONE);
@@ -250,6 +252,7 @@ public class MainActivity extends AppCompatActivity{
                         suceso.setVisibility(View.GONE);
                         lugar.setVisibility(View.GONE);
                         sintomas.setVisibility(View.GONE);
+                        presion.setVisibility(View.GONE);//nuevo de test
                         diagnostico.setVisibility(View.GONE);
                         condicionVitalTV.setVisibility(View.GONE);
                         condicionVital.setVisibility(View.GONE);
@@ -265,6 +268,8 @@ public class MainActivity extends AppCompatActivity{
                         else {
                             emergencia.setTextColor(Color.BLACK);
                         }
+
+                        //si la ambulancia tiene alguna emergencia pendiente entonces muestra la emergencia
                         enviarEmergencia.setVisibility(View.VISIBLE);
                         emergenciaActualTV.setVisibility(View.VISIBLE);
                         nombre.setVisibility(View.VISIBLE);
@@ -274,6 +279,7 @@ public class MainActivity extends AppCompatActivity{
                         suceso.setVisibility(View.VISIBLE);
                         lugar.setVisibility(View.VISIBLE);
                         sintomas.setVisibility(View.VISIBLE);
+                        presion.setVisibility(View.VISIBLE);//nuevo de test
                         diagnostico.setVisibility(View.VISIBLE);
                         condicionVitalTV.setVisibility(View.VISIBLE);
                         condicionVital.setVisibility(View.VISIBLE);
@@ -323,6 +329,7 @@ public class MainActivity extends AppCompatActivity{
                     String sucesoV = suceso.getText().toString();
                     String lugarV = lugar.getText().toString();
                     String sintomasV = sintomas.getText().toString();
+                    String presionV = presion.getText().toString();//este es el nuevo de test
                     String diagnosticoV = diagnostico.getText().toString();
                     String condicionVitalV = condicionVital.getSelectedItem().toString();
                     String riesgoV = riesgo.getSelectedItem().toString();
@@ -338,6 +345,7 @@ public class MainActivity extends AppCompatActivity{
                     paciente.setLugarAccidente(lugarV);
                     paciente.setSintomas(sintomasV);
                     paciente.setDiagnostico(diagnosticoV);
+                    paciente.setPresion(presionV);
                     paciente.setCondicionVital(condicionVitalV);
                     paciente.setRiesgo(riesgoV);
                     paciente.setFecha(hourdateFormat.format(date));
@@ -347,7 +355,7 @@ public class MainActivity extends AppCompatActivity{
                     //este if crea la data dento del child pacientes cuando hay datos
                     //para eso obtiene la llave de la api para poder escribir. y envia un mensaje
                     //cuando se envia la data.
-                    if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
+                    if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !presionV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
                         String id = myRef.push().getKey();
                         pacientesReference.child(id).setValue(paciente);
                         addPacientesCount(user.getUid(), miAmbulancia);
@@ -451,7 +459,7 @@ public class MainActivity extends AppCompatActivity{
                                     Paciente paciente = new Paciente();
 
                                     historialLV.setVisibility(View.VISIBLE);
-
+                                //aqui agarra la data que viene del historial para poder ser modificada
                                     noHistTV.setVisibility(View.INVISIBLE);
 
                                     paciente.setNombre(dataSnapshot.child("nombre").getValue().toString());
@@ -460,6 +468,7 @@ public class MainActivity extends AppCompatActivity{
                                     paciente.setSuceso(dataSnapshot.child("suceso").getValue().toString());
                                     paciente.setLugarAccidente(dataSnapshot.child("lugarAccidente").getValue().toString());
                                     paciente.setSintomas(dataSnapshot.child("sintomas").getValue().toString());
+                                    paciente.setPresion(dataSnapshot.child("presion").getValue().toString());
                                     paciente.setDiagnostico(dataSnapshot.child("diagnostico").getValue().toString());
                                     paciente.setCondicionVital(dataSnapshot.child("condicionVital").getValue().toString());
                                     paciente.setFecha(dataSnapshot.child("fecha").getValue().toString());
@@ -515,6 +524,7 @@ public class MainActivity extends AppCompatActivity{
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 System.out.println(misPacientes.get(position).getNombre());
+
                                 //Al seleccionar un item del listview, llevamos al usuario a un formulario para que pueda actualizar el diagnóstico del paciente.
                                 Intent intent = new Intent(getActivity(), UpdateActivity.class);
                                 intent.putExtra("nombre",misPacientes.get(position).getNombre());
@@ -523,6 +533,8 @@ public class MainActivity extends AppCompatActivity{
                                 intent.putExtra("suceso",misPacientes.get(position).getSuceso());
                                 intent.putExtra("lugarAccidente",misPacientes.get(position).getLugarAccidente());
                                 intent.putExtra("sintomas",misPacientes.get(position).getSintomas());
+                                System.out.println("presion  " + misPacientes.get(position).getPresion());
+                                intent.putExtra("presion",misPacientes.get(position).getPresion());
                                 intent.putExtra("diagnostico",misPacientes.get(position).getDiagnostico());
                                 intent.putExtra("condicionVital",misPacientes.get(position).getCondicionVital());
                                 intent.putExtra("riesgo",misPacientes.get(position).getRiesgo());

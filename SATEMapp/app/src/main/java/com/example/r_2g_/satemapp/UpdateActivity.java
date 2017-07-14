@@ -23,7 +23,7 @@ import static android.R.attr.key;
 
 public class UpdateActivity extends AppCompatActivity implements View.OnClickListener {
     static SharedPreferences pref;
-    EditText nombreET, cedulaET,sucesoET,lugarET,sintomasET,diagnosticoET;
+    EditText nombreET, cedulaET,sucesoET,lugarET,sintomasET,diagnosticoET,presionET;
     Spinner generoSP,condicionVitalSP,riesgoSP;
     String pacienteKey, idEmegencia, INP, fecha, numAmbulancia;
     boolean tema;
@@ -53,6 +53,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         sucesoET = (EditText) findViewById(R.id.editTextSuceso);
         lugarET = (EditText) findViewById(R.id.editTextLugar);
         sintomasET = (EditText) findViewById(R.id.editTextSintomas);
+        presionET = (EditText) findViewById(R.id.editTextPresion);
         diagnosticoET = (EditText) findViewById(R.id.editTextDiagnostico);
 
         //Inicializamos los Spinners del formulario
@@ -86,6 +87,8 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             sintomasET.setText(extras.getString("sintomas"));
             //Diagnóstico
             diagnosticoET.setText(extras.getString("diagnostico"));
+            //Presion arterial
+            presionET.setText(extras.getString("presion"));
             //Condición Vital
             condicionVitalSP.setSelection(getSelectedCondVital(extras.getString("condicionVital")));
             //Riesgo
@@ -109,7 +112,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if(!nombreET.getText().toString().equals("") && !cedulaET.getText().toString().equals("") && !generoSP.getSelectedItem().toString().equals("") && !lugarET.getText().toString().equals("") && !sintomasET.getText().toString().equals("") && !diagnosticoET.getText().toString().equals("") && !riesgoSP.getSelectedItem().toString().equals("")) {
+        if(!nombreET.getText().toString().equals("") && !cedulaET.getText().toString().equals("") && !generoSP.getSelectedItem().toString().equals("") && !lugarET.getText().toString().equals("") && !sintomasET.getText().toString().equals("") && !presionET.getText().toString().equals("") && !diagnosticoET.getText().toString().equals("") && !riesgoSP.getSelectedItem().toString().equals("")) {
             DatabaseReference pacienteRef = FirebaseDatabase.getInstance().getReference();
             Paciente paciente = new Paciente();
 
@@ -120,6 +123,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             paciente.setLugarAccidente(lugarET.getText().toString());
             paciente.setSintomas(sintomasET.getText().toString());
             paciente.setDiagnostico(diagnosticoET.getText().toString());
+            paciente.setPresion(presionET.getText().toString());
             paciente.setCondicionVital(condicionVitalSP.getSelectedItem().toString());
             paciente.setRiesgo(riesgoSP.getSelectedItem().toString());
             paciente.setIdEmergencia_numAmbulancia_paramedico(INP);

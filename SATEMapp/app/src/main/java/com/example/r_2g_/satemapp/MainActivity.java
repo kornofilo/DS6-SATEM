@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity{
 
                 }
             });
-
+            //aqui esta agarrando la data que esta en la clase pacientes
             enviarEmergencia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -344,7 +344,9 @@ public class MainActivity extends AppCompatActivity{
                     paciente.setNumAmbulancia(miAmbulancia);
                     paciente.setIdEmergencia_numAmbulancia_paramedico(paciente.getIdEmergencia() + "_" + miAmbulancia + "_" + user.getEmail());
 
-
+                    //este if crea la data dento del child pacientes cuando hay datos
+                    //para eso obtiene la llave de la api para poder escribir. y envia un mensaje
+                    //cuando se envia la data.
                     if(!nombreV.equals("") && !cedulaV.equals("") && !generoV.equals("") && !lugarV.equals("") && !sintomasV.equals("") && !diagnosticoV.equals("") && !riesgoV.equals("")){
                         String id = myRef.push().getKey();
                         pacientesReference.child(id).setValue(paciente);
@@ -362,6 +364,7 @@ public class MainActivity extends AppCompatActivity{
                         }
 
                     }
+                    // en caso de que falte un campo por llenar, le envia al usuario el mensaje de llenarlo
                     else
                         Toast.makeText(getActivity(),"Por favor, llene todos los campos.",Toast.LENGTH_SHORT).show();
 

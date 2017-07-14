@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         setContentView(R.layout.activity_login);
-        //Inicializamos los Editext
+        //Inicializamos los Editext del login
         emailET = (EditText) findViewById(R.id.editTextUsuario);
         passwordET = (EditText) findViewById(R.id.editTextPassword);
         ambulanceET = (EditText) findViewById(R.id.editTextNAmbulancia);
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         };
-
+        //progress bar del login
         pb = (ProgressBar) findViewById(R.id.progressBarLogin);
     }
 
